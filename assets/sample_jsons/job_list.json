@@ -1,0 +1,39 @@
+{
+  "job_list": [
+    {
+      "job_id": "SO1640",
+      "name": "John",
+      "address": "Office No.101, Olaya Center Makkah, Al-Khobar 31952",
+      "job_status": 2,
+      "job_message": "On going",
+      "time": "5.00-6.00 pm",
+      "date": "27/05/22"
+    },
+    {
+      "job_id": "SO1641",
+      "name": "Ahamed",
+      "address": "1st floor, Olaya Center Makkah, Al-Khobar 31952",
+      "job_status": 0,
+      "job_message": "Not Started",
+      "time": "5.00-6.00 pm",
+      "date": "27/05/22"
+    },
+    {
+      "job_id": "SO1643",
+      "name": "John",
+      "address": "Office No.101, Olaya Center Makkah, Al-Khobar 31952",
+      "job_status": 3,
+      "job_message": "Reached",
+      "time": "5.00-6.00 pm",
+      "date": "17/05/22"
+    }, {
+      "job_id": "SO1642",
+      "name": "Ahamed",
+      "address": "1st floor, Olaya Center Makkah, Al-Khobar 31952",
+      "job_status": 1,
+      "job_message": "picked up",
+      "time": "5.00-6.00 pm",
+      "date": "27/05/22"
+    }
+  ]
+}

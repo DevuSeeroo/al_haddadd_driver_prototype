@@ -1,0 +1,25 @@
+{
+  "status": "true",
+  "message": "success",
+  "data": {
+    "job_id": "SO1643",
+    "payment_method": "GPay",
+    "total": 2300.00,
+    "date": "11/Jul/2022",
+    "time": "9.00 am - 12.00 pm",
+    "user_name": "John",
+    "address": "Office No.101, Olaya Center Makkah, Al-Khobar 31952",
+    "mobile": "+966 987654321",
+    "alternate_mobile": "+966 987654321",
+    "order_status": 3,
+    "products": [
+      {
+        "product_id": 1,
+        "product_name": "iPhone 12",
+        "product_image": "https://www.alhaddadb2b.com/images/thumbs/0020428_apple-watch-series-6-smart-watch-40-mm-red.jpeg",
+        "product_amount": "SR 230.00",
+        "total_items": 10
+      }
+    ]
+  }
+}

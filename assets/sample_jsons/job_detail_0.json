@@ -1,0 +1,39 @@
+{
+  "status": "true",
+  "message": "success",
+  "data": {
+    "job_id": "SO1641",
+    "payment_method": "Cash on delivery",
+    "total": 950.01,
+    "date": "10/Jul/2022",
+    "time": "5.00 pm - 6.00 pm",
+    "user_name": "Ahamed",
+    "address": "1st floor, Olaya Center Makkah, Al-Khobar 31952",
+    "mobile": "+966 123456789",
+    "alternate_mobile": "+966 123456789",
+    "order_status": 0,
+    "products": [
+      {
+        "product_id": 1,
+        "product_name": "iPhone 12",
+        "product_image": "https://www.alhaddadb2b.com/images/thumbs/0020439_apple-iphone-xr-128gb-white_415.jpeg",
+        "product_amount": "SR 230.00",
+        "total_items": 2
+      },
+      {
+        "product_id": 2,
+        "product_name": "iPhone 13",
+        "product_image": "https://www.alhaddadb2b.com/images/thumbs/0020428_apple-watch-series-6-smart-watch-40-mm-red.jpeg",
+        "product_amount": "SR 203.00",
+        "total_items": 1
+      },
+      {
+        "product_id": 3,
+        "product_name": "iPhone 11 max",
+        "product_image": "https://www.alhaddadb2b.com/images/thumbs/0020439_apple-iphone-xr-128gb-white_415.jpeg",
+        "product_amount": "SR 250.00",
+        "total_items": 5
+      }
+    ]
+  }
+}

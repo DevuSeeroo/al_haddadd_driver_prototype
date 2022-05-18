@@ -1,0 +1,78 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:alhaddad_driver/app/modules/job_detail/providers/job_detail_provider.dart';
+import 'package:alhaddad_driver/app/utils/app_constants.dart';
+import 'package:alhaddad_driver/app/utils/app_params_key.dart';
+import 'package:alhaddad_driver/app/utils/custom_logger.dart';
+import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
+import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_content/title_subtitle_bottomsheet_content.dart';
+import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_with_style.dart';
+import 'package:alhaddad_driver/generated/locales.g.dart';
+import 'package:get/get.dart';
+
+import '../models/job_detail_model.dart';
+
+class JobDetailController extends GetxController {
+  String id = "0";
+  String from = "0";
+  JobDetailData? data;
+  RxBool isLoading = true.obs;
+  String className = "JobDetailController";
+
+  @override
+  void onInit() {
+    super.onInit();
+    id = Get.parameters[AppParamsKey.paramJobId].toString();
+    from = Get.parameters[AppParamsKey.paramFrom].toString();
+    fetchJobDetail();
+  }
+
+  void fetchJobDetail() {
+    isLoading(true);
+    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 28);
+    JobDetailProvider().getJobDetail(id).then((value) {
+      data = value!.data;
+      CustomLogger().print(jsonEncode(data), lineNumber: 31);
+      Timer.periodic(const Duration(seconds: 2), (timer) {
+        isLoading(false);
+      });
+    });
+  }
+
+  String buttonTitleText() {
+    if (data != null) {
+      if (data!.orderStatus == AppConstants.jobPickedUp) {
+        return LocaleKeys.startJourney.tr;
+      } else if (data!.orderStatus == AppConstants.jobOnGoing) {
+        return LocaleKeys.reached.tr;
+      } else if (data!.orderStatus == AppConstants.jobNotStarted) {
+        return LocaleKeys.orderPickedUp.tr;
+      } else if (data!.orderStatus == AppConstants.jobReached) {
+        return LocaleKeys.jobCompleted.tr;
+      }
+    }
+    return LocaleKeys.orderPickedUp.tr;
+  }
+
+  void buttonPressed() {
+    CustomLogger().print("buttonPressed() orderStatus: ${data!.orderStatus}",
+        className: className, lineNumber: 49);
+    if (data!.orderStatus == AppConstants.jobNotStarted) {
+      CustomBottomSheet.showCustomBottomSheetWithMargin(
+        TitleSubtitleBottomSheetContent(
+          title: LocaleKeys.orderPickedUp.tr,
+          subtitle: LocaleKeys.areYouSureYouWantToProceed.tr,
+          positiveButtonPressed: () {
+            Get.back();
+          },
+          negativeButtonPressed: () {
+            Get.back();
+          },
+        ),
+      );
+    } else if (data!.orderStatus == AppConstants.jobReached) {
+      NavigationUtils().callJobCompletedScreen();
+    }
+  }
+}

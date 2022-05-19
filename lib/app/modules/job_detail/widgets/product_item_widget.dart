@@ -1,4 +1,5 @@
 import 'package:alhaddad_driver/app/widgets/images/broken_image.dart';
+import 'package:alhaddad_driver/app/widgets/images/curved_image_view.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:flutter/material.dart';
 
@@ -79,6 +80,14 @@ class ProductImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return CustomImageView(
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+      url: product.productImage ?? "",
+      width: 150,
+      height: 100,
+      padding: 0,
+    );
     return ClipRRect(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),

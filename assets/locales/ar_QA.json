@@ -18,6 +18,7 @@
   "next": "التالي",
   "mobileNo": "Mobile No.",
   "mobileNoShouldntBeEmpty": "Mobile no. shouldn't be empty",
+  "phoneErrorValid": "ادخل رقم هاتف صحيح",
   "verification": "Verification",
   "jobListing": "Job Listing",
   "profile": "حسابي",

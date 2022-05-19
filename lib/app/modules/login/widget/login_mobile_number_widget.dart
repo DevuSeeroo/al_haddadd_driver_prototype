@@ -33,6 +33,8 @@ class LoginMobileNumberWidget extends StatelessWidget {
       validator: (value) {
         if (value!.trim().isEmpty) {
           return LocaleKeys.mobileNoShouldntBeEmpty.tr;
+        } else if (value.trim().length < Config.minMaxNumLength) {
+          return LocaleKeys.phoneErrorValid.tr;
         } else {
           return null;
         }

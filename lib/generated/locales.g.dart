@@ -30,6 +30,7 @@ class LocaleKeys {
   static const next = 'next';
   static const mobileNo = 'mobileNo';
   static const mobileNoShouldntBeEmpty = 'mobileNoShouldntBeEmpty';
+  static const phoneErrorValid = 'phoneErrorValid';
   static const verification = 'verification';
   static const jobListing = 'jobListing';
   static const profile = 'profile';
@@ -78,6 +79,7 @@ class Locales {
     'next': 'التالي',
     'mobileNo': 'Mobile No.',
     'mobileNoShouldntBeEmpty': 'Mobile no. shouldn\'t be empty',
+    'phoneErrorValid': 'ادخل رقم هاتف صحيح',
     'verification': 'Verification',
     'jobListing': 'Job Listing',
     'profile': 'حسابي',
@@ -124,6 +126,7 @@ class Locales {
     'next': 'Next',
     'mobileNo': 'Mobile No.',
     'mobileNoShouldntBeEmpty': 'Mobile no. shouldn\'t be empty',
+    'phoneErrorValid': 'Enter valid mobile no.',
     'verification': 'Verification',
     'jobListing': 'Job Listing',
     'profile': 'Profile',

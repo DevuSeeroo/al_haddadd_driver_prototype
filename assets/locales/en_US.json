@@ -18,6 +18,7 @@
   "next": "Next",
   "mobileNo": "Mobile No.",
   "mobileNoShouldntBeEmpty": "Mobile no. shouldn't be empty",
+  "phoneErrorValid": "Enter valid mobile no.",
   "verification": "Verification",
   "jobListing": "Job Listing",
   "profile": "Profile",

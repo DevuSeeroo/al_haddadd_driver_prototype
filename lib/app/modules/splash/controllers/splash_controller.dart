@@ -18,7 +18,7 @@ class SplashController extends GetxController {
         const Duration(seconds: 3),
         () => {
               // moveToHomeScreen()
-              !AppStorageKeys().readLogInStatus()
+              AppStorageKeys().readLogInStatus()
                   ? moveToHomeScreen()
                   : moveToLoginScreen(),
               CustomLogger().print(

@@ -53,7 +53,7 @@ class ContentDetailsWidget extends StatelessWidget {
                     style: TextStyle(
                         color: titleColor ?? Colors.black,
                         fontWeight: titleWeight ?? FontWeight.bold,
-                        fontSize: titleSize ?? 16),
+                        fontSize: titleSize ?? 14),
                   ),
                 )
               ],

@@ -6,6 +6,7 @@ import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_params_key.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
+import 'package:alhaddad_driver/app/utils/snackbar_utils.dart';
 import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_content/title_subtitle_bottomsheet_content.dart';
 import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_with_style.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';
@@ -64,15 +65,26 @@ class JobDetailController extends GetxController {
           title: LocaleKeys.orderPickedUp.tr,
           subtitle: LocaleKeys.areYouSureYouWantToProceed.tr,
           positiveButtonPressed: () {
-            Get.back();
+            navigateWithMessage("Job status changed to order picked up");
           },
           negativeButtonPressed: () {
-            Get.back();
+            navigateWithMessage();
           },
         ),
       );
     } else if (data!.orderStatus == AppConstants.jobReached) {
       NavigationUtils().callJobCompletedScreen();
+    } else if (data!.orderStatus == AppConstants.jobOnGoing) {
+      navigateWithMessage("Job status changed to reached");
+    } else if (data!.orderStatus == AppConstants.jobPickedUp) {
+      navigateWithMessage("Job status changed to on the way");
+    }
+  }
+
+  void navigateWithMessage([String? message]) {
+    Get.back();
+    if (message != null) {
+      CustomSnackBar.showSuccessSnackBar(LocaleKeys.success.tr, message);
     }
   }
 }

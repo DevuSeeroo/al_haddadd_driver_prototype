@@ -49,15 +49,15 @@ class ProductItemWidget extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(product.productAmount ?? "0.0",
                     style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
                 if ((product.totalItems ?? 0) != 0) const SizedBox(height: 5),
                 if ((product.totalItems ?? 0) != 0)
                   Text(
-                      "( ${product.totalItems} item${(product.totalItems ?? 0) <= 1 ? "" : "s"})",
+                      "(${product.totalItems} item${(product.totalItems ?? 0) <= 1 ? "" : "s"})",
                       style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 13,
                           color: Colors.black,
                           fontWeight: FontWeight.w600)),
               ],

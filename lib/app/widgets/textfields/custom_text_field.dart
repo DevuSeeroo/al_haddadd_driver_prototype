@@ -68,6 +68,7 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText ?? false,
             keyboardType: keyboardType ?? TextInputType.emailAddress,
             textInputAction: textInputAction ?? TextInputAction.next,
+            style: TextStyle(color: textColor),
             controller: textEditingController,
             decoration: getInputDecoration(errorText ?? ""),
             textCapitalization: textCapitalization,

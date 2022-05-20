@@ -60,9 +60,10 @@ class PinWidget extends StatelessWidget {
 
   UnderlineDecoration buildUnderlineDecoration() {
     return UnderlineDecoration(
-      colorBuilder: PinListenColorBuilder(AppColor.hintTextColor, Colors.white),
-      lineHeight: 2,
-      gapSpace: 20,
-    );
+        colorBuilder:
+            PinListenColorBuilder(AppColor.hintTextColor, Colors.white),
+        lineHeight: 2,
+        gapSpace: 20,
+        textStyle: const TextStyle(color: Colors.white));
   }
 }

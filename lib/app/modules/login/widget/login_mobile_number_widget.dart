@@ -22,6 +22,7 @@ class LoginMobileNumberWidget extends StatelessWidget {
           const TextInputType.numberWithOptions(signed: false, decimal: false),
       textInputFormatter: Utilities().numberFormatter,
       maxLength: Config.minMaxNumLength,
+      textColor: Colors.white,
       prefix: const Icon(
         Icons.phone,
         color: AppColor.hintTextColor,

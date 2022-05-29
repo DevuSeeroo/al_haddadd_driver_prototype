@@ -11,6 +11,8 @@
     "address": "1st floor, Olaya Center Makkah, Al-Khobar 31952",
     "mobile": "+966 123456789",
     "alternate_mobile": "+966 123456789",
+    "latitude": 52.632247,
+    "longitude": -8.643179,
     "order_status": 0,
     "products": [
       {

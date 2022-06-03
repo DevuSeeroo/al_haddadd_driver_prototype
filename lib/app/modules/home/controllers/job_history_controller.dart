@@ -26,7 +26,7 @@ class JobHistoryController extends GetxController {
       //     const Duration(seconds: 3),
       //         () => {});
       Timer(const Duration(seconds: 2), () {
-        CustomLogger().print(jsonEncode(value), lineNumber: 15);
+        CustomLogger().print(jsonEncode(value), lineNumber: 29);
         actualJobList = value!.jobList ?? [];
         jobList.addAll(actualJobList);
         isLoading(false);
@@ -36,7 +36,7 @@ class JobHistoryController extends GetxController {
 
   void searchTextChanged(String value) {
     CustomLogger().print("onSearchTextChanged: $value",
-        className: className, lineNumber: 37);
+        className: className, lineNumber: 39);
     if (value.isNotEmpty) {
       List<JobList> updatedList = [];
       for (var element in actualJobList) {

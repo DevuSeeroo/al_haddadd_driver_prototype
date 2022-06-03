@@ -1,4 +1,5 @@
 import 'package:alhaddad_driver/app/widgets/text/heading_text.dart';
+import 'package:alhaddad_driver/app/widgets/views/loaders/loading_view.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,21 +15,25 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoginBackgroundWidget(
-          topSpace: 50,
-          child: Form(
-            key: controller.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                HeadingText(text: LocaleKeys.login.tr),
-                const SizedBox(height: 40),
-                LoginMobileNumberWidget(controller: controller),
-                const SizedBox(height: 30),
-                LoginNextButtonWidget(controller: controller)
-              ],
-            ),
-          )),
+      body: LoadingView(
+        isLoading: controller.apiCalling,
+        isShowBackground: true,
+        child: LoginBackgroundWidget(
+            topSpace: 50,
+            child: Form(
+              key: controller.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  HeadingText(text: LocaleKeys.login.tr),
+                  const SizedBox(height: 40),
+                  LoginMobileNumberWidget(controller: controller),
+                  const SizedBox(height: 30),
+                  LoginNextButtonWidget(controller: controller)
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

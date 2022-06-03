@@ -1,3 +1,4 @@
+import 'package:alhaddad_driver/app/utils/app_params_key.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,7 @@ class NavigationUtils {
   }
 
   void exitToLogin({required String className}) {
-    CustomLogger().print("exitToLogin", className: className, lineNumber: 12);
+    CustomLogger().print("exitToLogin", className: className, lineNumber: 13);
     Get.offNamedUntil(Routes.LOGIN, (route) => false);
   }
 
@@ -21,8 +22,9 @@ class NavigationUtils {
     }
   }
 
-  void callVerificationScreen() {
-    Get.toNamed(Routes.VERIFICATION);
+  void callVerificationScreen(String mobile) {
+    Get.toNamed(Routes.VERIFICATION,
+        parameters: {AppParamsKey.paramPhone: mobile});
   }
 
   void callJobDetailScreen({required String id}) {

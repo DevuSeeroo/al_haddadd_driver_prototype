@@ -7,6 +7,7 @@
   "sorry": "المعذرة",
   "yes": "نعم",
   "no": "لا",
+  "otp": "التوثيق بالرقم السري",
   "connectionTimeoutErrorMessage": "انتهى وقت محاولة الاتصال",
   "somethingWentWrong": "حدث خطأ ما. الرجاء معاودة المحاولة في وقت لاحق",
   "invalidStatusCodeErrorMessage": "رمز الحالة غير صحيح",

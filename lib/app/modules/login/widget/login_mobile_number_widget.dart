@@ -23,13 +23,16 @@ class LoginMobileNumberWidget extends StatelessWidget {
       textInputFormatter: Utilities().numberFormatter,
       maxLength: Config.minMaxNumLength,
       textColor: Colors.white,
+      initialValue: controller.mobile,
       prefix: const Icon(
         Icons.phone,
         color: AppColor.hintTextColor,
         size: 16,
       ),
       hint: LocaleKeys.mobileNo.tr,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.mobile = value;
+      },
       textInputAction: TextInputAction.done,
       validator: (value) {
         if (value!.trim().isEmpty) {
@@ -41,6 +44,8 @@ class LoginMobileNumberWidget extends StatelessWidget {
         }
       },
       onSubmitted: (value) {
+        print("Mobile: $value");
+        controller.mobile = value;
         controller.onSubmitted();
       },
     );

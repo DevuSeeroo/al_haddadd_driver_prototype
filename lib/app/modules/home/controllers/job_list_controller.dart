@@ -15,7 +15,7 @@ class JobListController extends GetxController {
 
   @override
   void onInit() {
-    CustomLogger().print('onInit', className: className, lineNumber: 11);
+    CustomLogger().print('onInit', className: className, lineNumber: 18);
     super.onInit();
     fetchJobList();
   }

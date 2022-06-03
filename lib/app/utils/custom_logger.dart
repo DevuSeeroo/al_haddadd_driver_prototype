@@ -13,4 +13,16 @@ class CustomLogger {
         stackTrace: stackTrace,
         name: className ?? "CustomLogger");
   }
+
+  void printError({
+    String? className,
+    required int lineNumber,
+    Object? error,
+    StackTrace? stackTrace,
+  }) {
+    log("Error: className: $className, lineNumber: $lineNumber",
+        error: error,
+        stackTrace: stackTrace,
+        name: className ?? "CustomLogger");
+  }
 }

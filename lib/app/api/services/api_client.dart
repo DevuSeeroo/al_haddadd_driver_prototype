@@ -1,6 +1,12 @@
+import 'package:alhaddad_driver/app/modules/login/models/send_otp_params.dart';
+import 'package:alhaddad_driver/app/modules/login/models/send_otp_response.dart';
+import 'package:alhaddad_driver/app/modules/verification/models/verify_otp_params.dart';
+import 'package:alhaddad_driver/app/modules/verification/models/verify_otp_response.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/http.dart';
+
+import '../../modules/login/models/logout_response.dart';
 
 part 'api_client.g.dart';
 
@@ -25,30 +31,12 @@ abstract class ApiClient {
     return _ApiClient(dio, baseUrl: baseUrl);
   }
 
-  @POST("/api-frontend/AlHaddad/Register?returnUrl=/")
-  Future<dynamic> registerData(
-      @Header("Authorization") String header, @Body() dynamic inputData);
+  @GET("/api-frontend/AlHaddad/Logout")
+  Future<LogoutResponse> logout();
 
-  // @POST("/api-frontend/Authenticate/GetToken")
-  // Future<LoginResponse> login(
-  //   @Field("is_guest") bool isGuest,
-  //   @Field("username") String userName,
-  //   @Field("email") String email,
-  //   @Field("password") String password,
-  // );
+  @POST("/api-frontend/AlHaddad/SendOtp")
+  Future<SendOtpResponse> sendOtp(@Body() SendOtpParams sendOtpParams);
 
-  // @GET("/api-frontend/AlHaddad/Logout")
-  // Future<LogoutResponse> logout();
-
-  // @GET('/api-frontend/Customer/CheckUsernameAvailability')
-  // Future<UserNameAvailabilityResponse> checkUserName(
-  //   @Query('username') String userName,
-  // );
-
-  // @GET("/api-frontend/AlHaddad/ProductReviews/{productId}")
-  // Future<ProductReviewResponse> productReviewList(
-  //   @Header("Authorization") String header,
-  //   @Path("productId") int productId,
-  // );
-
+  @POST("/api-frontend/AlHaddad/VerifyOtp")
+  Future<VerifyOtpResponse> verifyOtp(@Body() VerifyOtpParams sendOtpParams);
 }

@@ -1,4 +1,5 @@
 import 'package:alhaddad_driver/app/modules/verification/widgets/verification_continue_button_widget.dart';
+import 'package:alhaddad_driver/app/widgets/views/loaders/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,22 +25,26 @@ class VerificationView extends GetView<VerificationController> {
           Get.back();
         },
       ),
-      body: LoginBackgroundWidget(
-          child: Form(
-        key: controller.formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            HeadingText(text: LocaleKeys.verification.tr),
-            const SizedBox(height: 40),
-            PinWidget(
-              controller: controller,
-            ),
-            const SizedBox(height: 30),
-            VerificationContinueButtonWidget(controller: controller)
-          ],
-        ),
-      )),
+      body: LoadingView(
+        isLoading: controller.apiCalling,
+        isShowBackground: true,
+        child: LoginBackgroundWidget(
+            child: Form(
+          key: controller.formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              HeadingText(text: LocaleKeys.verification.tr),
+              const SizedBox(height: 40),
+              PinWidget(
+                controller: controller,
+              ),
+              const SizedBox(height: 30),
+              VerificationContinueButtonWidget(controller: controller)
+            ],
+          ),
+        )),
+      ),
     );
   }
 }

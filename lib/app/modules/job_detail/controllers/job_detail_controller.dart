@@ -31,10 +31,10 @@ class JobDetailController extends GetxController {
 
   void fetchJobDetail() {
     isLoading(true);
-    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 28);
+    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 34);
     JobDetailProvider().getJobDetail(id).then((value) {
       data = value!.data;
-      CustomLogger().print(jsonEncode(data), lineNumber: 31);
+      CustomLogger().print(jsonEncode(data), lineNumber: 37);
       Timer.periodic(const Duration(seconds: 2), (timer) {
         isLoading(false);
       });
@@ -58,7 +58,7 @@ class JobDetailController extends GetxController {
 
   void buttonPressed() {
     CustomLogger().print("buttonPressed() orderStatus: ${data!.orderStatus}",
-        className: className, lineNumber: 49);
+        className: className, lineNumber: 61);
     if (data!.orderStatus == AppConstants.jobNotStarted) {
       CustomBottomSheet.showCustomBottomSheetWithMargin(
         TitleSubtitleBottomSheetContent(

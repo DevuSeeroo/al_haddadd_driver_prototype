@@ -23,12 +23,17 @@ class CustomSnackBar {
         margin: const EdgeInsets.all(16));
   }
 
-  static void showSuccessSnackBar(String title, String message) {
+  static void showSuccessSnackBar(
+    String title,
+    String message, {
+    Color? backgroundColor,
+    Color? textColor,
+  }) {
     Get.snackbar(title, message,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: AppColor.colorPrimary,
+        backgroundColor: backgroundColor ?? AppColor.colorPrimary,
         maxWidth: kIsWeb ? Config.kWebWidth : double.infinity,
-        colorText: Colors.white,
+        colorText: textColor ?? Colors.white,
         margin: const EdgeInsets.all(16));
   }
 

@@ -1,6 +1,7 @@
 import 'package:alhaddad_driver/app/modules/verification/models/verify_otp_params.dart';
 import 'package:alhaddad_driver/app/modules/verification/providers/verification_provider.dart';
 import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
+import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_params_key.dart';
 import 'package:alhaddad_driver/app/utils/app_storage_keys.dart';
 import 'package:alhaddad_driver/app/utils/snackbar_utils.dart';
@@ -46,6 +47,8 @@ class VerificationController extends GetxController {
             error: response.getException, className: className, lineNumber: 44);
       } else if (response.data?.status ?? false) {
         AppStorageKeys().writeLogInStatus(true);
+        AppStorageKeys().writeUserToken(AppConstants.testToken);
+        AppStorageKeys().writeUserId(AppConstants.testID);
         NavigationUtils().callHome();
       } else {
         CustomSnackBar.showErrorSnackBar(LocaleKeys.error.tr,

@@ -1,30 +1,28 @@
 import 'dart:convert';
 
+import 'package:alhaddad_driver/app/api/services/api_client.dart';
+import 'package:alhaddad_driver/app/utils/app_constants.dart';
+import 'package:alhaddad_driver/app/utils/app_storage_keys.dart';
+import 'package:alhaddad_driver/app/utils/custom_logger.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../models/job_list_model.dart';
 
 class JobListProvider extends GetConnect {
+  late Dio dio;
+  late ApiClient client;
+  final AppStorageKeys appStorageKeys = AppStorageKeys();
+
+  String baseurl = AppConstants.BaseUrl;
+  String className = "JobListProvider";
   @override
   void onInit() {
-    httpClient.defaultDecoder = (map) {
-      if (map is Map<String, dynamic>) return JobList.fromJson(map);
-      if (map is List) {
-        return map.map((item) => JobList.fromJson(item)).toList();
-      }
-    };
-    httpClient.baseUrl = 'YOUR-API-URL';
+    CustomLogger().print('OnInit', className: className, lineNumber: 24);
+    dio = Dio();
+    client = ApiClient(dio, baseurl);
   }
-
-  // Future<JobList?> getJobList(int id) async {
-  //   final response = await get('joblist/$id');
-  //   return response.body;
-  // }
-  //
-  // Future<Response<JobList>> postJobList(JobList joblist) async =>
-  //     await post('joblist', joblist);
-  // Future<Response> deleteJobList(int id) async => await delete('joblist/$id');
 
   Future<JobListResponse?> getJobList(int id) async {
     var res = await rootBundle.loadString("assets/sample_jsons/job_list.json");

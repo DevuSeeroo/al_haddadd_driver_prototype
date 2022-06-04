@@ -25,6 +25,8 @@ class ProfileView extends GetView<ProfileController> {
                   ProfileToolbarPersonImageWidget(
                     height: (Get.height + (Get.statusBarHeight / 2)) / 1.8,
                   ),
+
+                  ///Logout is in this widget
                   MenuCardWidget(controller: controller)
                 ],
               ),

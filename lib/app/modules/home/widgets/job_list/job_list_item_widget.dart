@@ -19,7 +19,7 @@ class JobListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigationUtils().callJobDetailScreen(id: jobItem.jobId ?? "");
+        NavigationUtils().callJobDetailScreen(id: jobItem.id.toString() ?? "");
       },
       child: Card(
         color: Colors.white,
@@ -31,19 +31,21 @@ class JobListItemWidget extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DotWidget(color: AppColor().getJobBasedColor(jobItem.jobStatus!)),
+              DotWidget(
+                  color: AppColor().getJobBasedColor(jobItem.orderStatusId!)),
               const SizedBox(width: 20),
               FirstRowItem(
-                jobId: jobItem.jobId ?? "",
-                name: jobItem.name ?? "",
-                address: jobItem.address ?? "",
+                jobId: jobItem.id.toString() ?? "",
+                name: jobItem.orderGuid ?? "",
+                address: jobItem.billingAddressId.toString() ?? "",
               ),
               const SizedBox(width: 10),
               SecondRowItem(
-                statusColor: AppColor().getJobBasedColor(jobItem.jobStatus!),
-                statusMessage: jobItem.jobMessage ?? "",
-                time: jobItem.time ?? "",
-                date: jobItem.date ?? "",
+                statusColor:
+                    AppColor().getJobBasedColor(jobItem.orderStatusId!),
+                statusMessage: jobItem.orderStatus ?? "",
+                time: jobItem.paidDateUtc ?? "",
+                date: jobItem.paidDateUtc ?? "",
               ),
             ],
           ),

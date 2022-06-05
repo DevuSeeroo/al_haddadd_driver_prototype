@@ -1,3 +1,4 @@
+import 'package:alhaddad_driver/app/modules/home/models/job_list_input_param_model.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_params.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_response.dart';
 import 'package:alhaddad_driver/app/modules/verification/models/verify_otp_params.dart';
@@ -39,4 +40,6 @@ abstract class ApiClient {
 
   @POST("/api-frontend/AlHaddad/VerifyOtp")
   Future<VerifyOtpResponse> verifyOtp(@Body() VerifyOtpParams sendOtpParams);
+  @POST("/api-frontend/AlHaddad/SendOtp")
+  Future<dynamic> getJobList(@Body() JobListInputParam inputParams);
 }

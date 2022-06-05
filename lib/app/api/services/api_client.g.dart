@@ -16,6 +16,22 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
+  Future<LogoutResponse> logout() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<LogoutResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api-frontend/AlHaddad/Logout',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = LogoutResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<SendOtpResponse> sendOtp(sendOtpParams) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -50,18 +66,18 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<LogoutResponse> logout() async {
+  Future<dynamic> getJobList(inputParams) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<LogoutResponse>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api-frontend/AlHaddad/Logout',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = LogoutResponse.fromJson(_result.data!);
+    _data.addAll(inputParams.toJson());
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/api-frontend/AlHaddad/SendOtp',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
     return value;
   }
 

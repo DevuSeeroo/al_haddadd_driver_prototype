@@ -37,4 +37,8 @@ class Assets {
   static const String sampleJsonsJobDetail3 =
       'assets/sample_jsons/job_detail_3.json';
   static const String sampleJsonsJobList = 'assets/sample_jsons/job_list.json';
+  static const String sampleJsonsJobListInputParam =
+      'assets/sample_jsons/job_list_input_param.json';
+  static const String sampleJsonsJobListRef =
+      'assets/sample_jsons/job_list_ref.json';
 }

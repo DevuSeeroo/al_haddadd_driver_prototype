@@ -7,9 +7,10 @@ class ErrorModelResponse {
       {this.message, this.innerExceptionMessage, this.stackTrace});
 
   ErrorModelResponse.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
-    innerExceptionMessage = json['inner_exception_message'];
-    stackTrace = json['stack_trace'];
+    message = json['message'] ?? json['Message'];
+    innerExceptionMessage =
+        json['inner_exception_message'] ?? json['InnerException'];
+    stackTrace = json['stack_trace'] ?? json['StackTrace'];
     if ((message == null || message!.isEmpty) &&
         (innerExceptionMessage == null || innerExceptionMessage!.isEmpty) &&
         (stackTrace == null || stackTrace!.isEmpty)) {

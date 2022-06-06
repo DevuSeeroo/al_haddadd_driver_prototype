@@ -22,7 +22,7 @@ class JobListProvider extends GetConnect {
   String className = "JobListProvider";
   @override
   void onInit() {
-    CustomLogger().print('OnInit', className: className, lineNumber: 24);
+    CustomLogger().print('OnInit', className: className, lineNumber: 25);
     dio = Dio();
     client = ApiClient(dio, baseurl);
   }
@@ -38,18 +38,18 @@ class JobListProvider extends GetConnect {
   Future<BaseModel<JobListResponse>> getJobListFromAPI(
       JobListInputParam inputParams) async {
     onInit();
-    CustomLogger().print(jsonEncode(inputParams), lineNumber: 42);
+    CustomLogger().print(jsonEncode(inputParams), lineNumber: 41);
     JobListResponse response;
     try {
       dynamic res = await client.getJobListPOST(
-          appStorageKeys.readUserToken(), 'application/json', inputParams);
+          appStorageKeys.readUserToken(), inputParams);
       // print(jsonEncode(res));
       var string = "{\"job_list\": ${jsonEncode(res)}}";
       response = JobListResponse.fromJson(json.decode(string));
       print('job_list: ${response.toJson()}');
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 32);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 52);
       return BaseModel()
         ..setException(ServerError.withErrorAndCode(error: error as DioError));
     }
@@ -59,18 +59,18 @@ class JobListProvider extends GetConnect {
   Future<BaseModel<JobListResponse>> getJobListFromAPI2(
       JobListInputParam inputParams) async {
     onInit();
-    CustomLogger().print(jsonEncode(inputParams), lineNumber: 42);
+    CustomLogger().print(jsonEncode(inputParams), lineNumber: 62);
     JobListResponse response;
     try {
-      dynamic res = await client.getJobList(
-          appStorageKeys.readUserToken(), 'application/json', inputParams);
+      dynamic res =
+          await client.getJobList(appStorageKeys.readUserToken(), inputParams);
       // print(jsonEncode(res));
       var string = "{\"job_list\": ${jsonEncode(res)}}";
       response = JobListResponse.fromJson(json.decode(string));
       print('job_list: ${response.toJson()}');
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 32);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 73);
       return BaseModel()
         ..setException(ServerError.withErrorAndCode(error: error as DioError));
     }

@@ -40,14 +40,9 @@ class JobListController extends GetxController {
         .getJobListFromAPI2(JobListInputParam(
             id: AppConstants.testID, customerName: null, orderStatus: null))
         .then((value) {
-      // Timer(
-      //     const Duration(seconds: 3),
-      //         () => {});
-      Timer(const Duration(seconds: 2), () {
-        CustomLogger().print(jsonEncode(value), lineNumber: 48);
-        jobList.value = value.data!.jobList ?? [];
-        isLoading(false);
-      });
+      CustomLogger().print(jsonEncode(value), lineNumber: 48);
+      jobList.value = value.data!.jobList ?? [];
+      isLoading(false);
     });
   }
 

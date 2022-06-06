@@ -57,6 +57,8 @@ class LocaleKeys {
   static const congratulations = 'congratulations';
   static const continueText = 'continueText';
   static const jobCompletedSuccessfully = 'jobCompletedSuccessfully';
+  static const noItemsFound = 'noItemsFound';
+  static const search = 'search';
 }
 
 class Locales {
@@ -107,6 +109,8 @@ class Locales {
     'congratulations': 'Congratulations',
     'continueText': 'continue',
     'jobCompletedSuccessfully': 'Job Completed Successfully',
+    'noItemsFound': 'No items found',
+    'search': 'Search',
   };
   static const en_US = {
     'titleAlHaddad': 'Al haddad Driver',
@@ -155,5 +159,7 @@ class Locales {
     'congratulations': 'Congratulations',
     'continueText': 'continue',
     'jobCompletedSuccessfully': 'Job Completed Successfully',
+    'noItemsFound': 'No items found',
+    'search': 'Search',
   };
 }

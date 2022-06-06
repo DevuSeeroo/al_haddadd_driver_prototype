@@ -1,5 +1,6 @@
 import 'package:alhaddad_driver/app/modules/home/widgets/home_appbar.dart';
 import 'package:alhaddad_driver/app/modules/home/widgets/job_history/search_textfield.dart';
+import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +40,9 @@ class JobListContent extends StatelessWidget {
                     return const SizedBox(height: 10);
                   },
                 )
-              : EmptyView(subTitle: 'No items found', title: "Search"),
+              : EmptyView(
+                  subTitle: LocaleKeys.noItemsFound.tr,
+                  title: LocaleKeys.search.tr),
         )),
       ],
     );

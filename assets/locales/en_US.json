@@ -44,5 +44,7 @@
   "areYouSureYouWantToProceed": "Are you sure you want to proceed",
   "congratulations": "Congratulations",
   "continueText": "continue",
-  "jobCompletedSuccessfully": "Job Completed Successfully"
+  "jobCompletedSuccessfully": "Job Completed Successfully",
+  "noItemsFound": "No items found",
+  "search": "Search"
 }

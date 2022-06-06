@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../widgets/views/empty_view.dart';
 import '../../models/job_list_model.dart';
-import 'job_list_item_widget.dart';
+import 'job_list_item_widget_json.dart';
 
 class JobListContent extends StatelessWidget {
   const JobListContent({
@@ -33,7 +33,7 @@ class JobListContent extends StatelessWidget {
                   itemCount: jobList.length,
                   itemBuilder: (context, index) {
                     JobList jobItem = jobList[index];
-                    return JobListItemWidget(jobItem: jobItem);
+                    return JobListItemWidgetJson(jobItem: jobItem);
                   },
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(height: 10);

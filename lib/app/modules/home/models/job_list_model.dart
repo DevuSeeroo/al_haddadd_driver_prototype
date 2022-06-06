@@ -22,6 +22,17 @@ class JobListResponse {
 }
 
 class JobList {
+  ///to delete
+  String? jobId;
+  String? name;
+  String? address;
+  int? jobStatus;
+  String? jobMessage;
+  String? time;
+  String? date;
+
+  ///till here
+
   String? orderGuid;
   int? storeId;
   int? customerId;
@@ -95,7 +106,14 @@ class JobList {
   int? id;
 
   JobList(
-      {this.orderGuid,
+      {this.jobId,
+      this.name,
+      this.address,
+      this.jobStatus,
+      this.jobMessage,
+      this.time,
+      this.date,
+      this.orderGuid,
       this.storeId,
       this.customerId,
       this.billingAddressId,
@@ -168,6 +186,14 @@ class JobList {
       this.id});
 
   JobList.fromJson(Map<String, dynamic> json) {
+    jobId = json['job_id'];
+    name = json['name'];
+    address = json['address'];
+    jobStatus = json['job_status'];
+    jobMessage = json['job_message'];
+    time = json['time'];
+    date = json['date'];
+
     orderGuid = json['OrderGuid'];
     storeId = json['StoreId'];
     customerId = json['CustomerId'];
@@ -246,6 +272,15 @@ class JobList {
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
+
+    data['job_id'] = jobId;
+    data['name'] = name;
+    data['address'] = address;
+    data['job_status'] = jobStatus;
+    data['job_message'] = jobMessage;
+    data['time'] = time;
+    data['date'] = date;
+
     data['OrderGuid'] = orderGuid;
     data['StoreId'] = storeId;
     data['CustomerId'] = customerId;

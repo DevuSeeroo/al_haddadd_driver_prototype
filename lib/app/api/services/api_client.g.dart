@@ -66,15 +66,39 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<dynamic> getJobList(inputParams) async {
+  Future<dynamic> getJobList(header, contentType, inputParams) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Authorization': header,
+      r'contentType': contentType
+    };
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(inputParams.toJson());
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/api-frontend/AlHaddad/GetOrderDtlsDriver',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<dynamic> getJobListPOST(header, contentType, inputParams) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{
+      r'Authorization': header,
+      r'contentType': contentType
+    };
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(inputParams.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/api-frontend/AlHaddad/SendOtp',
+            .compose(_dio.options, '/api-frontend/AlHaddad/GetOrderDtlsDriver',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

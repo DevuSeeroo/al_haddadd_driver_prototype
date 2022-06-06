@@ -38,9 +38,32 @@ class JobListProvider extends GetConnect {
   Future<BaseModel<JobListResponse>> getJobListFromAPI(
       JobListInputParam inputParams) async {
     onInit();
+    CustomLogger().print(jsonEncode(inputParams), lineNumber: 42);
     JobListResponse response;
     try {
-      dynamic res = await client.getJobList(inputParams);
+      dynamic res = await client.getJobListPOST(
+          appStorageKeys.readUserToken(), 'application/json', inputParams);
+      // print(jsonEncode(res));
+      var string = "{\"job_list\": ${jsonEncode(res)}}";
+      response = JobListResponse.fromJson(json.decode(string));
+      print('job_list: ${response.toJson()}');
+    } catch (error, stacktrace) {
+      CustomLogger()
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 32);
+      return BaseModel()
+        ..setException(ServerError.withErrorAndCode(error: error as DioError));
+    }
+    return BaseModel()..data = response;
+  }
+
+  Future<BaseModel<JobListResponse>> getJobListFromAPI2(
+      JobListInputParam inputParams) async {
+    onInit();
+    CustomLogger().print(jsonEncode(inputParams), lineNumber: 42);
+    JobListResponse response;
+    try {
+      dynamic res = await client.getJobList(
+          appStorageKeys.readUserToken(), 'application/json', inputParams);
       // print(jsonEncode(res));
       var string = "{\"job_list\": ${jsonEncode(res)}}";
       response = JobListResponse.fromJson(json.decode(string));

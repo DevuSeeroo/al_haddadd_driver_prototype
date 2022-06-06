@@ -40,6 +40,16 @@ abstract class ApiClient {
 
   @POST("/api-frontend/AlHaddad/VerifyOtp")
   Future<VerifyOtpResponse> verifyOtp(@Body() VerifyOtpParams sendOtpParams);
-  @POST("/api-frontend/AlHaddad/SendOtp")
-  Future<dynamic> getJobList(@Body() JobListInputParam inputParams);
+
+  @GET("/api-frontend/AlHaddad/GetOrderDtlsDriver")
+  Future<dynamic> getJobList(
+      @Header("Authorization") String header,
+      @Header("contentType") String contentType,
+      @Body() JobListInputParam inputParams);
+
+  @POST("/api-frontend/AlHaddad/GetOrderDtlsDriver")
+  Future<dynamic> getJobListPOST(
+      @Header("Authorization") String header,
+      @Header("contentType") String contentType,
+      @Body() JobListInputParam inputParams);
 }

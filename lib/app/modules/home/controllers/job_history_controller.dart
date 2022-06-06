@@ -23,8 +23,22 @@ class JobHistoryController extends GetxController {
   }
 
   void fetchJobList() {
+    JobListProvider().getJobList(1).then((value) {
+      // Timer(
+      //     const Duration(seconds: 3),
+      //         () => {});
+      Timer(const Duration(seconds: 2), () {
+        CustomLogger().print(jsonEncode(value), lineNumber: 29);
+        actualJobList = value!.jobList ?? [];
+        jobList.addAll(actualJobList);
+        isLoading(false);
+      });
+    });
+  }
+
+  void fetchJobListAPI() {
     JobListProvider()
-        .getJobListFromAPI(JobListInputParam(
+        .getJobListFromAPI2(JobListInputParam(
             id: AppConstants.testID, customerName: null, orderStatus: null))
         .then((value) {
       // Timer(

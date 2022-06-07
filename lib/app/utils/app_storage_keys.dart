@@ -19,11 +19,11 @@ class AppStorageKeys {
     return GetStorage().read(_isLoggedIn) ?? false;
   }
 
-  void writeUserId(int? id) {
+  void writeUserId(String? id) {
     GetStorage().write(_userId, id);
   }
 
-  int? readUserId() {
+  String? readUserId() {
     if (GetStorage().read(_userId).toString().isEmpty) {
       return null;
     } else {

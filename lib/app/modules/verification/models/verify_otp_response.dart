@@ -2,6 +2,7 @@ class VerifyOtpResponse {
   String? message;
   bool? status;
   String? token;
+  String? userId;
 
   VerifyOtpResponse({this.message, this.status});
 
@@ -9,6 +10,7 @@ class VerifyOtpResponse {
     message = json['Message'];
     status = json['Status'];
     token = json['Token'];
+    userId = json['Value'];
   }
 
   Map<String, dynamic> toJson() {
@@ -16,6 +18,7 @@ class VerifyOtpResponse {
     data['Message'] = message;
     data['Status'] = status;
     data['Token'] = token;
+    data['Value'] = userId;
     return data;
   }
 }

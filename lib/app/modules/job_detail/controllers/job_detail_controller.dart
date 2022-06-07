@@ -1,6 +1,6 @@
-import 'dart:async';
 import 'dart:convert';
 
+import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
 import 'package:alhaddad_driver/app/modules/job_detail/providers/job_detail_provider.dart';
 import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
 import 'package:alhaddad_driver/app/utils/app_color.dart';
@@ -21,6 +21,7 @@ class JobDetailController extends GetxController {
   String id = "0";
   String from = "0";
   JobDetailData? data;
+  JobDetail? dataModel;
   RxBool isLoading = true.obs;
   String className = "JobDetailController";
   JobDetailProvider provider = JobDetailProvider();
@@ -30,18 +31,30 @@ class JobDetailController extends GetxController {
     super.onInit();
     id = Get.parameters[AppParamsKey.paramJobId].toString();
     from = Get.parameters[AppParamsKey.paramFrom].toString();
+    fetchJobDetailJson();
     fetchJobDetail();
+  }
+
+  void fetchJobDetailJson() {
+    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 39);
+    provider.getJobDetail(id).then((value) {
+      data = value!.data;
+      CustomLogger().print(jsonEncode(data), lineNumber: 42);
+    });
   }
 
   void fetchJobDetail() {
     isLoading(true);
-    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 34);
-    provider.getJobDetail(id).then((value) {
-      data = value!.data;
-      CustomLogger().print(jsonEncode(data), lineNumber: 37);
-      Timer.periodic(const Duration(seconds: 2), (timer) {
+    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 48);
+    provider.fetchJobDetail(orderId: id).then((value) {
+      if (value.getException != null) {
+        ApiExceptionUtils().apiException(
+            error: value.getException, className: className, lineNumber: 52);
+      } else {
+        dataModel = value.data;
+        CustomLogger().print(jsonEncode(dataModel), lineNumber: 55);
         isLoading(false);
-      });
+      }
     });
   }
 
@@ -62,7 +75,7 @@ class JobDetailController extends GetxController {
 
   void buttonPressed() {
     CustomLogger().print("buttonPressed() orderStatus: ${data!.orderStatus}",
-        className: className, lineNumber: 65);
+        className: className, lineNumber: 78);
 
     ///should implement status based API
     jobStatusChangeAPI();
@@ -93,7 +106,9 @@ class JobDetailController extends GetxController {
     provider.jobStatusChange(110).then((response) {
       if (response.getException != null) {
         ApiExceptionUtils().apiException(
-            error: response.getException, className: className, lineNumber: 47);
+            error: response.getException,
+            className: className,
+            lineNumber: 111);
       } else {
         if (response.data!.statusCode == 200) {
           CustomSnackBar.showSuccessSnackBar(

@@ -15,17 +15,17 @@ class ProductListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 240,
+      height: 265,
       clipBehavior: Clip.none,
       color: AppColor.productListBackgroundColor,
       child: ListView.separated(
         padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20),
         scrollDirection: Axis.horizontal,
-        itemCount: controller.data!.products!.length,
+        itemCount: controller.dataModel!.items!.length,
         clipBehavior: Clip.none,
         itemBuilder: (context, index) {
           return ProductItemWidget(
-            product: controller.data!.products![index],
+            product: controller.dataModel!.items![index],
             index: index,
           );
         },

@@ -117,6 +117,24 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<JobDetail> getJobDetail(header, orderId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': header};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<JobDetail>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options,
+                    '/api-frontend/AlHaddad/DriverOrderDetails/${orderId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JobDetail.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<dynamic> changeStatus(header, orderId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'orderId': orderId};

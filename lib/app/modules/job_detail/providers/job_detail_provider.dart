@@ -4,6 +4,7 @@ import 'package:alhaddad_driver/app/api/error_handler/error_model_response.dart'
 import 'package:alhaddad_driver/app/api/error_handler/server_error.dart';
 import 'package:alhaddad_driver/app/api/generic/base_model.dart';
 import 'package:alhaddad_driver/app/api/services/api_client.dart';
+import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
 import 'package:alhaddad_driver/app/modules/job_detail/models/job_status_change_model.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_storage_keys.dart';
@@ -46,6 +47,21 @@ class JobDetailProvider extends GetConnect {
       response = JobDetailModel.fromJson(jsonDecode(res));
     }
     return response;
+  }
+
+  Future<BaseModel<JobDetail>> fetchJobDetail({required String orderId}) async {
+    onInit();
+    JobDetail response;
+    try {
+      response =
+          await client.getJobDetail(appStorageKeys.readUserToken(), orderId);
+    } catch (error, stacktrace) {
+      CustomLogger()
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 60);
+      return BaseModel()
+        ..setException(ServerError.withErrorAndCode(error: error as DioError));
+    }
+    return BaseModel()..data = response;
   }
 
   Future<BaseModel<JobStatusChangeModel>> jobStatusChange(int orderId) async {

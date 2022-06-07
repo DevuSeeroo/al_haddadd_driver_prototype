@@ -2,6 +2,7 @@ import 'package:alhaddad_driver/app/modules/home/controllers/home_controller.dar
 import 'package:alhaddad_driver/app/modules/job_detail/controllers/job_detail_controller.dart';
 import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
+import 'package:alhaddad_driver/app/utils/date_utlis.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
@@ -36,38 +37,37 @@ class ContentWidgets extends StatelessWidget {
           JobDetailWidget(
             iconsData: Icons.calendar_today_outlined,
             title: LocaleKeys.dateAndTime.tr,
-            titleValue: controller.data!.date ?? "",
+            titleValue: CustomDateUtils()
+                .dateToDisplay(apiDate: controller.dataModel!.createdOn ?? ""),
             titleValueColor: AppColor.jobDetailBlueColor,
             titleValueSize: 14,
             titleValueFontWeight: FontWeight.w600,
-            subTitle: LocaleKeys.deliveryTime.tr,
-            subtitleValue: controller.data!.time ?? "",
-            subtitleValueColor: AppColor.jobDetailBlueColor,
-            subtitleValueSize: 14,
-            subtitleValueFontWeight: FontWeight.w600,
           ),
           JobDetailWidget(
             iconsData: Icons.credit_card,
             title: LocaleKeys.address.tr,
-            titleValue: controller.data!.userName ?? "",
+            titleValue:
+                "${controller.dataModel!.shippingAddress!.firstName ?? " "} ${controller.dataModel!.shippingAddress!.lastName ?? " "}",
             titleValueSize: 15,
             titleValueFontWeight: FontWeight.w600,
             subTitle: "",
-            subtitleValue: controller.data!.address ?? "5",
+            subtitleValue:
+                "${controller.dataModel!.shippingAddress!.address1 ?? " "}",
             subtitleValueSize: 14,
           ),
           JobDetailWidget(
             iconsData: Icons.phone_android,
             title: LocaleKeys.mobile.tr,
-            titleValue: controller.data!.mobile ?? "",
+            titleValue:
+                controller.dataModel!.shippingAddress!.phoneNumber ?? "",
             titleValueSize: 14,
           ),
-          JobDetailWidget(
-            iconsData: Icons.phone_android,
-            title: LocaleKeys.alternateMobile.tr,
-            titleValue: controller.data!.alternateMobile ?? "",
-            titleValueSize: 14,
-          ),
+          // JobDetailWidget(
+          //   iconsData: Icons.phone_android,
+          //   title: LocaleKeys.alternateMobile.tr,
+          //   titleValue: controller.data!.alternateMobile ?? "",
+          //   titleValueSize: 14,
+          // ),
           const SizedBox(height: 20),
         ],
       ),

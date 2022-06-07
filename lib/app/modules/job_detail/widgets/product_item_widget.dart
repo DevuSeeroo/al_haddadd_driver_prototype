@@ -1,23 +1,24 @@
+import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
 import 'package:alhaddad_driver/app/widgets/images/broken_image.dart';
 import 'package:alhaddad_driver/app/widgets/images/curved_image_view.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/app_color.dart';
-import '../models/job_detail_json_model.dart';
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget(
       {Key? key, required this.product, required this.index, this.padding})
       : super(key: key);
 
-  final Products product;
+  final Items product;
   final int index;
   final double? padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 200,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: const [
@@ -32,7 +33,7 @@ class ProductItemWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ProductImageView(product: product),
+          ProductImageView(productImage: "product"),
           Container(
             padding:
                 const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
@@ -40,7 +41,7 @@ class ProductItemWidget extends StatelessWidget {
               children: [
                 Text(
                   product.productName ?? "",
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: 13,
@@ -48,19 +49,21 @@ class ProductItemWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                Text(product.productAmount ?? "0.0",
+                Text(product.subTotal ?? "0.0",
                     style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                         fontWeight: FontWeight.bold)),
-                if ((product.totalItems ?? 0) != 0) const SizedBox(height: 5),
-                if ((product.totalItems ?? 0) != 0)
+                if ((product.quantity ?? 0) != 0) const SizedBox(height: 5),
+                if ((product.quantity ?? 0) != 0)
                   Text(
-                      "(${product.totalItems} item${(product.totalItems ?? 0) <= 1 ? "" : "s"})",
+                      "(${product.quantity} item${(product.quantity ?? 0) <= 1 ? ""
+                          "" : "s"})",
                       style: const TextStyle(
                           fontSize: 13,
                           color: Colors.black,
                           fontWeight: FontWeight.w600)),
+                const SizedBox(height: 5),
               ],
             ),
           ),
@@ -73,18 +76,17 @@ class ProductItemWidget extends StatelessWidget {
 class ProductImageView extends StatelessWidget {
   const ProductImageView({
     Key? key,
-    required this.product,
+    required this.productImage,
   }) : super(key: key);
 
-  final Products product;
+  final String productImage;
 
   @override
   Widget build(BuildContext context) {
     return CustomImageView(
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-      url: product.productImage ?? "",
-      width: 150,
+      url: productImage,
       height: 100,
       padding: 0,
     );
@@ -92,7 +94,7 @@ class ProductImageView extends StatelessWidget {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         child: FadeInImage(
-          image: NetworkImage(product.productImage ?? ""),
+          image: NetworkImage(productImage ?? ""),
           width: 150,
           height: 100,
           fit: BoxFit.contain,

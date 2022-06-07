@@ -32,9 +32,11 @@ class JobDetailView extends GetView<JobDetailController> {
                               controller.data!.orderStatus ==
                                   AppConstants.jobReached)
                       ? ToolbarItemsWidget(
-                          jobId: controller.data!.jobId ?? "",
-                          paymentMethod: controller.data!.paymentMethod ?? "",
-                          totalAmount: controller.data!.total.toString(),
+                          jobId: "${controller.dataModel!.id}",
+                          paymentMethod:
+                              controller.dataModel!.paymentMethod ?? "",
+                          totalAmount:
+                              controller.dataModel!.orderTotal.toString(),
                         )
                       : CustomContainerToolbar(
                           showCustomBackgroundImage: true,

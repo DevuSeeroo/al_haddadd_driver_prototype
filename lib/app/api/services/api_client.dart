@@ -1,4 +1,5 @@
 import 'package:alhaddad_driver/app/modules/home/models/job_list_input_param_model.dart';
+import 'package:alhaddad_driver/app/modules/home/models/view_profile_response.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_params.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_response.dart';
 import 'package:alhaddad_driver/app/modules/verification/models/verify_otp_params.dart';
@@ -15,8 +16,8 @@ part 'api_client.g.dart';
 abstract class ApiClient {
   factory ApiClient(Dio dio, String baseUrl) {
     dio.options = BaseOptions(
-      receiveTimeout: 5000,
-      connectTimeout: 5000,
+      receiveTimeout: 10000,
+      connectTimeout: 10000,
     );
 
     dio.interceptors.add(PrettyDioLogger(
@@ -40,6 +41,10 @@ abstract class ApiClient {
 
   @POST("/api-frontend/AlHaddad/VerifyOtp")
   Future<VerifyOtpResponse> verifyOtp(@Body() VerifyOtpParams sendOtpParams);
+
+  @GET('/api-frontend/Customer/Info')
+  Future<ViewProfileResponse> viewProfile(
+      @Header('Authorization') String userToken);
 
   @GET("/api-frontend/AlHaddad/GetOrderDtlsDriver")
   Future<dynamic> getJobList(@Header("Authorization") String header,

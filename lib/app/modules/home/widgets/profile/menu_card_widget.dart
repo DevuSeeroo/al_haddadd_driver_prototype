@@ -31,7 +31,7 @@ class MenuCardWidget extends StatelessWidget {
               assetUrl: Assets.iconsHistory,
               title: LocaleKeys.logout.tr,
               onTap: () {
-                controller.logout();
+                controller.onLogoutPressed();
               },
             ),
             const CustomDivider(

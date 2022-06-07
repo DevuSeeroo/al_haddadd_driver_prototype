@@ -2,6 +2,7 @@ import 'package:alhaddad_driver/app/modules/home/providers/profile_provider.dart
 import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
 import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:alhaddad_driver/app/utils/app_storage_keys.dart';
+import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
 import 'package:alhaddad_driver/app/utils/snackbar_utils.dart';
 import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_content/title_subtitle_bottomsheet_content.dart';
@@ -11,18 +12,37 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
-  final RxString name = ("Jithin Jyoth").obs;
+  final RxString name = "".obs;
 
   String className = "ProfileController";
   ProfileProvider provider = ProfileProvider();
   RxBool apiCalling = false.obs;
-
+  RxBool isLoading = true.obs;
   @override
   void onInit() {
     super.onInit();
+    viewProfileDetails();
   }
 
-  void logout() {
+  viewProfileDetails() {
+    provider.viewProfileData().then((response) {
+      if (response.getException != null) {
+        ApiExceptionUtils().apiException(
+            error: response.getException,
+            className: className,
+            lineNumber: 131);
+        isLoading(false);
+      } else {
+        name.value = ((response.data!.firstName ?? "") +
+            (" ") +
+            (response.data!.lastName ?? ""));
+        CustomLogger().print(name.value, className: className, lineNumber: 39);
+        isLoading(false);
+      }
+    });
+  }
+
+  void onLogoutPressed() {
     CustomBottomSheet.showCustomBottomSheetWithMargin(
         TitleSubtitleBottomSheetContent(
       title: "${LocaleKeys.logout.tr} !",

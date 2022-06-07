@@ -66,6 +66,23 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<ViewProfileResponse> viewProfile(userToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': userToken};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ViewProfileResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api-frontend/Customer/Info',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ViewProfileResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<dynamic> getJobList(header, inputParams) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

@@ -47,7 +47,7 @@ class VerificationController extends GetxController {
             error: response.getException, className: className, lineNumber: 44);
       } else if (response.data?.status ?? false) {
         AppStorageKeys().writeLogInStatus(true);
-        AppStorageKeys().writeUserToken(AppConstants.testToken);
+        AppStorageKeys().writeUserToken(response.data?.token);
         AppStorageKeys().writeUserId(AppConstants.testID);
         NavigationUtils().callHome();
       } else {

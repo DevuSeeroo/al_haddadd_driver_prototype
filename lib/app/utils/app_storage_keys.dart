@@ -53,7 +53,7 @@ class AppStorageKeys {
     } else {
       GetStorage().write(_userToken, "Bearer $token");
     }
-    CustomLogger().print("Writter token: ${readUserToken()}", lineNumber: 56);
+    CustomLogger().print("Write token: ${readUserToken()}", lineNumber: 56);
   }
 
   String readUserToken() {

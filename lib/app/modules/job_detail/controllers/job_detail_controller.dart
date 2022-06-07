@@ -7,7 +7,10 @@ import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_params_key.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
+import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
 import 'package:alhaddad_driver/app/utils/snackbar_utils.dart';
+import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_content/title_subtitle_bottomsheet_content.dart';
+import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_with_style.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,27 +63,29 @@ class JobDetailController extends GetxController {
   void buttonPressed() {
     CustomLogger().print("buttonPressed() orderStatus: ${data!.orderStatus}",
         className: className, lineNumber: 65);
+
+    ///should implement status based API
     jobStatusChangeAPI();
-    // if (data!.orderStatus == AppConstants.jobNotStarted) {
-    //   CustomBottomSheet.showCustomBottomSheetWithMargin(
-    //     TitleSubtitleBottomSheetContent(
-    //       title: LocaleKeys.orderPickedUp.tr,
-    //       subtitle: LocaleKeys.areYouSureYouWantToProceed.tr,
-    //       positiveButtonPressed: () {
-    //         navigateWithMessage("Job status changed to order picked up");
-    //       },
-    //       negativeButtonPressed: () {
-    //         navigateWithMessage();
-    //       },
-    //     ),
-    //   );
-    // } else if (data!.orderStatus == AppConstants.jobReached) {
-    //   NavigationUtils().callJobCompletedScreen();
-    // } else if (data!.orderStatus == AppConstants.jobOnGoing) {
-    //   navigateWithMessage("Job status changed to reached");
-    // } else if (data!.orderStatus == AppConstants.jobPickedUp) {
-    //   navigateWithMessage("Job status changed to on the way");
-    // }
+    if (data!.orderStatus == AppConstants.jobNotStarted) {
+      CustomBottomSheet.showCustomBottomSheetWithMargin(
+        TitleSubtitleBottomSheetContent(
+          title: LocaleKeys.orderPickedUp.tr,
+          subtitle: LocaleKeys.areYouSureYouWantToProceed.tr,
+          positiveButtonPressed: () {
+            navigateWithMessage("Job status changed to order picked up");
+          },
+          negativeButtonPressed: () {
+            navigateWithMessage();
+          },
+        ),
+      );
+    } else if (data!.orderStatus == AppConstants.jobReached) {
+      NavigationUtils().callJobCompletedScreen();
+    } else if (data!.orderStatus == AppConstants.jobOnGoing) {
+      navigateWithMessage("Job status changed to reached");
+    } else if (data!.orderStatus == AppConstants.jobPickedUp) {
+      navigateWithMessage("Job status changed to on the way");
+    }
   }
 
   void jobStatusChangeAPI() {

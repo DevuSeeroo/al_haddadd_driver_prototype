@@ -4,7 +4,7 @@ import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/app_color.dart';
-import '../models/job_detail_model.dart';
+import '../models/job_detail_json_model.dart';
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget(

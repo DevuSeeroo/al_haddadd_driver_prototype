@@ -28,6 +28,8 @@ class Assets {
   static const String imagesSuccessBg = 'assets/images/success_bg.png';
   static const String localesArQA = 'assets/locales/ar_QA.json';
   static const String localesEnUS = 'assets/locales/en_US.json';
+  static const String sampleJsonsJobDetail =
+      'assets/sample_jsons/job_detail.json';
   static const String sampleJsonsJobDetail0 =
       'assets/sample_jsons/job_detail_0.json';
   static const String sampleJsonsJobDetail1 =

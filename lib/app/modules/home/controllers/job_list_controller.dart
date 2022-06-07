@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:alhaddad_driver/app/modules/home/models/job_list_input_param_model.dart';
 import 'package:alhaddad_driver/app/modules/home/providers/job_list_provider.dart';
-import 'package:alhaddad_driver/app/utils/app_constants.dart';
+import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:get/get.dart';
 
@@ -17,9 +17,9 @@ class JobListController extends GetxController {
 
   @override
   void onInit() {
-    CustomLogger().print('onInit', className: className, lineNumber: 18);
+    CustomLogger().print('onInit', className: className, lineNumber: 20);
     super.onInit();
-    fetchJobList();
+    fetchJobListAPI();
   }
 
   void fetchJobList() {
@@ -37,15 +37,22 @@ class JobListController extends GetxController {
 
   void fetchJobListAPI() {
     JobListProvider()
-        .getJobListFromAPI2(JobListInputParam(
-            id: AppConstants.testID, customerName: null, orderStatus: null))
+        .getJobListFromAPI(
+            JobListInputParam(id: null, customerName: null, orderStatus: null))
         .then((value) {
-      CustomLogger().print(jsonEncode(value), lineNumber: 48);
-      jobList.value = value.data!.jobList ?? [];
-      isLoading(false);
+      if (value.getException != null) {
+        ApiExceptionUtils().apiException(
+            error: value.getException, className: className, lineNumber: 45);
+      } else {
+        jobList.value = value.data!.jobList ?? [];
+        try {
+          CustomLogger().print(jsonEncode(jobList.value), lineNumber: 49);
+          isLoading(false);
+        } catch (e) {
+          jobList.value = [];
+          isLoading(false);
+        }
+      }
     });
   }
-
-  @override
-  void onClose() {}
 }

@@ -13,7 +13,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../models/job_detail_model.dart';
+import '../models/job_detail_json_model.dart';
 
 class JobDetailProvider extends GetConnect {
   late Dio dio;

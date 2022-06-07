@@ -24,4 +24,11 @@ class AppConstants {
   static int filterSpecificationParentId = 3;
   static String tempFilter = "TempFilter";
   static String tempSubCategoryFilter = "TempSubCategoryFilter";
+
+  //Pending = 10, Processing = 20, Shipped = 50, Complete = 30, Cancelled = 40
+  static int pendingStatusId = 10;
+  static int processingStatusId = 20;
+  static int shippedStatusId = 50;
+  static int completedStatusId = 30;
+  static int cancelledStatusId = 40;
 }

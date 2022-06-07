@@ -46,7 +46,8 @@ class JobListProvider extends GetConnect {
       // print(jsonEncode(res));
       var string = "{\"job_list\": ${jsonEncode(res)}}";
       response = JobListResponse.fromJson(json.decode(string));
-      print('job_list: ${response.toJson()}');
+      CustomLogger().print('job_list: ${response.toJson()}',
+          className: className, lineNumber: 50);
     } catch (error, stacktrace) {
       CustomLogger()
           .printError(error: error, stackTrace: stacktrace, lineNumber: 52);

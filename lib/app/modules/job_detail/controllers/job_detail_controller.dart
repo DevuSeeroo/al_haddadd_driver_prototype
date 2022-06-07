@@ -15,7 +15,7 @@ import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../models/job_detail_model.dart';
+import '../models/job_detail_json_model.dart';
 
 class JobDetailController extends GetxController {
   String id = "0";

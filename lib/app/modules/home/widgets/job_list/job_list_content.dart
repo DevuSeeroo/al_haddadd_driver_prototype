@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../../widgets/views/empty_view.dart';
 import '../../models/job_list_model.dart';
-import 'job_list_item_widget_json.dart';
+import 'job_list_item_widget.dart';
 
 class JobListContent extends StatelessWidget {
   const JobListContent({
@@ -34,7 +34,7 @@ class JobListContent extends StatelessWidget {
                   itemCount: jobList.length,
                   itemBuilder: (context, index) {
                     JobList jobItem = jobList[index];
-                    return JobListItemWidgetJson(jobItem: jobItem);
+                    return JobListItemWidget(jobItem: jobItem);
                   },
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(height: 10);
@@ -42,7 +42,9 @@ class JobListContent extends StatelessWidget {
                 )
               : EmptyView(
                   subTitle: LocaleKeys.noItemsFound.tr,
-                  title: LocaleKeys.search.tr),
+                  title: isShowSearch
+                      ? LocaleKeys.search.tr
+                      : LocaleKeys.sorry.tr),
         )),
       ],
     );

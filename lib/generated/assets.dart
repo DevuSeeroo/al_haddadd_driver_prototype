@@ -15,6 +15,8 @@ class Assets {
   static const String iconsHistory = 'assets/icons/history.svg';
   static const String iconsLocation = 'assets/icons/location.svg';
   static const String iconsLogoIcon = 'assets/icons/logo_icon.png';
+  static const String iconsRectangle = 'assets/icons/rectangle.svg';
+  static const String iconsRectangleTick = 'assets/icons/rectangle_tick.svg';
   static const String iconsSplashLogo = 'assets/icons/splash_logo.png';
   static const String imagesAppbarBackground =
       'assets/images/appbar_background.png';

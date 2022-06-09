@@ -19,7 +19,7 @@ class JobListItemWidgetJson extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigationUtils().callJobDetailScreen(id: jobItem.id.toString() ?? "");
+        NavigationUtils().callJobDetailScreen(id: jobItem.id.toString());
       },
       child: Card(
         color: Colors.white,
@@ -36,7 +36,7 @@ class JobListItemWidgetJson extends StatelessWidget {
               FirstRowItem(
                 jobId: jobItem.jobId ?? "",
                 name: jobItem.name ?? "",
-                address: jobItem.address ?? "",
+                address: jobItem.phoneNumber ?? "",
               ),
               const SizedBox(width: 10),
               SecondRowItem(

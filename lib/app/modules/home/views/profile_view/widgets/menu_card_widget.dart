@@ -1,5 +1,5 @@
 import 'package:alhaddad_driver/app/modules/home/controllers/profile_controller.dart';
-import 'package:alhaddad_driver/app/modules/home/widgets/profile/profile_item_widget.dart';
+import 'package:alhaddad_driver/app/modules/home/views/profile_view/widgets/profile_item_widget.dart';
 import 'package:alhaddad_driver/app/widgets/divider/custom_divider.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';

@@ -5,6 +5,7 @@ import 'package:alhaddad_driver/app/api/error_handler/server_error.dart';
 import 'package:alhaddad_driver/app/api/generic/base_model.dart';
 import 'package:alhaddad_driver/app/api/services/api_client.dart';
 import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
+import 'package:alhaddad_driver/app/modules/job_detail/models/job_failed_input_model.dart';
 import 'package:alhaddad_driver/app/modules/job_detail/models/job_status_change_model.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_storage_keys.dart';
@@ -64,12 +65,118 @@ class JobDetailProvider extends GetConnect {
     return BaseModel()..data = response;
   }
 
-  Future<BaseModel<JobStatusChangeModel>> jobStatusChange(int orderId) async {
+  Future<BaseModel<JobStatusChangeModel>> changeStatusToShippedOrPicked(
+      int orderId) async {
     onInit();
     JobStatusChangeModel response;
     try {
-      dynamic res =
-          await client.changeStatus(appStorageKeys.readUserToken(), orderId);
+      dynamic res = await client.changeStatusToShippedOrPicked(
+          appStorageKeys.readUserToken(), orderId);
+      if (res != null) {
+        response =
+            JobStatusChangeModel(status: true, message: res, statusCode: 200);
+      } else {
+        response = JobStatusChangeModel(
+            status: true,
+            message: "Something went"
+                " wrong",
+            statusCode: 400);
+      }
+    } catch (error, stacktrace) {
+      CustomLogger()
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 56);
+      DioError serverError = error as DioError;
+      if (serverError.response!.statusCode! == 400) {
+        response = JobStatusChangeModel(
+            status: true,
+            message:
+                ErrorModelResponse.fromJson(serverError.response!.data).message,
+            statusCode: 400);
+      } else {
+        return BaseModel()
+          ..setException(ServerError.withErrorAndCode(error: serverError));
+      }
+    }
+    return BaseModel()..data = response;
+  }
+
+  Future<BaseModel<JobStatusChangeModel>> changeStatusToInTransit(
+      int orderId) async {
+    onInit();
+    JobStatusChangeModel response;
+    try {
+      dynamic res = await client.changeStatusToInTransit(
+          appStorageKeys.readUserToken(), orderId);
+      if (res != null) {
+        response =
+            JobStatusChangeModel(status: true, message: res, statusCode: 200);
+      } else {
+        response = JobStatusChangeModel(
+            status: true,
+            message: "Something went"
+                " wrong",
+            statusCode: 400);
+      }
+    } catch (error, stacktrace) {
+      CustomLogger()
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 56);
+      DioError serverError = error as DioError;
+      if (serverError.response!.statusCode! == 400) {
+        response = JobStatusChangeModel(
+            status: true,
+            message:
+                ErrorModelResponse.fromJson(serverError.response!.data).message,
+            statusCode: 400);
+      } else {
+        return BaseModel()
+          ..setException(ServerError.withErrorAndCode(error: serverError));
+      }
+    }
+    return BaseModel()..data = response;
+  }
+
+  Future<BaseModel<JobStatusChangeModel>> changeStatusToDelivered(
+      int orderId) async {
+    onInit();
+    JobStatusChangeModel response;
+    try {
+      dynamic res = await client.changeStatusToDelivered(
+          appStorageKeys.readUserToken(), orderId);
+      if (res != null) {
+        response =
+            JobStatusChangeModel(status: true, message: res, statusCode: 200);
+      } else {
+        response = JobStatusChangeModel(
+            status: true,
+            message: "Something went"
+                " wrong",
+            statusCode: 400);
+      }
+    } catch (error, stacktrace) {
+      CustomLogger()
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 56);
+      DioError serverError = error as DioError;
+      if (serverError.response!.statusCode! == 400) {
+        response = JobStatusChangeModel(
+            status: true,
+            message:
+                ErrorModelResponse.fromJson(serverError.response!.data).message,
+            statusCode: 400);
+      } else {
+        return BaseModel()
+          ..setException(ServerError.withErrorAndCode(error: serverError));
+      }
+    }
+    return BaseModel()..data = response;
+  }
+
+  Future<BaseModel<JobStatusChangeModel>> changeStatusToDeliveryFailed(
+      JobFailedInputModel model) async {
+    onInit();
+    JobStatusChangeModel response;
+    try {
+      dynamic res = await client.changeStatusToDeliveryFailed(
+          appStorageKeys.readUserToken(), model);
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);

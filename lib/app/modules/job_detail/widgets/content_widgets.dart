@@ -25,15 +25,16 @@ class ContentWidgets extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 10),
-          Get.find<HomeController>().selectedIndex.value ==
+          Get.find<HomeController>().homeSelectedIndex.value ==
                       AppConstants.historyIndex ||
-                  controller.data!.orderStatus == AppConstants.jobNotStarted
+                  controller.dataModel!.orderStatusId ==
+                      AppConstants.processingStatusId
               ? TitleAndListWidget(controller: controller)
               : StatusImageWidget(
-                  asset:
-                      controller.data!.orderStatus == AppConstants.jobPickedUp
-                          ? Assets.imagesOrderPickedUp
-                          : Assets.imagesDeliveryOnTheWay),
+                  asset: controller.dataModel!.orderStatusId ==
+                          AppConstants.shippedStatusId
+                      ? Assets.imagesOrderPickedUp
+                      : Assets.imagesDeliveryOnTheWay),
           JobDetailWidget(
             iconsData: Icons.calendar_today_outlined,
             title: LocaleKeys.dateAndTime.tr,

@@ -6,7 +6,10 @@ class AppConstants {
 
   static int homeIndex = 1;
   static int profileIndex = 2;
-  static int historyIndex = 3;
+  static int historyIndex = 3; //not using
+  static int jobAssignedIndex = 1;
+  static int jobPickedIndex = 2;
+  static int jobHistoryIndex = 3;
 
   static int jobNotStarted = 0;
   static int jobPickedUp = 1;
@@ -31,4 +34,11 @@ class AppConstants {
   static int shippedStatusId = 50;
   static int completedStatusId = 30;
   static int cancelledStatusId = 40;
+  static int deliveryPendingStatusId = 60;
+
+  //This is from shipping status sections
+  // and all the above are from order status section
+  static int inTransitStatusId = 50;
+  static int shippingShippedStatusId = 40;
+  static int shippingCompletedStatusId = 60;
 }

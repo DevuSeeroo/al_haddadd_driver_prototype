@@ -18,7 +18,7 @@ import 'package:get/get.dart';
 import '../models/job_detail_json_model.dart';
 
 class JobDetailController extends GetxController {
-  String id = "0";
+  String orderId = "0";
   String from = "0";
   JobDetailData? data;
   JobDetail? dataModel;
@@ -29,15 +29,15 @@ class JobDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    id = Get.parameters[AppParamsKey.paramJobId].toString();
+    orderId = Get.parameters[AppParamsKey.paramJobId].toString();
     from = Get.parameters[AppParamsKey.paramFrom].toString();
     fetchJobDetailJson();
     fetchJobDetail();
   }
 
   void fetchJobDetailJson() {
-    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 39);
-    provider.getJobDetail(id).then((value) {
+    CustomLogger().print('fetchJobDetail for id:$orderId', lineNumber: 39);
+    provider.getJobDetail(orderId).then((value) {
       data = value!.data;
       CustomLogger().print(jsonEncode(data), lineNumber: 42);
     });
@@ -45,8 +45,8 @@ class JobDetailController extends GetxController {
 
   void fetchJobDetail() {
     isLoading(true);
-    CustomLogger().print('fetchJobDetail for id:$id', lineNumber: 48);
-    provider.fetchJobDetail(orderId: id).then((value) {
+    CustomLogger().print('fetchJobDetail for id:$orderId', lineNumber: 48);
+    provider.fetchJobDetail(orderId: orderId).then((value) {
       if (value.getException != null) {
         ApiExceptionUtils().apiException(
             error: value.getException, className: className, lineNumber: 52);
@@ -58,52 +58,80 @@ class JobDetailController extends GetxController {
     });
   }
 
-  String buttonTitleText() {
-    if (data != null) {
-      if (data!.orderStatus == AppConstants.jobPickedUp) {
-        return LocaleKeys.startJourney.tr;
-      } else if (data!.orderStatus == AppConstants.jobOnGoing) {
-        return LocaleKeys.reached.tr;
-      } else if (data!.orderStatus == AppConstants.jobNotStarted) {
+  String toolbarTitleText() {
+    if (dataModel != null) {
+      if (dataModel!.orderStatusId == AppConstants.processingStatusId) {
+        return LocaleKeys.assigned.tr;
+      } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
+          dataModel!.shippingStatusId == AppConstants.shippingShippedStatusId) {
         return LocaleKeys.orderPickedUp.tr;
-      } else if (data!.orderStatus == AppConstants.jobReached) {
-        return LocaleKeys.jobCompleted.tr;
+      } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
+          dataModel!.shippingStatusId == AppConstants.inTransitStatusId) {
+        return LocaleKeys.inTransit.tr;
       }
     }
-    return LocaleKeys.orderPickedUp.tr;
+    return "";
+  }
+
+  String buttonTitleText() {
+    if (dataModel != null) {
+      if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
+          dataModel!.shippingStatusId == AppConstants.shippingShippedStatusId) {
+        return LocaleKeys.startJourney.tr;
+      } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
+          dataModel!.shippingStatusId == AppConstants.inTransitStatusId) {
+        return LocaleKeys.jobCompleted.tr;
+      } else if (dataModel!.orderStatusId == AppConstants.processingStatusId) {
+        return LocaleKeys.orderPickedUp.tr;
+      }
+      //no need of this condition
+      else if (dataModel!.shippingStatusId ==
+          AppConstants.shippingCompletedStatusId) {
+        return LocaleKeys.congratulations.tr;
+      }
+    }
+    return "Default";
   }
 
   void buttonPressed() {
-    CustomLogger().print("buttonPressed() orderStatus: ${data!.orderStatus}",
-        className: className, lineNumber: 78);
+    CustomLogger().print(
+        "buttonPressed() orderStatus: ${dataModel!.orderStatusId} && "
+        "shipment Status: ${dataModel!.shippingStatusId}",
+        className: className,
+        lineNumber: 85);
 
-    ///should implement status based API
-    jobStatusChangeAPI();
-    if (data!.orderStatus == AppConstants.jobNotStarted) {
+    if (dataModel!.orderStatusId == AppConstants.processingStatusId) {
       CustomBottomSheet.showCustomBottomSheetWithMargin(
         TitleSubtitleBottomSheetContent(
           title: LocaleKeys.orderPickedUp.tr,
           subtitle: LocaleKeys.areYouSureYouWantToProceed.tr,
           positiveButtonPressed: () {
-            navigateWithMessage("Job status changed to order picked up");
+            Get.back();
+            jobStatusChangeToShippedOrPickedAPI();
           },
           negativeButtonPressed: () {
             navigateWithMessage();
           },
         ),
       );
-    } else if (data!.orderStatus == AppConstants.jobReached) {
+    } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
+        dataModel!.shippingStatusId == AppConstants.inTransitStatusId) {
+      jobStatusChangeToDeliveredAPI();
+      // navigateWithMessage("Job status changed to reached");
+    } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
+        dataModel!.shippingStatusId == AppConstants.shippingShippedStatusId) {
+      jobStatusChangeToInTransitAPI();
+      // navigateWithMessage("Job status changed to on the way");
+    }
+    //No need of this condition
+    else if (dataModel!.orderStatusId == AppConstants.completedStatusId) {
       NavigationUtils().callJobCompletedScreen();
-    } else if (data!.orderStatus == AppConstants.jobOnGoing) {
-      navigateWithMessage("Job status changed to reached");
-    } else if (data!.orderStatus == AppConstants.jobPickedUp) {
-      navigateWithMessage("Job status changed to on the way");
     }
   }
 
-  void jobStatusChangeAPI() {
+  void jobStatusChangeToShippedOrPickedAPI() {
     // apiCalling(true);
-    provider.jobStatusChange(110).then((response) {
+    provider.changeStatusToShippedOrPicked(int.parse(orderId)).then((response) {
       if (response.getException != null) {
         ApiExceptionUtils().apiException(
             error: response.getException,
@@ -114,6 +142,67 @@ class JobDetailController extends GetxController {
           CustomSnackBar.showSuccessSnackBar(
               LocaleKeys.success.tr, "${response.data}",
               backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
+          fetchJobDetail();
+        } else if (response.data!.statusCode == 400) {
+          CustomSnackBar.showErrorSnackBar(
+            LocaleKeys.success.tr,
+            "${response.data!.message}",
+          );
+        } else {
+          CustomSnackBar.showErrorSnackBar(
+            LocaleKeys.success.tr,
+            LocaleKeys.somethingWentWrong.tr,
+          );
+        }
+      }
+      // apiCalling(false);
+    });
+  }
+
+  void jobStatusChangeToInTransitAPI() {
+    // apiCalling(true);
+    provider.changeStatusToInTransit(int.parse(orderId)).then((response) {
+      if (response.getException != null) {
+        ApiExceptionUtils().apiException(
+            error: response.getException,
+            className: className,
+            lineNumber: 111);
+      } else {
+        if (response.data!.statusCode == 200) {
+          CustomSnackBar.showSuccessSnackBar(
+              LocaleKeys.success.tr, "${response.data}",
+              backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
+          fetchJobDetail();
+        } else if (response.data!.statusCode == 400) {
+          CustomSnackBar.showErrorSnackBar(
+            LocaleKeys.success.tr,
+            "${response.data!.message}",
+          );
+        } else {
+          CustomSnackBar.showErrorSnackBar(
+            LocaleKeys.success.tr,
+            LocaleKeys.somethingWentWrong.tr,
+          );
+        }
+      }
+      // apiCalling(false);
+    });
+  }
+
+  void jobStatusChangeToDeliveredAPI() {
+    // apiCalling(true);
+    provider.changeStatusToDelivered(int.parse(orderId)).then((response) {
+      if (response.getException != null) {
+        ApiExceptionUtils().apiException(
+            error: response.getException,
+            className: className,
+            lineNumber: 111);
+      } else {
+        if (response.data!.statusCode == 200) {
+          CustomSnackBar.showSuccessSnackBar(
+              LocaleKeys.success.tr, "${response.data}",
+              backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
+          NavigationUtils().callJobCompletedScreen();
         } else if (response.data!.statusCode == 400) {
           CustomSnackBar.showErrorSnackBar(
             LocaleKeys.success.tr,

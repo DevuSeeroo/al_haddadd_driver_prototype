@@ -21,7 +21,7 @@
   "mobileNoShouldntBeEmpty": "Mobile no. shouldn't be empty",
   "phoneErrorValid": "ادخل رقم هاتف صحيح",
   "verification": "Verification",
-  "jobListing": "Job Listing",
+  "jobs": "Jobs",
   "profile": "حسابي",
   "history": "History",
   "jobId": "Job ID",
@@ -37,7 +37,10 @@
   "mobile": "Mobile",
   "alternateMobile": "Alternate Mobile",
   "startJourney": "Start Journey",
+  "assigned": "Assigned",
+  "picked": "Picked",
   "onTheWay": "On The Way",
+  "inTransit": "In Transit",
   "reached": "Reached",
   "jobCompleted": "Job Completed",
   "orderPickedUp": "Order Picked Up",
@@ -46,5 +49,8 @@
   "continueText": "continue",
   "jobCompletedSuccessfully": "Job Completed Successfully",
   "noItemsFound": "No items found",
-  "search": "Search"
+  "search": "Search",
+  "delivered": "Delivered",
+  "failed": "Failed",
+  "returned": "Returned"
 }

@@ -28,25 +28,25 @@ class HomeBottomNavigationBar extends StatelessWidget {
                     controller.setSelectedIndex(AppConstants.homeIndex);
                   },
                   icon: Icons.home,
-                  isSelected:
-                      controller.selectedIndex.value == AppConstants.homeIndex,
+                  isSelected: controller.homeSelectedIndex.value ==
+                      AppConstants.homeIndex,
                 ),
                 BottomNavItem(
                   onPressed: () {
                     controller.setSelectedIndex(AppConstants.profileIndex);
                   },
                   icon: Icons.person,
-                  isSelected: controller.selectedIndex.value ==
+                  isSelected: controller.homeSelectedIndex.value ==
                       AppConstants.profileIndex,
                 ),
-                BottomNavItem(
-                  onPressed: () {
-                    controller.setSelectedIndex(AppConstants.historyIndex);
-                  },
-                  icon: Icons.refresh,
-                  isSelected: controller.selectedIndex.value ==
-                      AppConstants.historyIndex,
-                ),
+                // BottomNavItem(
+                //   onPressed: () {
+                //     controller.setSelectedIndex(AppConstants.historyIndex);
+                //   },
+                //   icon: Icons.refresh,
+                //   isSelected: controller.homeSelectedIndex.value ==
+                //       AppConstants.historyIndex,
+                // ),
               ],
             );
           })),

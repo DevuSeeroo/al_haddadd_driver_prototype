@@ -21,7 +21,7 @@
   "mobileNoShouldntBeEmpty": "Mobile no. shouldn't be empty",
   "phoneErrorValid": "Enter valid mobile no.",
   "verification": "Verification",
-  "jobListing": "Job Listing",
+  "jobs": "Jobs",
   "profile": "Profile",
   "history": "History",
   "jobId": "Job ID",
@@ -37,7 +37,10 @@
   "mobile": "Mobile",
   "alternateMobile": "Alternate Mobile",
   "startJourney": "Start Journey",
+  "assigned": "Assigned",
+  "picked": "Picked",
   "onTheWay": "On The Way",
+  "inTransit": "In Transit",
   "reached": "Reached",
   "orderPickedUp": "Order Picked Up",
   "jobCompleted": "Job Completed",
@@ -46,5 +49,8 @@
   "continueText": "continue",
   "jobCompletedSuccessfully": "Job Completed Successfully",
   "noItemsFound": "No items found",
-  "search": "Search"
+  "search": "Search",
+  "delivered": "Delivered",
+  "failed": "Failed",
+  "returned": "Returned"
 }

@@ -1,15 +1,18 @@
 class JobListInputParam {
   int? id;
   String? customerName;
+  String? dateChoosed;
   List<int>? orderStatus;
   int? pageNumber;
   int? pageSize;
 
-  JobListInputParam({this.id, this.customerName, this.orderStatus});
+  JobListInputParam(
+      {this.id, this.customerName, this.dateChoosed, this.orderStatus});
 
   JobListInputParam.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     customerName = json['customer_name'];
+    dateChoosed = json['date'];
     orderStatus = json['order_status'];
     pageNumber = json['page_number'];
     pageSize = json['page_size'];
@@ -19,6 +22,7 @@ class JobListInputParam {
     final data = <String, dynamic>{};
     data['id'] = id;
     data['customer_name'] = customerName;
+    data['date'] = dateChoosed;
     data['order_status'] = orderStatus;
     data['page_number'] = pageNumber;
     data['page_size'] = pageSize;

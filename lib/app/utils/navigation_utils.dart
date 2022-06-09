@@ -27,8 +27,9 @@ class NavigationUtils {
         parameters: {AppParamsKey.paramPhone: mobile});
   }
 
-  void callJobDetailScreen({required String id}) {
-    Get.toNamed(Routes.JOB_DETAIL, parameters: {"id": id});
+  Future<bool> callJobDetailScreen({required String id}) async {
+    await Get.toNamed(Routes.JOB_DETAIL, parameters: {"id": id});
+    return true;
   }
 
   void callJobCompletedScreen() {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../generated/locales.g.dart';
-import '../../../../utils/app_color.dart';
+import '../../../../../../generated/locales.g.dart';
+import '../../../../../utils/app_color.dart';
 
 class FirstRowItem extends StatelessWidget {
   const FirstRowItem({

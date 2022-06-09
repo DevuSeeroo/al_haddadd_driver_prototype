@@ -1,3 +1,4 @@
+import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:intl/intl.dart';
 
 class CustomDateUtils {
@@ -51,6 +52,23 @@ class CustomDateUtils {
       return formattedDob;
     } catch (e) {
       print('DateFormat Exception $e');
+      return "";
+    }
+  }
+
+  String convertDateToString(
+      {required DateTime date,
+      required String currentFormat,
+      required String neededFormat}) {
+    String convertedDate;
+    try {
+      convertedDate = DateFormat(neededFormat).format(date);
+      CustomLogger().print("Date converted: $convertedDate",
+          className: "CustomDateUtils", lineNumber: 67);
+      return convertedDate;
+    } catch (e) {
+      CustomLogger()
+          .printError(className: "CustomDateUtils", error: e, lineNumber: 71);
       return "";
     }
   }

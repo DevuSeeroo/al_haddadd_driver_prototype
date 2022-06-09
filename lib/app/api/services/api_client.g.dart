@@ -100,19 +100,21 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<dynamic> getJobListPOST(header, inputParams) async {
+  Future<JobListResponse> getJobListPOST(header, inputParams) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': header};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(inputParams.toJson());
-    final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/api-frontend/AlHaddad/GetOrderDtlsDriver',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<JobListResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(
+                    _dio.options, '/api-frontend/AlHaddad/GetOrderDtlsDriver',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = JobListResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -135,7 +137,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<dynamic> changeStatus(header, orderId) async {
+  Future<dynamic> changeStatusToShippedOrPicked(header, orderId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'orderId': orderId};
     final _headers = <String, dynamic>{r'Authorization': header};
@@ -144,6 +146,55 @@ class _ApiClient implements ApiClient {
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/api-frontend/AlHaddad/ShippedOrPicked',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<dynamic> changeStatusToInTransit(header, orderId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'orderId': orderId};
+    final _headers = <String, dynamic>{r'Authorization': header};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/api-frontend/AlHaddad/InTransit',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<dynamic> changeStatusToDelivered(header, orderId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'orderId': orderId};
+    final _headers = <String, dynamic>{r'Authorization': header};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/api-frontend/AlHaddad/Delivered',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<dynamic> changeStatusToDeliveryFailed(header, model) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': header};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(model.toJson());
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/api-frontend/AlHaddad/DeliveredPending',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

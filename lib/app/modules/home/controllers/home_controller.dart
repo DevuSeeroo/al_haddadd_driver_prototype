@@ -9,7 +9,7 @@ import '../../../utils/app_constants.dart';
 import 'job_list_controller.dart';
 
 class HomeController extends GetxController {
-  final RxInt selectedIndex = AppConstants.homeIndex.obs;
+  final RxInt homeSelectedIndex = AppConstants.homeIndex.obs;
   final RxString toolbarTitle = "".obs;
 
   String className = "HomeController";
@@ -26,12 +26,12 @@ class HomeController extends GetxController {
   @override
   void onClose() {}
   void setSelectedIndex(int index) {
-    selectedIndex(index);
-    if (selectedIndex.value == AppConstants.homeIndex) {
-      toolbarTitle(LocaleKeys.jobListing.tr);
+    homeSelectedIndex(index);
+    if (homeSelectedIndex.value == AppConstants.homeIndex) {
+      toolbarTitle(LocaleKeys.jobs.tr);
       Get.delete<ProfileController>();
       Get.delete<JobHistoryController>();
-    } else if (selectedIndex.value == AppConstants.profileIndex) {
+    } else if (homeSelectedIndex.value == AppConstants.profileIndex) {
       toolbarTitle(LocaleKeys.profile.tr);
       Get.delete<JobListController>();
       Get.delete<JobHistoryController>();
@@ -45,10 +45,10 @@ class HomeController extends GetxController {
   }
 
   Future<bool> onBackPressed() async {
-    if (selectedIndex.value == AppConstants.homeIndex) {
+    if (homeSelectedIndex.value == AppConstants.homeIndex) {
       Utilities().onBackPressed();
     } else {
-      selectedIndex(AppConstants.homeIndex);
+      homeSelectedIndex(AppConstants.homeIndex);
     }
     return false;
   }

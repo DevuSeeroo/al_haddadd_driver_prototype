@@ -4,11 +4,14 @@ class JobDetail {
   String? customOrderNumber;
   String? createdOn;
   String? orderStatus;
+  int? orderStatusId;
   bool? isReOrderAllowed;
   bool? isReturnRequestAllowed;
   bool? isShippable;
   bool? pickupInStore;
   Address? pickupAddress;
+
+  int? shippingStatusId;
   String? shippingStatus;
   Address? shippingAddress;
   dynamic shippingMethod;
@@ -84,6 +87,7 @@ class JobDetail {
     customOrderNumber = json['custom_order_number'];
     createdOn = json['created_on'];
     orderStatus = json['order_status'];
+    orderStatusId = json['order_status_id'];
     isReOrderAllowed = json['is_re_order_allowed'];
     isReturnRequestAllowed = json['is_return_request_allowed'];
     isShippable = json['is_shippable'];
@@ -92,6 +96,7 @@ class JobDetail {
         ? Address?.fromJson(json['pickup_address'])
         : null;
     shippingStatus = json['shipping_status'];
+    shippingStatusId = json['shipping_status_id'];
     shippingAddress = json['shipping_address'] != null
         ? Address?.fromJson(json['shipping_address'])
         : null;

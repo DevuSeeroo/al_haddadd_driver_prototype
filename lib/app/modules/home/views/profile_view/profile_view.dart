@@ -1,11 +1,11 @@
 import 'package:alhaddad_driver/app/modules/home/controllers/profile_controller.dart';
-import 'package:alhaddad_driver/app/modules/home/widgets/profile/menu_card_widget.dart';
+import 'package:alhaddad_driver/app/modules/home/views/profile_view/widgets/menu_card_widget.dart';
 import 'package:alhaddad_driver/app/widgets/views/loaders/custom_loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../widgets/profile/name_widget.dart';
-import '../widgets/profile/profile_toolbar_person_image_widget.dart';
+import 'widgets/name_widget.dart';
+import 'widgets/profile_toolbar_person_image_widget.dart';
 
 class ProfileView extends GetView<ProfileController> {
   ProfileView({Key? key}) : super(key: key);

@@ -5,7 +5,6 @@ import 'package:alhaddad_driver/app/widgets/buttons/solid_button_widget.dart';
 import 'package:alhaddad_driver/app/widgets/toolbar/custom_container_toolbar.dart';
 import 'package:alhaddad_driver/app/widgets/views/loaders/custom_loader_widget.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
-import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,12 +24,12 @@ class JobDetailView extends GetView<JobDetailController> {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Get.find<HomeController>().selectedIndex.value ==
+                  Get.find<HomeController>().homeSelectedIndex.value ==
                               AppConstants.historyIndex ||
-                          (controller.data!.orderStatus ==
-                                  AppConstants.jobNotStarted ||
-                              controller.data!.orderStatus ==
-                                  AppConstants.jobReached)
+                          (controller.dataModel!.orderStatusId ==
+                                  AppConstants.processingStatusId ||
+                              controller.dataModel!.orderStatusId ==
+                                  AppConstants.completedStatusId)
                       ? ToolbarItemsWidget(
                           jobId: "${controller.dataModel!.id}",
                           paymentMethod:
@@ -44,24 +43,18 @@ class JobDetailView extends GetView<JobDetailController> {
                           onPressedLeading: () {
                             Get.back();
                           },
-                          title: controller.data!.orderStatus ==
-                                  AppConstants.jobPickedUp
-                              ? LocaleKeys.orderPickedUp.tr
-                              : controller.data!.orderStatus ==
-                                      AppConstants.jobOnGoing
-                                  ? LocaleKeys.onTheWay.tr
-                                  : "",
-                          isHasTrailing: controller.data!.orderStatus ==
-                                  AppConstants.jobPickedUp ||
-                              controller.data!.orderStatus ==
-                                  AppConstants.jobOnGoing,
+                          title: controller.toolbarTitleText(),
+                          isHasTrailing: controller.dataModel!.orderStatusId ==
+                                  AppConstants.shippedStatusId ||
+                              controller.dataModel!.orderStatusId ==
+                                  AppConstants.inTransitStatusId,
                           isTrailingSvg: true,
                           trailingIcon: Assets.iconsLocation,
                           onPressedTrailing: () {
                             MapUtils.openMap1(52.632247, -8.643179);
                           }),
                   Expanded(child: ContentWidgets(controller: controller)),
-                  if (Get.find<HomeController>().selectedIndex.value ==
+                  if (Get.find<HomeController>().homeSelectedIndex.value ==
                       AppConstants.homeIndex)
                     SolidButton(
                         outerPadding: const EdgeInsets.symmetric(

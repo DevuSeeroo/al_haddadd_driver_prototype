@@ -33,7 +33,7 @@ class LocaleKeys {
   static const mobileNoShouldntBeEmpty = 'mobileNoShouldntBeEmpty';
   static const phoneErrorValid = 'phoneErrorValid';
   static const verification = 'verification';
-  static const jobListing = 'jobListing';
+  static const jobs = 'jobs';
   static const profile = 'profile';
   static const history = 'history';
   static const jobId = 'jobId';
@@ -49,7 +49,10 @@ class LocaleKeys {
   static const mobile = 'mobile';
   static const alternateMobile = 'alternateMobile';
   static const startJourney = 'startJourney';
+  static const assigned = 'assigned';
+  static const picked = 'picked';
   static const onTheWay = 'onTheWay';
+  static const inTransit = 'inTransit';
   static const reached = 'reached';
   static const jobCompleted = 'jobCompleted';
   static const orderPickedUp = 'orderPickedUp';
@@ -59,6 +62,9 @@ class LocaleKeys {
   static const jobCompletedSuccessfully = 'jobCompletedSuccessfully';
   static const noItemsFound = 'noItemsFound';
   static const search = 'search';
+  static const delivered = 'delivered';
+  static const failed = 'failed';
+  static const returned = 'returned';
 }
 
 class Locales {
@@ -85,7 +91,7 @@ class Locales {
     'mobileNoShouldntBeEmpty': 'Mobile no. shouldn\'t be empty',
     'phoneErrorValid': 'ادخل رقم هاتف صحيح',
     'verification': 'Verification',
-    'jobListing': 'Job Listing',
+    'jobs': 'Jobs',
     'profile': 'حسابي',
     'history': 'History',
     'jobId': 'Job ID',
@@ -101,7 +107,10 @@ class Locales {
     'mobile': 'Mobile',
     'alternateMobile': 'Alternate Mobile',
     'startJourney': 'Start Journey',
+    'assigned': 'Assigned',
+    'picked': 'Picked',
     'onTheWay': 'On The Way',
+    'inTransit': 'In Transit',
     'reached': 'Reached',
     'jobCompleted': 'Job Completed',
     'orderPickedUp': 'Order Picked Up',
@@ -111,6 +120,9 @@ class Locales {
     'jobCompletedSuccessfully': 'Job Completed Successfully',
     'noItemsFound': 'No items found',
     'search': 'Search',
+    'delivered': 'Delivered',
+    'failed': 'Failed',
+    'returned': 'Returned',
   };
   static const en_US = {
     'titleAlHaddad': 'Al haddad Driver',
@@ -135,7 +147,7 @@ class Locales {
     'mobileNoShouldntBeEmpty': 'Mobile no. shouldn\'t be empty',
     'phoneErrorValid': 'Enter valid mobile no.',
     'verification': 'Verification',
-    'jobListing': 'Job Listing',
+    'jobs': 'Jobs',
     'profile': 'Profile',
     'history': 'History',
     'jobId': 'Job ID',
@@ -151,7 +163,10 @@ class Locales {
     'mobile': 'Mobile',
     'alternateMobile': 'Alternate Mobile',
     'startJourney': 'Start Journey',
+    'assigned': 'Assigned',
+    'picked': 'Picked',
     'onTheWay': 'On The Way',
+    'inTransit': 'In Transit',
     'reached': 'Reached',
     'orderPickedUp': 'Order Picked Up',
     'jobCompleted': 'Job Completed',
@@ -161,5 +176,8 @@ class Locales {
     'jobCompletedSuccessfully': 'Job Completed Successfully',
     'noItemsFound': 'No items found',
     'search': 'Search',
+    'delivered': 'Delivered',
+    'failed': 'Failed',
+    'returned': 'Returned',
   };
 }

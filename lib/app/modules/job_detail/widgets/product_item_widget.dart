@@ -94,7 +94,7 @@ class ProductImageView extends StatelessWidget {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         child: FadeInImage(
-          image: NetworkImage(productImage ?? ""),
+          image: NetworkImage(productImage),
           width: 150,
           height: 100,
           fit: BoxFit.contain,

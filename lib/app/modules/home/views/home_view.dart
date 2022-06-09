@@ -1,5 +1,5 @@
-import 'package:alhaddad_driver/app/modules/home/views/job_list_view.dart';
-import 'package:alhaddad_driver/app/modules/home/views/profile_view.dart';
+import 'package:alhaddad_driver/app/modules/home/views/job_list_view/job_list_view.dart';
+import 'package:alhaddad_driver/app/modules/home/views/profile_view/profile_view.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/widgets/views/empty_view.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';
@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
 import '../widgets/bottom_navigation_bar.dart';
-import 'job_history_view.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -27,12 +26,11 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget buildHomeContentView() {
-    if (controller.selectedIndex.value == AppConstants.homeIndex) {
+    if (controller.homeSelectedIndex.value == AppConstants.homeIndex) {
       return JobListView();
-    } else if (controller.selectedIndex.value == AppConstants.profileIndex) {
+    } else if (controller.homeSelectedIndex.value ==
+        AppConstants.profileIndex) {
       return ProfileView();
-    } else if (controller.selectedIndex.value == AppConstants.historyIndex) {
-      return JobHistoryView();
     } else {
       return EmptyView(
           subTitle: LocaleKeys.somethingWentWrong.tr,

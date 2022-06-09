@@ -11,6 +11,8 @@ import '../api/error_handler/server_error.dart';
 import 'snackbar_utils.dart';
 
 class ApiExceptionUtils {
+  /// Function added to show snack bar with part of the error and print the
+  /// full error in log to from where the error occurred
   void apiException(
       {required ServerError error,
       required String className,

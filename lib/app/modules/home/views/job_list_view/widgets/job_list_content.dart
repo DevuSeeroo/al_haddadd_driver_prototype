@@ -19,13 +19,11 @@ class JobListContent extends StatelessWidget {
     required this.jobList,
     this.isShowSearch = false,
     this.onSearchTextChanged,
-    this.isHistoryList = false,
     required this.controller,
   }) : super(key: key);
 
   final List<JobList> jobList;
   final bool isShowSearch;
-  final bool isHistoryList;
   final Function(String)? onSearchTextChanged;
   final JobListController controller;
   @override
@@ -51,9 +49,7 @@ class JobListContent extends StatelessWidget {
                       onSearchTextChanged: onSearchTextChanged,
                       controller: controller),
                 JobListOrEmptyView(
-                    jobList: jobList,
-                    isHistoryList: isHistoryList,
-                    isShowSearch: isShowSearch),
+                    jobList: jobList, isShowSearch: isShowSearch),
               ],
             ),
           ),
@@ -67,12 +63,10 @@ class JobListOrEmptyView extends StatelessWidget {
   const JobListOrEmptyView({
     Key? key,
     required this.jobList,
-    required this.isHistoryList,
     required this.isShowSearch,
   }) : super(key: key);
 
   final List<JobList> jobList;
-  final bool isHistoryList;
   final bool isShowSearch;
 
   @override
@@ -86,7 +80,6 @@ class JobListOrEmptyView extends StatelessWidget {
                 JobList jobItem = jobList[index];
                 return JobListItemWidget(
                   jobItem: jobItem,
-                  isHistoryList: isHistoryList,
                 );
               },
               separatorBuilder: (BuildContext context, int index) {

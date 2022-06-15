@@ -1,4 +1,3 @@
-import 'package:alhaddad_driver/app/modules/home/controllers/job_history_controller.dart';
 import 'package:alhaddad_driver/app/modules/home/controllers/job_list_controller.dart';
 import 'package:alhaddad_driver/app/modules/home/models/job_list_model.dart';
 import 'package:alhaddad_driver/app/utils/app_color.dart';
@@ -16,11 +15,9 @@ class JobListItemWidget extends StatelessWidget {
   const JobListItemWidget({
     Key? key,
     required this.jobItem,
-    required this.isHistoryList,
   }) : super(key: key);
 
   final JobList jobItem;
-  final bool isHistoryList;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +27,8 @@ class JobListItemWidget extends StatelessWidget {
             .callJobDetailScreen(id: jobItem.id.toString())
             .then((value) {
           CustomLogger().print("callback invoked", lineNumber: 28);
-          if (isHistoryList) {
-            Get.find<JobHistoryController>().fetchJobListAPI();
-          } else {
-            Get.find<JobListController>().fetchJobListAPI();
-          }
+
+          Get.find<JobListController>().fetchJobListAPI();
         });
       },
       child: Card(

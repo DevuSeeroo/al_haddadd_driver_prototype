@@ -1,4 +1,3 @@
-import 'package:alhaddad_driver/app/modules/home/controllers/job_history_controller.dart';
 import 'package:alhaddad_driver/app/modules/home/controllers/profile_controller.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/utils/utilities.dart';
@@ -30,11 +29,9 @@ class HomeController extends GetxController {
     if (homeSelectedIndex.value == AppConstants.homeIndex) {
       toolbarTitle(LocaleKeys.jobs.tr);
       Get.delete<ProfileController>();
-      Get.delete<JobHistoryController>();
     } else if (homeSelectedIndex.value == AppConstants.profileIndex) {
       toolbarTitle(LocaleKeys.profile.tr);
       Get.delete<JobListController>();
-      Get.delete<JobHistoryController>();
     } else {
       toolbarTitle(LocaleKeys.history.tr);
       Get.delete<JobListController>();

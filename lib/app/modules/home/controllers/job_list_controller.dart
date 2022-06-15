@@ -14,6 +14,7 @@ import '../models/job_list_model.dart';
 
 class JobListController extends GetxController {
   final isLoading = true.obs;
+  final isLoadingMore = true.obs;
 
   final String className = "JobListController";
   RxList<JobList> jobList = <JobList>[].obs;
@@ -27,11 +28,43 @@ class JobListController extends GetxController {
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
 
+  int pageNumber = 1;
+  int perPageCount = 1;
+  int totalPages = 1;
+
   @override
   void onInit() {
     CustomLogger().print('onInit', className: className, lineNumber: 28);
     super.onInit();
     fetchJobListAPI();
+  }
+
+  bool onScrollNotification(ScrollNotification scrollInfo) {
+    if (!isLoadingMore.value &&
+        scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+        pageNumber <= totalPages) {
+      pageNumber = pageNumber + 1;
+      if (pageNumber <= totalPages) {
+        isLoadingMore.value = true;
+        pageNumber = pageNumber;
+        fetchJobListAPI();
+        CustomLogger().print(
+            '_pagination- page $pageNumber total page $totalPages',
+            lineNumber: 53);
+        CustomLogger().print('_pageNumber $pageNumber', lineNumber: 54);
+      } else {
+        CustomLogger().print('_pagination- no more pages', lineNumber: 56);
+        isLoading.value = false;
+        isLoadingMore.value = false;
+      }
+    }
+    return false;
+  }
+
+  resetPagination() {
+    pageNumber = 1;
+    perPageCount = 1;
+    jobList.clear();
   }
 
   void createOrderStatusListBasedOnIndex() {
@@ -89,11 +122,12 @@ class JobListController extends GetxController {
     actualOrderStatuses.addAll(tempOrderStatuses);
     tempOrderStatusIDs.clear();
     tempOrderStatuses.clear();
+    resetPagination();
+    isLoading(true);
     fetchJobListAPI();
   }
 
   void fetchJobListAPI() {
-    isLoading(true);
     createOrderStatusListBasedOnIndex();
     orderStatusIds();
     JobListProvider()
@@ -111,25 +145,31 @@ class JobListController extends GetxController {
                     currentFormat: "",
                     neededFormat: "dd/MM/yyyy")
                 : null,
-            orderStatus: orderStatusIDs))
+            orderStatus: orderStatusIDs,
+            pageSize: perPageCount,
+            pageNumber: pageNumber))
         .then((value) {
       if (value.getException != null) {
         ApiExceptionUtils().apiException(
-            error: value.getException, className: className, lineNumber: 70);
+            error: value.getException, className: className, lineNumber: 156);
       } else {
-        jobList.value = value.data != null ? value.data!.jobList ?? [] : [];
+        totalPages = value.data!.totalPages ?? 1;
+        jobList.addAll(value.data != null ? value.data!.jobList ?? [] : []);
         try {
-          CustomLogger().print(jsonEncode(jobList), lineNumber: 74);
+          CustomLogger().print(jsonEncode(jobList), lineNumber: 159);
         } catch (e) {
           jobList.value = [];
         }
       }
+      isLoadingMore(false);
       isLoading(false);
     });
   }
 
   setJobSelectedIndex(int index) {
     jobSelectedIndex(index);
+    resetPagination();
+    isLoading(true);
     fetchJobListAPI();
   }
 

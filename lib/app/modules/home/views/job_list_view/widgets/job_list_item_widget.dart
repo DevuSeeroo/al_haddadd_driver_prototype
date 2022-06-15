@@ -26,7 +26,7 @@ class JobListItemWidget extends StatelessWidget {
         NavigationUtils()
             .callJobDetailScreen(id: jobItem.id.toString())
             .then((value) {
-          CustomLogger().print("callback invoked", lineNumber: 28);
+          CustomLogger().print("callback invoked", lineNumber: 29);
 
           Get.find<JobListController>().fetchJobListAPI();
         });

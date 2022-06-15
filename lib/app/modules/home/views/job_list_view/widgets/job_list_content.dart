@@ -49,7 +49,10 @@ class JobListContent extends StatelessWidget {
                       onSearchTextChanged: onSearchTextChanged,
                       controller: controller),
                 JobListOrEmptyView(
-                    jobList: jobList, isShowSearch: isShowSearch),
+                  jobList: jobList,
+                  isShowSearch: isShowSearch,
+                  controller: controller,
+                ),
               ],
             ),
           ),
@@ -64,31 +67,58 @@ class JobListOrEmptyView extends StatelessWidget {
     Key? key,
     required this.jobList,
     required this.isShowSearch,
+    required this.controller,
   }) : super(key: key);
 
   final List<JobList> jobList;
   final bool isShowSearch;
+  final JobListController controller;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: Obx(
       () => jobList.isNotEmpty
-          ? ListView.separated(
-              itemCount: jobList.length,
-              itemBuilder: (context, index) {
-                JobList jobItem = jobList[index];
-                return JobListItemWidget(
-                  jobItem: jobItem,
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(height: 10);
-              },
+          ? NotificationListener<ScrollNotification>(
+              onNotification: controller.onScrollNotification,
+              child: ListView.separated(
+                itemCount: jobList.length,
+                itemBuilder: (context, index) {
+                  JobList jobItem = jobList[index];
+                  return Column(
+                    children: [
+                      JobListItemWidget(
+                        jobItem: jobItem,
+                      ),
+                      Obx(() => controller.isLoadingMore.value
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: paginationProgress(height: 20, width: 20),
+                            )
+                          : Container())
+                    ],
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(height: 10);
+                },
+              ),
             )
           : EmptyView(
               subTitle: LocaleKeys.noItemsFound.tr,
               title: isShowSearch ? LocaleKeys.search.tr : LocaleKeys.sorry.tr),
     ));
+  }
+
+  paginationProgress({double? height, double? width}) {
+    return Center(
+      child: SizedBox(
+        height: height ?? 30,
+        width: width ?? 30,
+        child: const CircularProgressIndicator(
+          strokeWidth: 2.0,
+        ),
+      ),
+    );
   }
 }

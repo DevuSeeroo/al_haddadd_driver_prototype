@@ -7,7 +7,12 @@ class JobListInputParam {
   int? pageSize;
 
   JobListInputParam(
-      {this.toDate, this.searchKey, this.fromDate, this.orderStatus});
+      {this.toDate,
+      this.searchKey,
+      this.fromDate,
+      this.orderStatus,
+      this.pageNumber,
+      this.pageSize});
 
   JobListInputParam.fromJson(Map<String, dynamic> json) {
     toDate = json['delivery_date_assigned_to'];
@@ -30,8 +35,6 @@ class JobListInputParam {
     }
     data['page_number'] = pageNumber;
     data['page_size'] = pageSize;
-    data['page_number'] = 1;
-    data['page_size'] = 5;
     return data;
   }
 }

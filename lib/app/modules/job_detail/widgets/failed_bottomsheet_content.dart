@@ -61,7 +61,7 @@ class FailedBottomSheetContent extends StatelessWidget {
                             hintText: LocaleKeys.reason.tr,
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.only(
-                                left: 10, right: 10, top: 2, bottom: 10),
+                                left: 10, right: 10, top: 5, bottom: 10),
                             // contentPadding: EdgeInsets.zero,
                           ),
                           controller: controller.reasonTextEditingController,

@@ -145,7 +145,8 @@ class JobListController extends GetxController {
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {
       orderStatusIDs = [
         AppConstants.shippedStatusId,
-        AppConstants.inTransitStatusId
+        AppConstants.inTransitStatusId,
+        AppConstants.deliveryFailedStatusId,
       ];
     }
     tempOrderStatusIDs.clear();

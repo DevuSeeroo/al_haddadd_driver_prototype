@@ -185,16 +185,18 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<dynamic> changeStatusToDeliveryFailed(header, model) async {
+  Future<dynamic> changeStatusToDeliveryFailed(header, orderId, reason) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'orderId': orderId,
+      r'deliveryFailedReason': reason
+    };
     final _headers = <String, dynamic>{r'Authorization': header};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    _data.addAll(model.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/api-frontend/AlHaddad/DeliveredPending',
+            .compose(_dio.options, '/api-frontend/AlHaddad/DeliveryFailed',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

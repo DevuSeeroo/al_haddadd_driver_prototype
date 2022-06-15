@@ -176,7 +176,7 @@ class JobDetailProvider extends GetConnect {
     JobStatusChangeModel response;
     try {
       dynamic res = await client.changeStatusToDeliveryFailed(
-          appStorageKeys.readUserToken(), model);
+          appStorageKeys.readUserToken(), model.orderId!, model.reason ?? "");
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);

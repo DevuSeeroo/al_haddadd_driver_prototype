@@ -2,7 +2,6 @@ import 'package:alhaddad_driver/app/modules/home/models/job_list_input_param_mod
 import 'package:alhaddad_driver/app/modules/home/models/job_list_model.dart';
 import 'package:alhaddad_driver/app/modules/home/models/view_profile_response.dart';
 import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
-import 'package:alhaddad_driver/app/modules/job_detail/models/job_failed_input_model.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_params.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_response.dart';
 import 'package:alhaddad_driver/app/modules/verification/models/verify_otp_params.dart';
@@ -73,10 +72,11 @@ abstract class ApiClient {
   Future<dynamic> changeStatusToDelivered(
       @Header("Authorization") String header, @Query("orderId") int orderId);
 
-  @POST("/api-frontend/AlHaddad/DeliveredPending")
+  @POST("/api-frontend/AlHaddad/DeliveryFailed")
   Future<dynamic> changeStatusToDeliveryFailed(
       @Header("Authorization") String header,
-      @Body() JobFailedInputModel model);
+      @Query('orderId') int orderId,
+      @Query('deliveryFailedReason') String reason);
 
   @POST("/api-frontend/AlHaddad/PackageReturned")
   Future<dynamic> changeStatusToPackageReturned(

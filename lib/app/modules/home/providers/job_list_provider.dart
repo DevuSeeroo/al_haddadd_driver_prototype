@@ -36,7 +36,7 @@ class JobListProvider extends GetConnect {
       list.add(OrderStatusModel(0, 'All', false.obs));
       list.add(OrderStatusModel(
           AppConstants.completedStatusId, LocaleKeys.delivered.tr, false.obs));
-      list.add(OrderStatusModel(AppConstants.deliveryPendingStatusId,
+      list.add(OrderStatusModel(AppConstants.deliveryFailedStatusId,
           LocaleKeys.failed.tr, false.obs));
     }
     return list;

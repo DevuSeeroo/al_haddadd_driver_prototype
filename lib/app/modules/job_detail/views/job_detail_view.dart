@@ -92,8 +92,17 @@ class JobDetailView extends GetView<JobDetailController> {
                           ),
                         Expanded(
                           child: SolidButton(
-                              outerPadding: const EdgeInsetsDirectional.only(
-                                  top: 10, bottom: 10, start: 5, end: 20),
+                              outerPadding: EdgeInsetsDirectional.only(
+                                  top: 10,
+                                  bottom: 10,
+                                  start: (controller.dataModel!.orderStatusId ==
+                                              AppConstants.shippedStatusId &&
+                                          controller.dataModel!
+                                                  .shippingStatusId ==
+                                              AppConstants.inTransitStatusId)
+                                      ? 5
+                                      : 20,
+                                  end: 20),
                               title: controller.buttonTitleText(),
                               onPressed: () {
                                 controller.buttonPressed();

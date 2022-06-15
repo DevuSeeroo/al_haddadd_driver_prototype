@@ -24,10 +24,20 @@ class LoginMobileNumberWidget extends StatelessWidget {
       maxLength: Config.minMaxNumLength,
       textColor: Colors.white,
       initialValue: controller.mobile,
-      prefix: const Icon(
-        Icons.phone,
-        color: AppColor.hintTextColor,
-        size: 16,
+      // prefix: const Icon(
+      //   Icons.phone,
+      //   color: AppColor.hintTextColor,
+      //   size: 16,
+      // ),
+      prefix: Wrap(
+        alignment: WrapAlignment.center,
+        children: const [
+          Text("+966",
+              style: TextStyle(
+                color: AppColor.hintTextColor,
+                fontSize: 14,
+              ))
+        ],
       ),
       hint: LocaleKeys.mobileNo.tr,
       onChanged: (value) {

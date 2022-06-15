@@ -41,7 +41,9 @@ class LoginController extends GetxController {
 
   void sendOtpMethod() {
     apiCalling(true);
-    provider.sendOtpResponse(params: SendOtpParams(mobile)).then((response) {
+    provider
+        .sendOtpResponse(params: SendOtpParams('+966$mobile'))
+        .then((response) {
       if (response.getException != null) {
         ApiExceptionUtils().apiException(
             error: response.getException, className: className, lineNumber: 47);

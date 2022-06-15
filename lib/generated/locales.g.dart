@@ -64,7 +64,17 @@ class LocaleKeys {
   static const search = 'search';
   static const delivered = 'delivered';
   static const failed = 'failed';
+  static const deliveryFailed = 'deliveryFailed';
   static const returned = 'returned';
+  static const apply = 'apply';
+  static const choose_status = 'choose_status';
+  static const choose_date = 'choose_date';
+  static const from_date = 'from_date';
+  static const to_date = 'to_date';
+  static const submit = 'submit';
+  static const reason = 'reason';
+  static const youMustEnterAReasonForFailedDelivery =
+      'youMustEnterAReasonForFailedDelivery';
 }
 
 class Locales {
@@ -122,7 +132,17 @@ class Locales {
     'search': 'Search',
     'delivered': 'Delivered',
     'failed': 'Failed',
+    'deliveryFailed': 'Delivery Failed',
     'returned': 'Returned',
+    'apply': 'Apply',
+    'choose_status': 'Choose Status',
+    'choose_date': 'Choose Date',
+    'from_date': 'From Date',
+    'to_date': 'To Date',
+    'submit': 'Submit',
+    'reason': 'Reason',
+    'youMustEnterAReasonForFailedDelivery':
+        'You must enter a reason for failed delivery',
   };
   static const en_US = {
     'titleAlHaddad': 'Al haddad Driver',
@@ -178,6 +198,16 @@ class Locales {
     'search': 'Search',
     'delivered': 'Delivered',
     'failed': 'Failed',
+    'deliveryFailed': 'Delivery Failed',
     'returned': 'Returned',
+    'apply': 'Apply',
+    'choose_status': 'Choose Status',
+    'choose_date': 'Choose Date',
+    'from_date': 'From Date',
+    'to_date': 'To Date',
+    'submit': 'Submit',
+    'reason': 'Reason',
+    'youMustEnterAReasonForFailedDelivery':
+        'You must enter a reason for failed delivery',
   };
 }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:alhaddad_driver/app/modules/home/models/job_list_input_param_model.dart';
@@ -26,24 +25,14 @@ class JobHistoryController extends GetxController {
     orderStatusIDs.add(AppConstants.completedStatusId);
   }
 
-  void fetchJobList() {
-    JobListProvider().getJobList(1).then((value) {
-      // Timer(
-      //     const Duration(seconds: 3),
-      //         () => {});
-      Timer(const Duration(seconds: 2), () {
-        CustomLogger().print(jsonEncode(value), lineNumber: 35);
-        actualJobList = value!.jobList ?? [];
-        jobList.addAll(actualJobList);
-        isLoading(false);
-      });
-    });
-  }
-
   void fetchJobListAPI() {
     JobListProvider()
         .getJobListFromAPI(JobListInputParam(
-            id: null, customerName: null, orderStatus: orderStatusIDs))
+      toDate: null,
+      fromDate: null,
+      searchKey: null,
+      orderStatus: orderStatusIDs,
+    ))
         .then((value) {
       if (value.getException != null) {
         ApiExceptionUtils().apiException(
@@ -63,7 +52,7 @@ class JobHistoryController extends GetxController {
     if (value.isNotEmpty) {
       List<JobList> updatedList = [];
       for (var element in actualJobList) {
-        if ((element.customOrderNumber ?? "").contains(value)) {
+        if ((element.orderDetail!.customOrderNumber ?? "").contains(value)) {
           updatedList.add(element);
         }
       }

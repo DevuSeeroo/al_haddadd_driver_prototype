@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:alhaddad_driver/app/modules/home/models/job_list_input_param_model.dart';
@@ -20,8 +19,11 @@ class JobListController extends GetxController {
   RxList<JobList> jobList = <JobList>[].obs;
   final RxInt jobSelectedIndex = AppConstants.jobAssignedIndex.obs;
   List<int> orderStatusIDs = [];
-  DateTime choosedDate = DateTime.now();
+  List<int> tempOrderStatusIDs = [];
+  DateTime? choosedFromDate;
+  DateTime? choosedToDate;
   List<OrderStatusModel> actualOrderStatuses = [];
+  List<OrderStatusModel> tempOrderStatuses = [];
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
 
@@ -32,19 +34,6 @@ class JobListController extends GetxController {
     fetchJobListAPI();
   }
 
-  void fetchJobList() {
-    JobListProvider().getJobList(1).then((value) {
-      // Timer(
-      //     const Duration(seconds: 3),
-      //         () => {});
-      Timer(const Duration(seconds: 2), () {
-        CustomLogger().print(jsonEncode(value), lineNumber: 39);
-        jobList.value = value!.jobList ?? [];
-        isLoading(false);
-      });
-    });
-  }
-
   void createOrderStatusListBasedOnIndex() {
     actualOrderStatuses = JobListProvider()
         .createOrderStatusListBasedOnIndex(jobSelectedIndex.value);
@@ -52,26 +41,28 @@ class JobListController extends GetxController {
         "OrderStatusListBasedOnIndex: ${jsonEncode(actualOrderStatuses)}",
         className: className,
         lineNumber: 52);
+    tempOrderStatuses.clear();
+    tempOrderStatuses.addAll(actualOrderStatuses);
   }
 
   void orderStatusSelected(OrderStatusModel model) {
-    int index = actualOrderStatuses.indexOf(model);
+    int index = tempOrderStatuses.indexOf(model);
     print('$index');
-    for (int i = 0; i < actualOrderStatuses.length; i++) {
+    for (int i = 0; i < tempOrderStatuses.length; i++) {
       if (index == i) {
-        actualOrderStatuses[i].isSelected(true);
+        tempOrderStatuses[i].isSelected(true);
       } else {
-        actualOrderStatuses[i].isSelected(false);
+        tempOrderStatuses[i].isSelected(false);
       }
     }
-    orderStatusIDs.clear();
+    tempOrderStatusIDs.clear();
     if (model.orderStatusId == 0) {
-      orderStatusIDs = [
+      tempOrderStatusIDs = [
         AppConstants.cancelledStatusId,
         AppConstants.completedStatusId
       ];
     } else {
-      orderStatusIDs.add(model.orderStatusId ?? 0);
+      tempOrderStatusIDs.add(model.orderStatusId ?? 0);
     }
 
     // int? indexToDelete;
@@ -88,7 +79,17 @@ class JobListController extends GetxController {
     // } else {
     //   orderStatusIDs.add(actualOrderStatuses[index].orderStatusId ?? 0);
     // }
-    CustomLogger().print("OrderStatusIds: $orderStatusIDs", lineNumber: 70);
+    CustomLogger().print("OrderStatusIds: $tempOrderStatusIDs", lineNumber: 70);
+  }
+
+  void applyClicked() {
+    orderStatusIDs.clear();
+    orderStatusIDs.addAll(tempOrderStatusIDs);
+    actualOrderStatuses.clear();
+    actualOrderStatuses.addAll(tempOrderStatuses);
+    tempOrderStatusIDs.clear();
+    tempOrderStatuses.clear();
+    fetchJobListAPI();
   }
 
   void fetchJobListAPI() {
@@ -97,12 +98,19 @@ class JobListController extends GetxController {
     orderStatusIds();
     JobListProvider()
         .getJobListFromAPI(JobListInputParam(
-            id: null,
-            customerName: null,
-            dateChoosed: CustomDateUtils().convertDateToString(
-                date: choosedDate,
-                currentFormat: "",
-                neededFormat: "dd/MM/yyyy"),
+            toDate: choosedToDate != null
+                ? CustomDateUtils().convertDateToString(
+                    date: choosedToDate!,
+                    currentFormat: "",
+                    neededFormat: "dd/MM/yyyy")
+                : null,
+            searchKey: null,
+            fromDate: choosedFromDate != null
+                ? CustomDateUtils().convertDateToString(
+                    date: choosedFromDate!,
+                    currentFormat: "",
+                    neededFormat: "dd/MM/yyyy")
+                : null,
             orderStatus: orderStatusIDs))
         .then((value) {
       if (value.getException != null) {
@@ -126,6 +134,7 @@ class JobListController extends GetxController {
   }
 
   orderStatusIds() {
+    CustomLogger().print("OrderStatusIDs: $orderStatusIDs", lineNumber: 138);
     if (jobSelectedIndex.value == AppConstants.jobHistoryIndex) {
       orderStatusIDs = [
         AppConstants.cancelledStatusId,
@@ -134,9 +143,15 @@ class JobListController extends GetxController {
     } else if (jobSelectedIndex.value == AppConstants.jobAssignedIndex) {
       orderStatusIDs = [AppConstants.processingStatusId];
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {
-      orderStatusIDs = [AppConstants.shippedStatusId];
+      orderStatusIDs = [
+        AppConstants.shippedStatusId,
+        AppConstants.inTransitStatusId
+      ];
     }
-    orderStatusIDs = [];
+    tempOrderStatusIDs.clear();
+    CustomLogger().print("OrderStatusIDs: $orderStatusIDs after clearing temp",
+        lineNumber: 151);
+    tempOrderStatusIDs.addAll(orderStatusIDs);
   }
 
   void datePickerFunction(BuildContext context,
@@ -145,7 +160,9 @@ class JobListController extends GetxController {
             locale: const Locale('en', 'IN'),
             fieldHintText: "dd/MM/yyyy",
             context: context,
-            initialDate: choosedDate,
+            initialDate: whetherFromDate
+                ? choosedFromDate ?? DateTime.now()
+                : choosedToDate ?? DateTime.now(),
             //which date will display when user open the picker
             firstDate: DateTime(2022),
             //what will be the previous supported year in picker
@@ -162,13 +179,19 @@ class JobListController extends GetxController {
       }
       CustomLogger().print("user selected date: $pickedDate",
           className: className, lineNumber: 120);
-      choosedDate = pickedDate;
+      choosedFromDate = pickedDate;
       if (whetherFromDate) {
         fromDateController.text = CustomDateUtils().convertDateToString(
-            date: choosedDate, currentFormat: "", neededFormat: "dd/MM/yyyy");
+            date: choosedFromDate ?? DateTime.now(),
+            currentFormat: "",
+            neededFormat: "dd/MM/y"
+                "yyy");
       } else {
         toDateController.text = CustomDateUtils().convertDateToString(
-            date: choosedDate, currentFormat: "", neededFormat: "dd/MM/yyyy");
+            date: choosedToDate ?? DateTime.now(),
+            currentFormat: "",
+            neededFormat: "dd/MM/yyy"
+                "y");
       }
       // fetchJobListAPI();
     });

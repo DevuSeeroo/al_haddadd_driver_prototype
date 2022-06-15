@@ -77,4 +77,8 @@ abstract class ApiClient {
   Future<dynamic> changeStatusToDeliveryFailed(
       @Header("Authorization") String header,
       @Body() JobFailedInputModel model);
+
+  @POST("/api-frontend/AlHaddad/PackageReturned")
+  Future<dynamic> changeStatusToPackageReturned(
+      @Header("Authorization") String header, @Query("orderId") int orderId);
 }

@@ -39,6 +39,21 @@ class Utilities {
     appStorageKeys.writeUserFullName(userEmail);
   }
 
+  int get lineNumber {
+    // Frame #1 is our caller.
+    //
+    // Example line to parse:
+    // #1      someFunction (package:somePackage/someFile.dart:123:45)
+    final re =
+        RegExp(r'^#1[ \t]+.+:(?<line>[0-9]+):[0-9]+\)$', multiLine: true);
+    final match = re.firstMatch(StackTrace.current.toString());
+    if ((match == null)) {
+      return -1;
+    } else {
+      return int.parse(match.namedGroup('line') ?? "0");
+    }
+  }
+
   launchPhoneURL(String phoneNumber) async {
     String url = 'tel:' + phoneNumber;
     if (await canLaunchUrlString(url)) {

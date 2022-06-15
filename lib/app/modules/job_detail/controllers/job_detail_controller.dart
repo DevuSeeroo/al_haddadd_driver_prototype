@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
+import 'package:alhaddad_driver/app/modules/job_detail/models/job_failed_input_model.dart';
 import 'package:alhaddad_driver/app/modules/job_detail/providers/job_detail_provider.dart';
 import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
 import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_params_key.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
+import 'package:alhaddad_driver/app/utils/custom_trace.dart';
 import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
 import 'package:alhaddad_driver/app/utils/snackbar_utils.dart';
 import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_content/title_subtitle_bottomsheet_content.dart';
@@ -25,6 +27,8 @@ class JobDetailController extends GetxController {
   RxBool isLoading = true.obs;
   String className = "JobDetailController";
   JobDetailProvider provider = JobDetailProvider();
+
+  TextEditingController reasonTextEditingController = TextEditingController();
 
   @override
   void onInit() {
@@ -129,9 +133,20 @@ class JobDetailController extends GetxController {
     }
   }
 
-  void jobStatusChangeToShippedOrPickedAPI() {
-    // apiCalling(true);
-    provider.changeStatusToShippedOrPicked(int.parse(orderId)).then((response) {
+  void deliveryFailedButtonPressed() {
+    CustomLogger().print("Delivery failed pressed",
+        className: CustomTrace(trace: StackTrace.current).data,
+        lineNumber: 140);
+    if (reasonTextEditingController.text.trim().isEmpty) {
+      CustomSnackBar.showErrorSnackBar(LocaleKeys.error.tr,
+          LocaleKeys.youMustEnterAReasonForFailedDelivery.tr);
+      return;
+    }
+    provider
+        .changeStatusToDeliveryFailed(JobFailedInputModel(
+            orderId: int.parse(orderId),
+            reason: reasonTextEditingController.text))
+        .then((response) {
       if (response.getException != null) {
         ApiExceptionUtils().apiException(
             error: response.getException,
@@ -140,7 +155,36 @@ class JobDetailController extends GetxController {
       } else {
         if (response.data!.statusCode == 200) {
           CustomSnackBar.showSuccessSnackBar(
-              LocaleKeys.success.tr, "${response.data}",
+              LocaleKeys.success.tr, "${response.data!.message}",
+              backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
+          fetchJobDetail();
+        } else if (response.data!.statusCode == 400) {
+          CustomSnackBar.showErrorSnackBar(
+            LocaleKeys.success.tr,
+            "${response.data!.message}",
+          );
+        } else {
+          CustomSnackBar.showErrorSnackBar(
+            LocaleKeys.success.tr,
+            LocaleKeys.somethingWentWrong.tr,
+          );
+        }
+      }
+    });
+  }
+
+  void jobStatusChangeToShippedOrPickedAPI() {
+    // apiCalling(true);
+    provider.changeStatusToShippedOrPicked(int.parse(orderId)).then((response) {
+      if (response.getException != null) {
+        ApiExceptionUtils().apiException(
+            error: response.getException,
+            className: className,
+            lineNumber: 171);
+      } else {
+        if (response.data!.statusCode == 200) {
+          CustomSnackBar.showSuccessSnackBar(
+              LocaleKeys.success.tr, "${response.data!.message}",
               backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
           fetchJobDetail();
         } else if (response.data!.statusCode == 400) {
@@ -166,11 +210,11 @@ class JobDetailController extends GetxController {
         ApiExceptionUtils().apiException(
             error: response.getException,
             className: className,
-            lineNumber: 111);
+            lineNumber: 201);
       } else {
         if (response.data!.statusCode == 200) {
           CustomSnackBar.showSuccessSnackBar(
-              LocaleKeys.success.tr, "${response.data}",
+              LocaleKeys.success.tr, "${response.data!.message}",
               backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
           fetchJobDetail();
         } else if (response.data!.statusCode == 400) {
@@ -196,11 +240,11 @@ class JobDetailController extends GetxController {
         ApiExceptionUtils().apiException(
             error: response.getException,
             className: className,
-            lineNumber: 111);
+            lineNumber: 231);
       } else {
         if (response.data!.statusCode == 200) {
           CustomSnackBar.showSuccessSnackBar(
-              LocaleKeys.success.tr, "${response.data}",
+              LocaleKeys.success.tr, "${response.data!.message}",
               backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
           NavigationUtils().callJobCompletedScreen();
         } else if (response.data!.statusCode == 400) {

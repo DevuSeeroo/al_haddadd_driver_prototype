@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomBottomSheet {
-  static void showCustomBottomSheet(Widget child) {
+  static void showCustomBottomSheet(Widget child,
+      {bool isDismissible = false}) {
     Get.bottomSheet(child,
         backgroundColor: Colors.white,
-        isDismissible: false,
+        isDismissible: isDismissible,
+        enableDrag: isDismissible,
+        isScrollControlled: true,
         elevation: 10.0,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
@@ -31,6 +34,7 @@ class CustomBottomSheet {
         ),
       ),
       isDismissible: isDismissible,
+      isScrollControlled: true,
       enableDrag: enableDrag,
       elevation: 10.0,
     );

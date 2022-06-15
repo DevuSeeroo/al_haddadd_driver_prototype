@@ -52,5 +52,15 @@
   "search": "Search",
   "delivered": "Delivered",
   "failed": "Failed",
-  "returned": "Returned"
+  "deliveryFailed": "Delivery Failed",
+  "returned": "Returned",
+  "apply": "Apply",
+  "choose_status": "Choose Status",
+  "choose_date": "Choose Date",
+  "from_date": "From Date",
+  "to_date": "To Date",
+  "submit": "Submit",
+  "reason": "Reason",
+  "youMustEnterAReasonForFailedDelivery": "You must enter a reason for failed delivery"
+
 }

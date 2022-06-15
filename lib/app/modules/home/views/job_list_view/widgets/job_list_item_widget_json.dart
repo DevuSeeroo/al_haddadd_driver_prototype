@@ -31,19 +31,22 @@ class JobListItemWidgetJson extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DotWidget(color: AppColor().getJobBasedColor(jobItem.jobStatus!)),
+              DotWidget(
+                  color: AppColor()
+                      .getJobBasedColor(jobItem.orderDetail!.jobStatus!)),
               const SizedBox(width: 20),
               FirstRowItem(
-                jobId: jobItem.jobId ?? "",
-                name: jobItem.name ?? "",
-                address: jobItem.phoneNumber ?? "",
+                jobId: jobItem.orderDetail!.jobId ?? "",
+                name: jobItem.orderDetail!.name ?? "",
+                address: jobItem.orderDetail!.phoneNumber ?? "",
               ),
               const SizedBox(width: 10),
               SecondRowItem(
-                statusColor: AppColor().getJobBasedColor(jobItem.jobStatus!),
-                statusMessage: jobItem.jobMessage ?? "",
-                time: jobItem.time ?? "",
-                date: jobItem.date ?? "",
+                statusColor: AppColor()
+                    .getJobBasedColor(jobItem.orderDetail!.jobStatus!),
+                statusMessage: jobItem.orderDetail!.jobMessage ?? "",
+                time: jobItem.orderDetail!.time ?? "",
+                date: jobItem.orderDetail!.date ?? "",
               ),
             ],
           ),

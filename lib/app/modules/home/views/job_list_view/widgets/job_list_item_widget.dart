@@ -48,7 +48,8 @@ class JobListItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DotWidget(
-                  color: AppColor().getJobBasedColor(jobItem.orderStatusId!)),
+                  color: AppColor()
+                      .getJobBasedColor(jobItem.orderDetail!.orderStatusId!)),
               const SizedBox(width: 20),
               FirstRowItem(
                 jobId: jobItem.id.toString(),
@@ -59,9 +60,9 @@ class JobListItemWidget extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               SecondRowItem(
-                statusColor:
-                    AppColor().getJobBasedColor(jobItem.orderStatusId!),
-                statusMessage: jobItem.orderStatus ?? "",
+                statusColor: AppColor()
+                    .getJobBasedColor(jobItem.orderDetail!.orderStatusId!),
+                statusMessage: jobItem.orderDetail!.orderStatus ?? "",
                 time: "",
                 date: CustomDateUtils().dateToDisplay(
                     apiDate: jobItem.shippingDeliveryAssignDate ?? ""),

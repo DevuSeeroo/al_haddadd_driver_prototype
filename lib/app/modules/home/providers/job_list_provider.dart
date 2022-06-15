@@ -33,7 +33,7 @@ class JobListProvider extends GetConnect {
     CustomLogger().print("Passed index: $index", lineNumber: 33);
     List<OrderStatusModel> list = [];
     if (index == AppConstants.jobHistoryIndex) {
-      // list.add(OrderStatusModel(0, 'All', false.obs));
+      list.add(OrderStatusModel(0, 'All', false.obs));
       list.add(OrderStatusModel(
           AppConstants.completedStatusId, LocaleKeys.delivered.tr, false.obs));
       list.add(OrderStatusModel(AppConstants.deliveryPendingStatusId,
@@ -60,7 +60,7 @@ class JobListProvider extends GetConnect {
           appStorageKeys.readUserToken(), inputParams);
 
       CustomLogger().print('response: ${response.toJson()}',
-          className: className, lineNumber: 48);
+          className: className, lineNumber: 63);
     } catch (error, stacktrace) {
       CustomLogger()
           .printError(error: error, stackTrace: stacktrace, lineNumber: 52);

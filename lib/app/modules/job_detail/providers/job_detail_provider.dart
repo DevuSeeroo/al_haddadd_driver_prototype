@@ -58,7 +58,7 @@ class JobDetailProvider extends GetConnect {
           await client.getJobDetail(appStorageKeys.readUserToken(), orderId);
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 60);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 61);
       return BaseModel()
         ..setException(ServerError.withErrorAndCode(error: error as DioError));
     }
@@ -84,7 +84,7 @@ class JobDetailProvider extends GetConnect {
       }
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 56);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 87);
       DioError serverError = error as DioError;
       if (serverError.response!.statusCode! == 400) {
         response = JobStatusChangeModel(
@@ -119,7 +119,7 @@ class JobDetailProvider extends GetConnect {
       }
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 56);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 122);
       DioError serverError = error as DioError;
       if (serverError.response!.statusCode! == 400) {
         response = JobStatusChangeModel(
@@ -154,7 +154,7 @@ class JobDetailProvider extends GetConnect {
       }
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 56);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 157);
       DioError serverError = error as DioError;
       if (serverError.response!.statusCode! == 400) {
         response = JobStatusChangeModel(
@@ -189,7 +189,42 @@ class JobDetailProvider extends GetConnect {
       }
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 56);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 192);
+      DioError serverError = error as DioError;
+      if (serverError.response!.statusCode! == 400) {
+        response = JobStatusChangeModel(
+            status: true,
+            message:
+                ErrorModelResponse.fromJson(serverError.response!.data).message,
+            statusCode: 400);
+      } else {
+        return BaseModel()
+          ..setException(ServerError.withErrorAndCode(error: serverError));
+      }
+    }
+    return BaseModel()..data = response;
+  }
+
+  Future<BaseModel<JobStatusChangeModel>> changeStatusToPackageReturned(
+      int orderId) async {
+    onInit();
+    JobStatusChangeModel response;
+    try {
+      dynamic res = await client.changeStatusToPackageReturned(
+          appStorageKeys.readUserToken(), orderId);
+      if (res != null) {
+        response =
+            JobStatusChangeModel(status: true, message: res, statusCode: 200);
+      } else {
+        response = JobStatusChangeModel(
+            status: true,
+            message: "Something went"
+                " wrong",
+            statusCode: 400);
+      }
+    } catch (error, stacktrace) {
+      CustomLogger()
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 228);
       DioError serverError = error as DioError;
       if (serverError.response!.statusCode! == 400) {
         response = JobStatusChangeModel(

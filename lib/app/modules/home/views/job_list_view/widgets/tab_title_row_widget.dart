@@ -21,20 +21,20 @@ class TabTitleRowWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Obx(() => TabTitleText(
-              title: LocaleKeys.picked.tr,
-              isSelected: controller.jobSelectedIndex.value ==
-                  AppConstants.jobPickedIndex,
-              onTap: () {
-                controller.setJobSelectedIndex(AppConstants.jobPickedIndex);
-              },
-            )),
-        const HorizontalDivider(),
-        Obx(() => TabTitleText(
               title: LocaleKeys.assigned.tr,
               isSelected: controller.jobSelectedIndex.value ==
                   AppConstants.jobAssignedIndex,
               onTap: () {
                 controller.setJobSelectedIndex(AppConstants.jobAssignedIndex);
+              },
+            )),
+        const HorizontalDivider(),
+        Obx(() => TabTitleText(
+              title: LocaleKeys.picked.tr,
+              isSelected: controller.jobSelectedIndex.value ==
+                  AppConstants.jobPickedIndex,
+              onTap: () {
+                controller.setJobSelectedIndex(AppConstants.jobPickedIndex);
               },
             )),
         const HorizontalDivider(),

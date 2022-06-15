@@ -53,7 +53,7 @@ class JobListProvider extends GetConnect {
   Future<BaseModel<JobListResponse>> getJobListFromAPI(
       JobListInputParam inputParams) async {
     onInit();
-    CustomLogger().print(jsonEncode(inputParams), lineNumber: 41);
+    // CustomLogger().print(jsonEncode(inputParams), lineNumber: 41);
     JobListResponse? response;
     try {
       response = await client.getJobListPOST(

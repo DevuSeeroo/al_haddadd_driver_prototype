@@ -20,6 +20,7 @@ class JobListController extends GetxController {
   RxList<JobList> jobList = <JobList>[].obs;
   final RxInt jobSelectedIndex = AppConstants.jobAssignedIndex.obs;
   List<int> orderStatusIDs = [];
+  List<int> shippingStatusIDs = [];
   List<int> tempOrderStatusIDs = [];
   DateTime? choosedFromDate;
   DateTime? choosedToDate;
@@ -136,16 +137,19 @@ class JobListController extends GetxController {
                 ? CustomDateUtils().convertDateToString(
                     date: choosedToDate!,
                     currentFormat: "",
-                    neededFormat: "dd/MM/yyyy")
+                    neededFormat: "dd-MM-yyyy")
                 : null,
+            toDateTime: choosedToDate,
             searchKey: null,
             fromDate: choosedFromDate != null
                 ? CustomDateUtils().convertDateToString(
                     date: choosedFromDate!,
                     currentFormat: "",
-                    neededFormat: "dd/MM/yyyy")
+                    neededFormat: "dd-MM-yyyy")
                 : null,
+            fromDateTime: choosedFromDate,
             orderStatus: orderStatusIDs,
+            shippingStatus: shippingStatusIDs,
             pageSize: perPageCount,
             pageNumber: pageNumber))
         .then((value) {
@@ -180,6 +184,7 @@ class JobListController extends GetxController {
         AppConstants.cancelledStatusId,
         AppConstants.completedStatusId
       ];
+      shippingStatusIDs = [AppConstants.shippingPackageReturnedStatusId];
     } else if (jobSelectedIndex.value == AppConstants.jobAssignedIndex) {
       orderStatusIDs = [AppConstants.processingStatusId];
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {
@@ -187,6 +192,10 @@ class JobListController extends GetxController {
         AppConstants.shippedStatusId,
         AppConstants.inTransitStatusId,
         AppConstants.deliveryFailedStatusId,
+      ];
+      shippingStatusIDs = [
+        AppConstants.inTransitStatusId,
+        AppConstants.shippingFailedStatusId
       ];
     }
     tempOrderStatusIDs.clear();
@@ -220,14 +229,15 @@ class JobListController extends GetxController {
       }
       CustomLogger().print("user selected date: $pickedDate",
           className: className, lineNumber: 120);
-      choosedFromDate = pickedDate;
       if (whetherFromDate) {
+        choosedFromDate = pickedDate;
         fromDateController.text = CustomDateUtils().convertDateToString(
             date: choosedFromDate ?? DateTime.now(),
             currentFormat: "",
             neededFormat: "dd/MM/y"
                 "yyy");
       } else {
+        choosedToDate = pickedDate;
         toDateController.text = CustomDateUtils().convertDateToString(
             date: choosedToDate ?? DateTime.now(),
             currentFormat: "",

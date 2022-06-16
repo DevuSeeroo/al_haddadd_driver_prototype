@@ -32,7 +32,7 @@ class JobListController extends GetxController {
   int pageNumber = 1;
   int perPageCount = 1;
   int totalPages = 1;
-  String searchKey = "";
+  RxString searchKey = "".obs;
 
   @override
   void onInit() {
@@ -143,7 +143,7 @@ class JobListController extends GetxController {
                     neededFormat: "dd-MM-yyyy")
                 : null,
             toDateTime: choosedToDate,
-            searchKey: searchKey,
+            searchKey: searchKey.value,
             fromDate: choosedFromDate != null
                 ? CustomDateUtils().convertDateToString(
                     date: choosedFromDate!,

@@ -21,12 +21,18 @@ class SearchFilterWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-          child: SearchTextField(onSearchTextChanged: (value) {
-            controller.searchKey = value;
-          }, onSearchTextSubmitted: (value) {
-            controller.searchKey = value;
-            controller.applyClicked();
-          }),
+          child: SearchTextField(
+            onSearchTextChanged: (value) {
+              controller.searchKey(value);
+            },
+            onSearchTextSubmitted: (value) {
+              controller.searchKey(value);
+              controller.applyClicked();
+            },
+            onPressed: () {
+              controller.searchKey("");
+            },
+          ),
         ),
         IconButton(
             padding: EdgeInsets.zero,

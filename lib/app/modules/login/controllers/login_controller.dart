@@ -24,11 +24,6 @@ class LoginController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {}
 
   onSubmitted() {
@@ -48,7 +43,7 @@ class LoginController extends GetxController {
         ApiExceptionUtils().apiException(
             error: response.getException, className: className, lineNumber: 47);
       } else if (response.data?.apiResponseModel?.status ?? false) {
-        NavigationUtils().callVerificationScreen(mobile ?? "");
+        NavigationUtils().callVerificationScreen('+966$mobile');
         CustomSnackBar.showSuccessSnackBar(
             LocaleKeys.success.tr,
             "${response.data?.apiResponseModel?.message} ${LocaleKeys.otp.tr}"

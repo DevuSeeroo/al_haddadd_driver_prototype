@@ -15,6 +15,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    setSelectedIndex(AppConstants.homeIndex);
   }
 
   @override
@@ -32,10 +33,6 @@ class HomeController extends GetxController {
     } else if (homeSelectedIndex.value == AppConstants.profileIndex) {
       toolbarTitle(LocaleKeys.profile.tr);
       Get.delete<JobListController>();
-    } else {
-      toolbarTitle(LocaleKeys.history.tr);
-      Get.delete<JobListController>();
-      Get.delete<ProfileController>();
     }
     CustomLogger().print("toolbarTitle: ${toolbarTitle.value}",
         className: className, lineNumber: 44);
@@ -45,7 +42,7 @@ class HomeController extends GetxController {
     if (homeSelectedIndex.value == AppConstants.homeIndex) {
       Utilities().onBackPressed();
     } else {
-      homeSelectedIndex(AppConstants.homeIndex);
+      setSelectedIndex(AppConstants.homeIndex);
     }
     return false;
   }

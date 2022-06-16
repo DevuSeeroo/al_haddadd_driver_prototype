@@ -21,6 +21,7 @@ class CustomTextField extends StatelessWidget {
   final bool? obscureText;
   final Widget? suffixIcon;
   final Widget? prefix;
+  final String? prefixText;
   final TextCapitalization textCapitalization;
   final List<TextInputFormatter>? textInputFormatter;
   final double? topPadding;
@@ -52,7 +53,8 @@ class CustomTextField extends StatelessWidget {
       this.topPadding,
       this.prefix,
       this.hint,
-      this.maxLength})
+      this.maxLength,
+      this.prefixText})
       : super(key: key);
 
   @override
@@ -64,41 +66,43 @@ class CustomTextField extends StatelessWidget {
         TextFieldTitleWidget(title: title),
         SizedBox(height: inBetweenSpace ?? 2),
         TextFormField(
-            initialValue: initialValue,
-            obscureText: obscureText ?? false,
-            keyboardType: keyboardType ?? TextInputType.emailAddress,
-            textInputAction: textInputAction ?? TextInputAction.next,
-            style: TextStyle(color: textColor),
-            controller: textEditingController,
-            decoration: getInputDecoration(errorText ?? ""),
-            textCapitalization: textCapitalization,
-            maxLength: maxLength,
-            inputFormatters: textInputFormatter,
-            autofocus: autoFocus,
-            focusNode: focusNode,
-            onFieldSubmitted: (val) {
-              if (onSubmitted != null) onSubmitted!(val);
-            },
-            onChanged: (val) {
-              onChanged!(val);
-            },
-            validator: (newValue) {
-              return validator!(newValue);
-            }),
+          initialValue: initialValue,
+          obscureText: obscureText ?? false,
+          keyboardType: keyboardType ?? TextInputType.emailAddress,
+          textInputAction: textInputAction ?? TextInputAction.next,
+          style: TextStyle(color: textColor),
+          controller: textEditingController,
+          decoration: getInputDecoration(errorText ?? ""),
+          textCapitalization: textCapitalization,
+          maxLength: maxLength,
+          inputFormatters: textInputFormatter,
+          autofocus: autoFocus,
+          focusNode: focusNode,
+          onFieldSubmitted: (val) {
+            if (onSubmitted != null) onSubmitted!(val);
+          },
+          onChanged: (val) {
+            onChanged!(val);
+          },
+          validator: (newValue) {
+            return validator!(newValue);
+          },
+        ),
       ],
     );
   }
 
   InputDecoration getInputDecoration(String error) {
     return const InputDecoration().copyWith(
-        isDense: true,
-        prefixIcon: prefix,
-        suffixIcon: suffixIcon,
-        errorMaxLines: 2,
-        errorText: errorText != null && errorText!.isNotEmpty ? error : null,
-        hintText: hint,
-        hintStyle: const TextStyle(color: AppColor.hintTextColor)
-        // contentPadding: EdgeInsets.fromLTRB(12, topPadding ?? 8, 12, 13),
-        );
+      isDense: true,
+      prefixIcon: prefix,
+      prefixText: prefixText,
+      suffixIcon: suffixIcon,
+      errorMaxLines: 2,
+      errorText: errorText != null && errorText!.isNotEmpty ? error : null,
+      hintText: hint,
+      hintStyle: const TextStyle(color: AppColor.hintTextColor),
+      // contentPadding: const EdgeInsets.fromLTRB(12, 20, 12, 12),
+    );
   }
 }

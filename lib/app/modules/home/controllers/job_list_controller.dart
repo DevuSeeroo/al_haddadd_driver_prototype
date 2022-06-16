@@ -82,7 +82,7 @@ class JobListController extends GetxController {
 
   void orderStatusSelected(OrderStatusModel model) {
     int index = tempOrderStatuses.indexOf(model);
-    print('$index');
+    CustomLogger().print('$index', lineNumber: 85);
     for (int i = 0; i < tempOrderStatuses.length; i++) {
       if (index == i) {
         tempOrderStatuses[i].isSelected(true);

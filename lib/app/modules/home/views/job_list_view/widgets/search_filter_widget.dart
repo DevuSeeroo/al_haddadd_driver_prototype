@@ -22,6 +22,7 @@ class SearchFilterWidget extends StatelessWidget {
       children: [
         Expanded(
           child: SearchTextField(
+            showClose: controller.searchKey.value.isNotEmpty,
             onSearchTextChanged: (value) {
               controller.searchKey(value);
             },

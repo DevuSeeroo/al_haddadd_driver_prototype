@@ -81,10 +81,10 @@ class JobListProvider extends GetConnect {
       // print(jsonEncode(res));
       var string = "{\"job_list\": ${jsonEncode(res)}}";
       response = JobListResponse.fromJson(json.decode(string));
-      print('job_list: ${response.toJson()}');
+      CustomLogger().print('job_list: ${response.toJson()}', lineNumber: 84);
     } catch (error, stacktrace) {
       CustomLogger()
-          .printError(error: error, stackTrace: stacktrace, lineNumber: 73);
+          .printError(error: error, stackTrace: stacktrace, lineNumber: 87);
       return BaseModel()
         ..setException(ServerError.withErrorAndCode(error: error as DioError));
     }

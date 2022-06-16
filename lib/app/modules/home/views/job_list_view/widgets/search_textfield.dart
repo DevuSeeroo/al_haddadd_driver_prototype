@@ -1,12 +1,16 @@
 import 'package:alhaddad_driver/app/utils/app_color.dart';
+import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
     Key? key,
     this.onSearchTextChanged,
+    this.onSearchTextSubmitted,
   }) : super(key: key);
   final Function(String)? onSearchTextChanged;
+  final Function(String)? onSearchTextSubmitted;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,15 +19,18 @@ class SearchTextField extends StatelessWidget {
           color: AppColor.searchBackgroundColor,
           borderRadius: BorderRadius.circular(80)),
       child: TextField(
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             isDense: true,
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.search,
               size: 22,
               color: Colors.black,
             ),
-            hintText: "Search",
-            hintStyle: TextStyle(color: AppColor.hintTextColor)),
+            hintText: LocaleKeys.search.tr,
+            hintStyle: const TextStyle(color: AppColor.hintTextColor)),
+        onSubmitted: (value) {
+          onSearchTextSubmitted!(value);
+        },
         onChanged: (String val) {
           onSearchTextChanged!(val);
         },

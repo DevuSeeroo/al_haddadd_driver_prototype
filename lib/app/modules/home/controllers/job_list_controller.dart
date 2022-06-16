@@ -32,10 +32,11 @@ class JobListController extends GetxController {
   int pageNumber = 1;
   int perPageCount = 1;
   int totalPages = 1;
+  String searchKey = "";
 
   @override
   void onInit() {
-    CustomLogger().print('onInit', className: className, lineNumber: 28);
+    CustomLogger().print('onInit', className: className, lineNumber: 39);
     super.onInit();
     fetchJobListAPI();
   }
@@ -52,9 +53,9 @@ class JobListController extends GetxController {
         CustomLogger().print(
             '_pagination- page $pageNumber total page $totalPages',
             lineNumber: 53);
-        CustomLogger().print('_pageNumber $pageNumber', lineNumber: 54);
+        CustomLogger().print('_pageNumber $pageNumber', lineNumber: 56);
       } else {
-        CustomLogger().print('_pagination- no more pages', lineNumber: 56);
+        CustomLogger().print('_pagination- no more pages', lineNumber: 58);
         isLoading.value = false;
         isLoadingMore.value = false;
       }
@@ -74,7 +75,7 @@ class JobListController extends GetxController {
     CustomLogger().print(
         "OrderStatusListBasedOnIndex: ${jsonEncode(actualOrderStatuses)}",
         className: className,
-        lineNumber: 52);
+        lineNumber: 78);
     tempOrderStatuses.clear();
     tempOrderStatuses.addAll(actualOrderStatuses);
   }
@@ -113,10 +114,12 @@ class JobListController extends GetxController {
     // } else {
     //   orderStatusIDs.add(actualOrderStatuses[index].orderStatusId ?? 0);
     // }
-    CustomLogger().print("OrderStatusIds: $tempOrderStatusIDs", lineNumber: 70);
+    CustomLogger()
+        .print("OrderStatusIds: $tempOrderStatusIDs", lineNumber: 117);
   }
 
   void applyClicked() {
+    Get.back();
     orderStatusIDs.clear();
     orderStatusIDs.addAll(tempOrderStatusIDs);
     actualOrderStatuses.clear();
@@ -140,7 +143,7 @@ class JobListController extends GetxController {
                     neededFormat: "dd-MM-yyyy")
                 : null,
             toDateTime: choosedToDate,
-            searchKey: null,
+            searchKey: searchKey,
             fromDate: choosedFromDate != null
                 ? CustomDateUtils().convertDateToString(
                     date: choosedFromDate!,
@@ -155,12 +158,12 @@ class JobListController extends GetxController {
         .then((value) {
       if (value.getException != null) {
         ApiExceptionUtils().apiException(
-            error: value.getException, className: className, lineNumber: 156);
+            error: value.getException, className: className, lineNumber: 160);
       } else {
         totalPages = value.data!.totalPages ?? 1;
         jobList.addAll(value.data != null ? value.data!.jobList ?? [] : []);
         try {
-          CustomLogger().print(jsonEncode(jobList), lineNumber: 159);
+          CustomLogger().print(jsonEncode(jobList), lineNumber: 165);
         } catch (e) {
           jobList.value = [];
         }

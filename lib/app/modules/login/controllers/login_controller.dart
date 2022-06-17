@@ -30,20 +30,18 @@ class LoginController extends GetxController {
     if (formKey.currentState!.validate()) {
       sendOtpMethod();
     } else {
-      CustomLogger().print("Not valid", className: className, lineNumber: 38);
+      CustomLogger().print("Not valid", className: className, lineNumber: 33);
     }
   }
 
   void sendOtpMethod() {
     apiCalling(true);
-    provider
-        .sendOtpResponse(params: SendOtpParams('+966$mobile'))
-        .then((response) {
+    provider.sendOtpResponse(params: SendOtpParams('$mobile')).then((response) {
       if (response.getException != null) {
         ApiExceptionUtils().apiException(
             error: response.getException, className: className, lineNumber: 47);
       } else if (response.data?.apiResponseModel?.status ?? false) {
-        NavigationUtils().callVerificationScreen('+966$mobile');
+        NavigationUtils().callVerificationScreen('$mobile');
         CustomSnackBar.showSuccessSnackBar(
             LocaleKeys.success.tr,
             "${response.data?.apiResponseModel?.message} ${LocaleKeys.otp.tr}"

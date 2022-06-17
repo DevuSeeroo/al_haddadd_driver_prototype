@@ -1,3 +1,4 @@
+import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/widgets/textfields/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,12 @@ class LoginMobileNumberWidget extends StatelessWidget {
       maxLength: Config.minMaxNumLength,
       textColor: Colors.white,
       initialValue: controller.mobile,
-      prefixText: "+966",
+      // prefixText: "+966",
+      prefix: const Icon(
+        Icons.phone,
+        color: AppColor.hintTextColor,
+        size: 16,
+      ),
       hint: LocaleKeys.mobileNo.tr,
       onChanged: (value) {
         controller.mobile = value;
@@ -40,7 +46,7 @@ class LoginMobileNumberWidget extends StatelessWidget {
         }
       },
       onSubmitted: (value) {
-        CustomLogger().print("Mobile: $value", lineNumber: 59);
+        CustomLogger().print("Mobile: $value", lineNumber: 49);
         controller.mobile = value;
         controller.onSubmitted();
       },

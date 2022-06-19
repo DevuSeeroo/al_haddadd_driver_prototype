@@ -1,6 +1,7 @@
 import 'package:alhaddad_driver/app/modules/home/controllers/job_list_controller.dart';
 import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_with_style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'filter_bottomsheet_content.dart';
 import 'search_textfield.dart';
@@ -21,19 +22,20 @@ class SearchFilterWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-          child: SearchTextField(
-            showClose: controller.searchKey.value.isNotEmpty,
-            onSearchTextChanged: (value) {
-              controller.searchKey(value);
-            },
-            onSearchTextSubmitted: (value) {
-              controller.searchKey(value);
-              controller.applyClicked();
-            },
-            onPressed: () {
-              controller.searchKey("");
-            },
-          ),
+          child: Obx(() => SearchTextField(
+                text: controller.searchKey.value,
+                showClose: controller.searchKey.value.isNotEmpty,
+                onSearchTextChanged: (value) {
+                  controller.searchKey(value);
+                },
+                onSearchTextSubmitted: (value) {
+                  controller.searchKey(value);
+                  controller.applyClicked();
+                },
+                onPressed: () {
+                  controller.searchKey("");
+                },
+              )),
         ),
         IconButton(
             padding: EdgeInsets.zero,

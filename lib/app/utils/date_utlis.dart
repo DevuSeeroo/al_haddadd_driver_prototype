@@ -1,4 +1,5 @@
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 class CustomDateUtils {
@@ -6,24 +7,30 @@ class CustomDateUtils {
   String dateTimeUtcFormat = "y-MM-ddTHH:mm:ss";
 
   int compareTwoDates({DateTime? firstDate, DateTime? secondDate}) {
-    if (firstDate == null) firstDate = DateTime.now();
-    if (secondDate == null) secondDate = DateTime.now();
+    firstDate ??= DateTime.now();
+    secondDate ??= DateTime.now();
 
     /// greater date
     if (firstDate.compareTo(secondDate) > 0) {
-      print('${firstDate.toString()} greater ${secondDate.toString()}');
+      if (kDebugMode) {
+        print('${firstDate.toString()} greater ${secondDate.toString()}');
+      }
       return 1;
     }
 
     /// lesser date
     else if (firstDate.compareTo(secondDate) < 0) {
-      print('${firstDate.toString()} lesser ${secondDate.toString()}');
+      if (kDebugMode) {
+        print('${firstDate.toString()} lesser ${secondDate.toString()}');
+      }
       return -1;
     }
 
     /// equal date
     else {
-      print('${firstDate.toString()} equal to ${secondDate.toString()}');
+      if (kDebugMode) {
+        print('${firstDate.toString()} equal to ${secondDate.toString()}');
+      }
       return 0;
     }
   }
@@ -33,10 +40,14 @@ class CustomDateUtils {
     // String currentFormat = "dd MMMM yyyy hh:mm aa";
     String currentFormat1 = dateTimeUtcFormat;
     // String currentFormat2 = "hh:mm aaa";
-    print("Passed Date: '$date'");
+    if (kDebugMode) {
+      print("Passed Date: '$date'");
+    }
     DateTime convertedDate =
         DateFormat(currentFormatPassed ?? currentFormat1).parse(date);
-    print("Converted Date: ${convertedDate.toString()}");
+    if (kDebugMode) {
+      print("Converted Date: ${convertedDate.toString()}");
+    }
     return convertedDate;
   }
 
@@ -51,7 +62,9 @@ class CustomDateUtils {
           DateFormat(neededDateFormat ?? "dd MMM yyy").format(formattedDate);
       return formattedDob;
     } catch (e) {
-      print('DateFormat Exception $e');
+      if (kDebugMode) {
+        print('DateFormat Exception $e');
+      }
       return "";
     }
   }

@@ -4,22 +4,24 @@ class LoginResponse {
   String? token;
   CustomerDtls? customerDtls;
 
-  LoginResponse({this.username, this.customerId, this.token, this.customerDtls});
+  LoginResponse({username, customerId, token, customerDtls});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     customerId = json['customer_id'];
     token = json['token'];
-    customerDtls = json['customer_dtls'] != null ? new CustomerDtls.fromJson(json['customer_dtls']) : null;
+    customerDtls = json['customer_dtls'] != null
+        ? CustomerDtls.fromJson(json['customer_dtls'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['customer_id'] = this.customerId;
-    data['token'] = this.token;
-    if (this.customerDtls != null) {
-      data['customer_dtls'] = this.customerDtls!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['customer_id'] = customerId;
+    data['token'] = token;
+    if (customerDtls != null) {
+      data['customer_dtls'] = customerDtls!.toJson();
     }
     return data;
   }
@@ -36,7 +38,8 @@ class CustomerDtls {
   int? id;
   CustomProperties? customProperties;
 
-  CustomerDtls({this.email, this.username,  this.firstName,  this.lastName,  this.phone,  this.id, this.customProperties});
+  CustomerDtls(
+      {email, username, firstName, lastName, phone, id, customProperties});
 
   CustomerDtls.fromJson(Map<String, dynamic> json) {
     email = json['Email'];
@@ -51,25 +54,27 @@ class CustomerDtls {
 
     id = json['Id'];
 
-    customProperties = json['CustomProperties'] != null ? new CustomProperties.fromJson(json['CustomProperties']) : null;
+    customProperties = json['CustomProperties'] != null
+        ? CustomProperties.fromJson(json['CustomProperties'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Email'] = this.email;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Email'] = email;
 
-    data['Username'] = this.username;
+    data['Username'] = username;
 
-    data['FirstName'] = this.firstName;
+    data['FirstName'] = firstName;
 
-    data['LastName'] = this.lastName;
+    data['LastName'] = lastName;
 
-    data['Phone'] = this.phone;
+    data['Phone'] = phone;
 
-    data['Id'] = this.id;
+    data['Id'] = id;
 
-    if (this.customProperties != null) {
-      data['CustomProperties'] = this.customProperties!.toJson();
+    if (customProperties != null) {
+      data['CustomProperties'] = customProperties!.toJson();
     }
     return data;
   }
@@ -80,7 +85,7 @@ class AttachedDocuments {
   int? customerId;
   int? id;
 
-  AttachedDocuments({this.attachedDoc, this.customerId, this.id});
+  AttachedDocuments({attachedDoc, customerId, id});
 
   AttachedDocuments.fromJson(Map<String, dynamic> json) {
     attachedDoc = json['AttachedDoc'];
@@ -89,23 +94,21 @@ class AttachedDocuments {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['AttachedDoc'] = this.attachedDoc;
-    data['CustomerId'] = this.customerId;
-    data['Id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['AttachedDoc'] = attachedDoc;
+    data['CustomerId'] = customerId;
+    data['Id'] = id;
     return data;
   }
 }
 
 class CustomProperties {
-
-
   CustomProperties();
 
-CustomProperties.fromJson(Map<String, dynamic> json);
+  CustomProperties.fromJson(Map<String, dynamic> json);
 
-Map<String, dynamic> toJson() {
-  final Map<String, dynamic> data = new Map<String, dynamic>();
-  return data;
-}
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    return data;
+  }
 }

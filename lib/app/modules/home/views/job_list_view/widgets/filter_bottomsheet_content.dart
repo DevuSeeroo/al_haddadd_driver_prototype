@@ -28,7 +28,7 @@ class FilterBottomSheetContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  LocaleKeys.choose_date.tr,
+                  LocaleKeys.chooseDate.tr,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -65,7 +65,7 @@ class FilterBottomSheetContent extends StatelessWidget {
                           textAlignVertical: TextAlignVertical.top,
                           textAlign: TextAlign.start,
                           decoration: InputDecoration(
-                            hintText: LocaleKeys.from_date.tr,
+                            hintText: LocaleKeys.fromDate.tr,
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.only(
                                 left: 10, right: 10, top: 2, bottom: 10),
@@ -110,7 +110,7 @@ class FilterBottomSheetContent extends StatelessWidget {
                           textAlignVertical: TextAlignVertical.top,
                           textAlign: TextAlign.start,
                           decoration: InputDecoration(
-                            hintText: LocaleKeys.to_date.tr,
+                            hintText: LocaleKeys.toDate.tr,
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.only(
                                 left: 10, right: 10, top: 2, bottom: 10),
@@ -134,7 +134,7 @@ class FilterBottomSheetContent extends StatelessWidget {
                   ],
                 )),
             const SizedBox(height: 10),
-            Text(LocaleKeys.choose_status.tr,
+            Text(LocaleKeys.chooseStatus.tr,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             Wrap(

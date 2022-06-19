@@ -18,8 +18,8 @@ part 'api_client.g.dart';
 abstract class ApiClient {
   factory ApiClient(Dio dio, String baseUrl) {
     dio.options = BaseOptions(
-      receiveTimeout: 10000,
-      connectTimeout: 10000,
+      receiveTimeout: 20000,
+      connectTimeout: 20000,
     );
 
     dio.interceptors.add(PrettyDioLogger(

@@ -1,7 +1,5 @@
 import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
-import 'package:alhaddad_driver/app/widgets/images/broken_image.dart';
 import 'package:alhaddad_driver/app/widgets/images/curved_image_view.dart';
-import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/app_color.dart';
@@ -33,7 +31,7 @@ class ProductItemWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ProductImageView(productImage: "product"),
+          const ProductImageView(productImage: "product"),
           Container(
             padding:
                 const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
@@ -90,21 +88,21 @@ class ProductImageView extends StatelessWidget {
       height: 100,
       padding: 0,
     );
-    return ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-        child: FadeInImage(
-          image: NetworkImage(productImage),
-          width: 150,
-          height: 100,
-          fit: BoxFit.contain,
-          placeholderErrorBuilder: (context, error, stackTrace) {
-            return const BrokenImage(width: 150, height: 100);
-          },
-          placeholder: const AssetImage(Assets.iconsLogoIcon),
-          imageErrorBuilder: (context, error, stackTrace) {
-            return const BrokenImage(width: 150, height: 100);
-          },
-        ));
+    // return ClipRRect(
+    //     borderRadius: const BorderRadius.only(
+    //         topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+    //     child: FadeInImage(
+    //       image: NetworkImage(productImage),
+    //       width: 150,
+    //       height: 100,
+    //       fit: BoxFit.contain,
+    //       placeholderErrorBuilder: (context, error, stackTrace) {
+    //         return const BrokenImage(width: 150, height: 100);
+    //       },
+    //       placeholder: const AssetImage(Assets.iconsLogoIcon),
+    //       imageErrorBuilder: (context, error, stackTrace) {
+    //         return const BrokenImage(width: 150, height: 100);
+    //       },
+    //     ));
   }
 }

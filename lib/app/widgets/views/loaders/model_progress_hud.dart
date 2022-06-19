@@ -6,7 +6,9 @@ class CustomModelProgressHud extends StatelessWidget {
       {required this.child,
       required this.asyncCall,
       this.progressIndicator,
-      this.backgroundColor});
+      this.backgroundColor,
+      Key? key})
+      : super(key: key);
 
   final Widget child;
   final bool asyncCall;

@@ -9,14 +9,14 @@ class SendOtpResponse {
   APIResponseModel? apiResponseModel;
 
   SendOtpResponse(
-      {this.phoneNumber,
-      this.otp,
-      this.isVerified,
-      this.processTypeId,
-      this.createdOnUTC,
-      this.updatedOnUTC,
-      this.expiryOnUTC,
-      this.apiResponseModel});
+      {phoneNumber,
+      otp,
+      isVerified,
+      processTypeId,
+      createdOnUTC,
+      updatedOnUTC,
+      expiryOnUTC,
+      apiResponseModel});
 
   SendOtpResponse.fromJson(Map<String, dynamic> json) {
     phoneNumber = json['PhoneNumber'];
@@ -27,21 +27,21 @@ class SendOtpResponse {
     updatedOnUTC = json['UpdatedOnUTC'];
     expiryOnUTC = json['ExpiryOnUTC'];
     apiResponseModel = json['APIResponseModel'] != null
-        ? new APIResponseModel.fromJson(json['APIResponseModel'])
+        ? APIResponseModel.fromJson(json['APIResponseModel'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['PhoneNumber'] = this.phoneNumber;
-    data['OTP'] = this.otp;
-    data['IsVerified'] = this.isVerified;
-    data['ProcessTypeId'] = this.processTypeId;
-    data['CreatedOnUTC'] = this.createdOnUTC;
-    data['UpdatedOnUTC'] = this.updatedOnUTC;
-    data['ExpiryOnUTC'] = this.expiryOnUTC;
-    if (this.apiResponseModel != null) {
-      data['APIResponseModel'] = this.apiResponseModel!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['PhoneNumber'] = phoneNumber;
+    data['OTP'] = otp;
+    data['IsVerified'] = isVerified;
+    data['ProcessTypeId'] = processTypeId;
+    data['CreatedOnUTC'] = createdOnUTC;
+    data['UpdatedOnUTC'] = updatedOnUTC;
+    data['ExpiryOnUTC'] = expiryOnUTC;
+    if (apiResponseModel != null) {
+      data['APIResponseModel'] = apiResponseModel!.toJson();
     }
     return data;
   }
@@ -52,7 +52,7 @@ class APIResponseModel {
   String? value;
   bool? status;
 
-  APIResponseModel({this.message, this.value, this.status});
+  APIResponseModel({message, value, status});
 
   APIResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['Message'];
@@ -61,10 +61,10 @@ class APIResponseModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Message'] = this.message;
-    data['Value'] = this.value;
-    data['Status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Message'] = message;
+    data['Value'] = value;
+    data['Status'] = status;
     return data;
   }
 }

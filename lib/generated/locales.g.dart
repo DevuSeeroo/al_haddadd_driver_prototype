@@ -67,10 +67,10 @@ class LocaleKeys {
   static const deliveryFailed = 'deliveryFailed';
   static const returned = 'returned';
   static const apply = 'apply';
-  static const choose_status = 'choose_status';
-  static const choose_date = 'choose_date';
-  static const from_date = 'from_date';
-  static const to_date = 'to_date';
+  static const chooseStatus = 'chooseStatus';
+  static const chooseDate = 'chooseDate';
+  static const fromDate = 'fromDate';
+  static const toDate = 'toDate';
   static const submit = 'submit';
   static const reason = 'reason';
   static const youMustEnterAReasonForFailedDelivery =
@@ -135,10 +135,10 @@ class Locales {
     'deliveryFailed': 'Delivery Failed',
     'returned': 'Returned',
     'apply': 'Apply',
-    'choose_status': 'Choose Status',
-    'choose_date': 'Choose Date',
-    'from_date': 'From Date',
-    'to_date': 'To Date',
+    'chooseStatus': 'Choose Status',
+    'chooseDate': 'Choose Date',
+    'fromDate': 'From Date',
+    'toDate': 'To Date',
     'submit': 'Submit',
     'reason': 'Reason',
     'youMustEnterAReasonForFailedDelivery':
@@ -201,10 +201,10 @@ class Locales {
     'deliveryFailed': 'Delivery Failed',
     'returned': 'Returned',
     'apply': 'Apply',
-    'choose_status': 'Choose Status',
-    'choose_date': 'Choose Date',
-    'from_date': 'From Date',
-    'to_date': 'To Date',
+    'chooseStatus': 'Choose Status',
+    'chooseDate': 'Choose Date',
+    'fromDate': 'From Date',
+    'toDate': 'To Date',
     'submit': 'Submit',
     'reason': 'Reason',
     'youMustEnterAReasonForFailedDelivery':

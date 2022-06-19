@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomCheckBox extends StatelessWidget {
-  const CustomCheckBox({required this.isChecked, required this.onTap});
+  const CustomCheckBox({required this.isChecked, required this.onTap, Key? key})
+      : super(key: key);
 
   final bool isChecked;
   final Function onTap;

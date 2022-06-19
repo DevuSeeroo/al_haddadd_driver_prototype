@@ -170,6 +170,7 @@ class JobListController extends GetxController {
       }
       isLoadingMore(false);
       isLoading(false);
+      searchKey("");
     });
   }
 
@@ -181,7 +182,7 @@ class JobListController extends GetxController {
   }
 
   orderStatusIds() {
-    CustomLogger().print("OrderStatusIDs: $orderStatusIDs", lineNumber: 138);
+    CustomLogger().print("OrderStatusIDs: $orderStatusIDs", lineNumber: 184);
     if (jobSelectedIndex.value == AppConstants.jobHistoryIndex) {
       orderStatusIDs = [
         AppConstants.cancelledStatusId,
@@ -193,7 +194,6 @@ class JobListController extends GetxController {
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {
       orderStatusIDs = [
         AppConstants.shippedStatusId,
-        AppConstants.inTransitStatusId,
         AppConstants.deliveryFailedStatusId,
       ];
       shippingStatusIDs = [
@@ -203,7 +203,7 @@ class JobListController extends GetxController {
     }
     tempOrderStatusIDs.clear();
     CustomLogger().print("OrderStatusIDs: $orderStatusIDs after clearing temp",
-        lineNumber: 151);
+        lineNumber: 205);
     tempOrderStatusIDs.addAll(orderStatusIDs);
   }
 

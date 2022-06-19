@@ -10,11 +10,13 @@ class SearchTextField extends StatelessWidget {
     this.onSearchTextSubmitted,
     this.onPressed,
     required this.showClose,
+    required this.text,
   }) : super(key: key);
   final Function(String)? onSearchTextChanged;
   final Function(String)? onSearchTextSubmitted;
   final Function? onPressed;
   final bool showClose;
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +24,8 @@ class SearchTextField extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColor.searchBackgroundColor,
           borderRadius: BorderRadius.circular(80)),
-      child: TextField(
+      child: TextFormField(
+        initialValue: text,
         decoration: InputDecoration(
             isDense: true,
             prefixIcon: const Icon(
@@ -44,7 +47,7 @@ class SearchTextField extends StatelessWidget {
                 : null,
             hintText: LocaleKeys.search.tr,
             hintStyle: const TextStyle(color: AppColor.hintTextColor)),
-        onSubmitted: (value) {
+        onFieldSubmitted: (value) {
           onSearchTextSubmitted!(value);
         },
         onChanged: (String val) {

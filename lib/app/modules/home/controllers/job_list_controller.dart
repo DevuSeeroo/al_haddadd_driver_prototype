@@ -115,7 +115,7 @@ class JobListController extends GetxController {
     //   orderStatusIDs.add(actualOrderStatuses[index].orderStatusId ?? 0);
     // }
     CustomLogger()
-        .print("OrderStatusIds: $tempOrderStatusIDs", lineNumber: 117);
+        .print("OrderStatusIds: $tempOrderStatusIDs", lineNumber: 118);
   }
 
   void applyClicked() {
@@ -158,12 +158,12 @@ class JobListController extends GetxController {
         .then((value) {
       if (value.getException != null) {
         ApiExceptionUtils().apiException(
-            error: value.getException, className: className, lineNumber: 160);
+            error: value.getException, className: className, lineNumber: 161);
       } else {
         totalPages = value.data!.totalPages ?? 1;
         jobList.addAll(value.data != null ? value.data!.jobList ?? [] : []);
         try {
-          CustomLogger().print(jsonEncode(jobList), lineNumber: 165);
+          CustomLogger().print(jsonEncode(jobList), lineNumber: 166);
         } catch (e) {
           jobList.value = [];
         }
@@ -182,7 +182,7 @@ class JobListController extends GetxController {
   }
 
   orderStatusIds() {
-    CustomLogger().print("OrderStatusIDs: $orderStatusIDs", lineNumber: 184);
+    CustomLogger().print("OrderStatusIDs: $orderStatusIDs", lineNumber: 185);
     if (jobSelectedIndex.value == AppConstants.jobHistoryIndex) {
       orderStatusIDs = [
         AppConstants.cancelledStatusId,
@@ -206,7 +206,7 @@ class JobListController extends GetxController {
     }
     tempOrderStatusIDs.clear();
     CustomLogger().print("OrderStatusIDs: $orderStatusIDs after clearing temp",
-        lineNumber: 205);
+        lineNumber: 209);
     tempOrderStatusIDs.addAll(orderStatusIDs);
   }
 
@@ -229,12 +229,12 @@ class JobListController extends GetxController {
       //then usually do the future job
       if (pickedDate == null) {
         //if user tap cancel then this function will stop
-        CustomLogger().print("user clicked cancel", lineNumber: 115);
+        CustomLogger().print("user clicked cancel", lineNumber: 232);
         // textEditingController.text = "";
         return;
       }
       CustomLogger().print("user selected date: $pickedDate",
-          className: className, lineNumber: 120);
+          className: className, lineNumber: 237);
       if (whetherFromDate) {
         choosedFromDate = pickedDate;
         fromDateController.text = CustomDateUtils().convertDateToString(

@@ -38,7 +38,11 @@ class JobListInputParam {
     data['delivery_date_assigned_to'] = toDateTime?.toString();
     // data['delivery_date_assigned_from'] = fromDate;
     data['delivery_date_assigned_from'] = fromDateTime?.toString();
-    data['search_key'] = searchKey;
+    if (searchKey != null && searchKey!.isEmpty) {
+      data['search_key'] = null;
+    } else {
+      data['search_key'] = searchKey;
+    }
     if (orderStatus != null && orderStatus!.isEmpty) {
       data['order_status'] = null;
     } else {

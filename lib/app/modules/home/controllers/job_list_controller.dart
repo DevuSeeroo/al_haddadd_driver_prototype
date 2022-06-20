@@ -30,7 +30,7 @@ class JobListController extends GetxController {
   TextEditingController toDateController = TextEditingController();
 
   int pageNumber = 1;
-  int perPageCount = 1;
+  int perPageCount = 10;
   int totalPages = 1;
   RxString searchKey = "".obs;
 
@@ -65,7 +65,7 @@ class JobListController extends GetxController {
 
   resetPagination() {
     pageNumber = 1;
-    perPageCount = 1;
+    perPageCount = 10;
     jobList.clear();
   }
 
@@ -188,7 +188,10 @@ class JobListController extends GetxController {
         AppConstants.cancelledStatusId,
         AppConstants.completedStatusId
       ];
-      shippingStatusIDs = [AppConstants.shippingPackageReturnedStatusId];
+      shippingStatusIDs = [
+        AppConstants.shippingPackageReturnedStatusId,
+        AppConstants.shippingCompletedStatusId,
+      ];
     } else if (jobSelectedIndex.value == AppConstants.jobAssignedIndex) {
       orderStatusIDs = [AppConstants.processingStatusId];
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {

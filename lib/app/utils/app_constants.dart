@@ -1,7 +1,7 @@
 class AppConstants {
   static const String BaseUrlLive = "https://www.alhaddadb2b.com/";
   static const String BaseUrlTest = "https://www.alhaddadb2b.com/demo/";
-  static const String BaseUrl = BaseUrlLive;
+  static const String BaseUrl = BaseUrlTest;
   static const String testToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOiIxNjU0MjcyNTk1IiwiZXhwIjoiMTY1NDg3NzM5NSIsIkN1c3RvbWVySWQiOiI2MjkxOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjU2ZTJhMjYtYjFjOC00NzlmLWJiYTUtN2ZlYzQ3Mzg0OGE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3Rkcml2ZXJAZ21haWwuY29tIn0.6UELAknTGvhIc-r6mdRuwkdL7jzdBRWkExv9HA1vzXI";
   static const int testID = 62919;

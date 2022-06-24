@@ -194,6 +194,7 @@ class JobListController extends GetxController {
       ];
     } else if (jobSelectedIndex.value == AppConstants.jobAssignedIndex) {
       orderStatusIDs = [AppConstants.processingStatusId];
+      shippingStatusIDs = [];
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {
       orderStatusIDs = [
         AppConstants.shippedStatusId,
@@ -201,6 +202,7 @@ class JobListController extends GetxController {
       ];
       shippingStatusIDs = [
         AppConstants.inTransitStatusId,
+        AppConstants.shippingShippedStatusId,
         AppConstants.shippingFailedStatusId
       ];
     }

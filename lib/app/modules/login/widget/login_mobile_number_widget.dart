@@ -22,7 +22,7 @@ class LoginMobileNumberWidget extends StatelessWidget {
       keyboardType:
           const TextInputType.numberWithOptions(signed: false, decimal: false),
       textInputFormatter: Utilities().numberFormatter,
-      maxLength: Config.minMaxNumLength,
+      maxLength: Config.maxNumLength,
       textColor: Colors.white,
       initialValue: controller.mobile,
       // prefixText: "+966",
@@ -39,7 +39,8 @@ class LoginMobileNumberWidget extends StatelessWidget {
       validator: (value) {
         if (value!.trim().isEmpty) {
           return LocaleKeys.mobileNoShouldntBeEmpty.tr;
-        } else if (value.trim().length < Config.minMaxNumLength) {
+        } else if (value.trim().length < Config.minNumLength ||
+            value.trim().length > Config.maxNumLength) {
           return LocaleKeys.phoneErrorValid.tr;
         } else {
           return null;

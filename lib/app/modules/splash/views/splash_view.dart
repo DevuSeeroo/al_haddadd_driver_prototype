@@ -25,16 +25,16 @@ class SplashView extends GetView<SplashController> {
               height: 150,
             ),
           ),
-          Visibility(
-            visible: controller.versionNumber.value.isNotEmpty,
-            child: Text(
-              "V ${controller.versionNumber.value}",
-              style: const TextStyle(
-                  color: AppColor.colorPrimary,
-                  fontSize: Config.textNormalSize,
-                  fontWeight: FontWeight.w600),
-            ),
-          ),
+          Obx(() => Visibility(
+                visible: controller.versionNumber.value.isNotEmpty,
+                child: Text(
+                  "V ${controller.versionNumber.value}",
+                  style: const TextStyle(
+                      color: AppColor.colorPrimary,
+                      fontSize: Config.textNormalSize,
+                      fontWeight: FontWeight.w600),
+                ),
+              )),
           const SizedBox(height: 30),
         ],
       ),

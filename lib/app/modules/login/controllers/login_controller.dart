@@ -20,7 +20,7 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    mobile = "123456798";
+    // mobile = "123456798";
   }
 
   @override

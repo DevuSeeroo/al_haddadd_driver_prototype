@@ -67,6 +67,7 @@ class JobListController extends GetxController {
     pageNumber = 1;
     perPageCount = 10;
     jobList.clear();
+    isLoading(true);
   }
 
   void createOrderStatusListBasedOnIndex() {

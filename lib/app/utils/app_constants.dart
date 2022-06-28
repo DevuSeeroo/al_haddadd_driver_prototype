@@ -18,6 +18,7 @@ class AppConstants {
   static int jobOnGoing = 2;
   static int jobReached = 3;
   final List<String> countryCodeList = ["+966"];
+  static String countryCode = "+966";
   static int aboutUs = 1;
   static int termsOfService = 12;
   static int shippingReturns = 10;

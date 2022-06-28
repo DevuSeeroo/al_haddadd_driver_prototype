@@ -1,4 +1,4 @@
-import 'package:alhaddad_driver/app/utils/app_color.dart';
+import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/widgets/textfields/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -22,15 +22,15 @@ class LoginMobileNumberWidget extends StatelessWidget {
       keyboardType:
           const TextInputType.numberWithOptions(signed: false, decimal: false),
       textInputFormatter: Utilities().numberFormatter,
-      maxLength: Config.maxNumLength,
+      maxLength: Config.minNumLength,
       textColor: Colors.white,
       initialValue: controller.mobile,
-      // prefixText: "+966",
-      prefix: const Icon(
-        Icons.phone,
-        color: AppColor.hintTextColor,
-        size: 16,
-      ),
+      prefixText: AppConstants.countryCode,
+      // prefix: const Icon(
+      //   Icons.phone,
+      //   color: AppColor.hintTextColor,
+      //   size: 16,
+      // ),
       hint: LocaleKeys.mobileNo.tr,
       onChanged: (value) {
         controller.mobile = value;
@@ -39,8 +39,7 @@ class LoginMobileNumberWidget extends StatelessWidget {
       validator: (value) {
         if (value!.trim().isEmpty) {
           return LocaleKeys.mobileNoShouldntBeEmpty.tr;
-        } else if (value.trim().length < Config.minNumLength ||
-            value.trim().length > Config.maxNumLength) {
+        } else if (value.trim().length != Config.minNumLength) {
           return LocaleKeys.phoneErrorValid.tr;
         } else {
           return null;

@@ -69,6 +69,46 @@ class CustomDateUtils {
     }
   }
 
+  int compareTwoStringDates({String? fDate, String? sDate}) {
+    DateTime firstDate =
+        convertStringToDate(date: fDate ?? DateTime.now().toString());
+    DateTime secondDate =
+        convertStringToDate(date: sDate ?? DateTime.now().toString());
+
+    /// greater date
+    if (firstDate.compareTo(secondDate) > 0) {
+      if (kDebugMode) {
+        print('${firstDate.toString()} greater ${secondDate.toString()}');
+      }
+      return 1;
+    }
+
+    /// lesser date
+    else if (firstDate.compareTo(secondDate) < 0) {
+      if (kDebugMode) {
+        print('${firstDate.toString()} lesser ${secondDate.toString()}');
+      }
+      return -1;
+    }
+
+    /// equal date
+    else {
+      if (kDebugMode) {
+        print('${firstDate.toString()} equal to ${secondDate.toString()}');
+      }
+      return 0;
+    }
+  }
+
+  int differenceBetweenTwoStringDates({String? fDate, String? sDate}) {
+    DateTime firstDate =
+        convertStringToDate(date: fDate ?? DateTime.now().toString());
+    DateTime secondDate =
+        convertStringToDate(date: sDate ?? DateTime.now().toString());
+
+    return firstDate.difference(secondDate).inSeconds.abs();
+  }
+
   String convertDateToString(
       {required DateTime date,
       required String currentFormat,

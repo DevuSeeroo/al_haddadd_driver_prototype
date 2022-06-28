@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/custom_logger.dart';
+import '../../../utils/date_utlis.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -20,7 +21,7 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // mobile = "123456798";
+    mobile = "123456798";
   }
 
   @override
@@ -41,7 +42,11 @@ class LoginController extends GetxController {
         ApiExceptionUtils().apiException(
             error: response.getException, className: className, lineNumber: 47);
       } else if (response.data?.apiResponseModel?.status ?? false) {
-        NavigationUtils().callVerificationScreen('$mobile');
+        NavigationUtils().callVerificationScreen(
+            mobile: '$mobile',
+            expireInSeconds: CustomDateUtils().differenceBetweenTwoStringDates(
+                fDate: response.data?.createdOnUTC ?? "",
+                sDate: response.data?.expiryOnUTC ?? ""));
         CustomSnackBar.showSuccessSnackBar(
             LocaleKeys.success.tr,
             "${response.data?.apiResponseModel?.message} ${LocaleKeys.otp.tr}"

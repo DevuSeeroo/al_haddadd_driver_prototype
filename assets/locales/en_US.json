@@ -8,6 +8,8 @@
   "yes": "Yes",
   "no": "No",
   "otp": "OTP",
+  "resendOtp": "Resend OTP",
+  "didntGetOtp": "Didn't get the OTP?",
   "connectionTimeoutErrorMessage": "Connection Timeout",
   "somethingWentWrong": "Something went wrong. Please try again later",
   "invalidStatusCodeErrorMessage": "Invalid Status Code",

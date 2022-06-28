@@ -20,6 +20,8 @@ class LocaleKeys {
   static const yes = 'yes';
   static const no = 'no';
   static const otp = 'otp';
+  static const resendOtp = 'resendOtp';
+  static const didntGetOtp = 'didntGetOtp';
   static const connectionTimeoutErrorMessage = 'connectionTimeoutErrorMessage';
   static const somethingWentWrong = 'somethingWentWrong';
   static const invalidStatusCodeErrorMessage = 'invalidStatusCodeErrorMessage';
@@ -88,6 +90,8 @@ class Locales {
     'yes': 'نعم',
     'no': 'لا',
     'otp': 'التوثيق بالرقم السري',
+    'resendOtp': 'Resend OTP',
+    'didntGetOtp': 'Didn\'t get the OTP?',
     'connectionTimeoutErrorMessage': 'انتهى وقت محاولة الاتصال',
     'somethingWentWrong': 'حدث خطأ ما. الرجاء معاودة المحاولة في وقت لاحق',
     'invalidStatusCodeErrorMessage': 'رمز الحالة غير صحيح',
@@ -154,6 +158,8 @@ class Locales {
     'yes': 'Yes',
     'no': 'No',
     'otp': 'OTP',
+    'resendOtp': 'Resend OTP',
+    'didntGetOtp': 'Didn\'t get the OTP?',
     'connectionTimeoutErrorMessage': 'Connection Timeout',
     'somethingWentWrong': 'Something went wrong. Please try again later',
     'invalidStatusCodeErrorMessage': 'Invalid Status Code',

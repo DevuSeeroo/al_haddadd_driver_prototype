@@ -22,9 +22,12 @@ class NavigationUtils {
     }
   }
 
-  void callVerificationScreen(String mobile) {
-    Get.toNamed(Routes.VERIFICATION,
-        parameters: {AppParamsKey.paramPhone: mobile});
+  void callVerificationScreen(
+      {required String mobile, required int expireInSeconds}) {
+    Get.toNamed(Routes.VERIFICATION, parameters: {
+      AppParamsKey.paramPhone: mobile,
+      AppParamsKey.paramExpireInSeconds: expireInSeconds.toString()
+    });
   }
 
   Future<bool> callJobDetailScreen({required String id}) async {

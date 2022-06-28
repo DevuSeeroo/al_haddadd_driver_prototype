@@ -9,11 +9,16 @@ import '../../generated/locales.g.dart';
 import 'app_storage_keys.dart';
 
 class Utilities {
-  DateTime? currentBackPressTime;
+  static DateTime? currentBackPressTime;
 
   Future<bool> onBackPressed() {
     // SystemNavigator.pop();
     DateTime now = DateTime.now();
+    print("currentBackPressTime: $currentBackPressTime");
+    print(
+        "Difference: ${now.difference(currentBackPressTime ?? DateTime.now()) > const Duration(seconds: 2)}");
+    print(
+        "Condition: ${currentBackPressTime == null || now.difference(currentBackPressTime!) > const Duration(seconds: 2)}");
     if (currentBackPressTime == null ||
         now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
       currentBackPressTime = now;

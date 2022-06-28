@@ -33,7 +33,6 @@ class VerificationController extends GetxController {
     verifyOtpParams.phoneNumber = Get.parameters[AppParamsKey.paramPhone];
     seconds =
         int.parse(Get.parameters[AppParamsKey.paramExpireInSeconds] ?? "120");
-    seconds = 5;
   }
 
   onSubmitted() {

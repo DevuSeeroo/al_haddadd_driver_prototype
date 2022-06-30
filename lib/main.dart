@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return GetMaterialApp(
-      title: "Al haddad-Driver",
+      title: "Al Haddad-Driver",
       debugShowCheckedModeBanner: false,
       translationsKeys: AppTranslation.translations,
       locale: const Locale('en', 'US'),

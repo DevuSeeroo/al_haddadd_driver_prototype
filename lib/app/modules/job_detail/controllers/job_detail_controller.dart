@@ -278,7 +278,7 @@ class JobDetailController extends GetxController {
         if (response.data!.statusCode == 200) {
           CustomSnackBar.showSuccessSnackBar(
               LocaleKeys.success.tr, "${response.data!.message}",
-              backgroundColor: Colors.white, textColor: AppColor.colorPrimary);
+              backgroundColor: AppColor.colorPrimary, textColor: Colors.white);
           NavigationUtils().callJobCompletedScreen();
         } else if (response.data!.statusCode == 400) {
           CustomSnackBar.showErrorSnackBar(

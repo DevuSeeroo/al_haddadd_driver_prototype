@@ -63,9 +63,10 @@ class CustomDateUtils {
       return formattedDob;
     } catch (e) {
       if (kDebugMode) {
+        print('Current date:$apiDate');
         print('DateFormat Exception $e');
       }
-      return "";
+      return "null";
     }
   }
 

@@ -55,6 +55,9 @@ class JobList {
   String? shippingAddressCity;
   String? shippingAddressZipPostalCode;
   String? shippingDeliveryAssignDate;
+  String? shippingShippedDate;
+  String? shippingDeliveredDate;
+  String? shippingDriverAssignedDate;
   int? id;
 
   JobList();
@@ -69,6 +72,10 @@ class JobList {
     shippingAddressCity = json['shipping_address_city'];
     shippingAddressZipPostalCode = json['shipping_address_zip_postal_code'];
     shippingDeliveryAssignDate = json['shipping_delivery_assign_date'];
+    shippingShippedDate = json['shipping_shipped_date_date'];
+    shippingDeliveredDate = json['shipping_delivered_date'];
+    shippingDriverAssignedDate = json['shipping_driver_assigned_date'];
+
     id = json['id'];
   }
 

@@ -66,5 +66,7 @@
   "submit": "Submit",
   "reason": "Reason",
   "youMustEnterAReasonForFailedDelivery": "You must enter a reason for failed delivery",
-  "clearAll": "Clear All"
+  "clearAll": "Clear All",
+  "expectedDeliveryDate": "Expected Delivery Date",
+  "deliveredDate": "Delivered Date"
 }

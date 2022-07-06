@@ -9,13 +9,13 @@ class SecondRowItem extends StatelessWidget {
     required this.statusColor,
     required this.statusMessage,
     required this.time,
-    required this.date,
+    // required this.date,
   }) : super(key: key);
 
   final Color statusColor;
   final String statusMessage;
   final String time;
-  final String date;
+  // final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class SecondRowItem extends StatelessWidget {
           ),
         if (time.isNotEmpty) const SizedBox(height: 5),
         if (time.isNotEmpty) Text(time),
-        if (date.isNotEmpty) const SizedBox(height: 5),
-        if (date.isNotEmpty) Text(date),
+        // if (date.isNotEmpty) const SizedBox(height: 5),
+        // if (date.isNotEmpty) Text(date),
       ],
     );
   }

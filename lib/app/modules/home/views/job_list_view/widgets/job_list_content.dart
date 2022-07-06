@@ -88,8 +88,8 @@ class JobListOrEmptyView extends StatelessWidget {
                   return Column(
                     children: [
                       JobListItemWidget(
-                        jobItem: jobItem,
-                      ),
+                          jobItem: jobItem,
+                          jobSelectedIndex: controller.jobSelectedIndex.value),
                       Obx(() => controller.isLoadingMore.value
                           ? Padding(
                               padding: const EdgeInsets.only(top: 10),

@@ -80,6 +80,8 @@ class LocaleKeys {
   static const youMustEnterAReasonForFailedDelivery =
       'youMustEnterAReasonForFailedDelivery';
   static const clearAll = 'clearAll';
+  static const expectedDeliveryDate = 'expectedDeliveryDate';
+  static const deliveredDate = 'deliveredDate';
 }
 
 class Locales {
@@ -153,6 +155,8 @@ class Locales {
     'youMustEnterAReasonForFailedDelivery':
         'You must enter a reason for failed delivery',
     'clearAll': 'Clear All',
+    'expectedDeliveryDate': 'Expected Delivery Date',
+    'deliveredDate': 'Delivered Date',
   };
   static const en_US = {
     'titleAlHaddad': 'Al haddad Driver',
@@ -224,5 +228,7 @@ class Locales {
     'youMustEnterAReasonForFailedDelivery':
         'You must enter a reason for failed delivery',
     'clearAll': 'Clear All',
+    'expectedDeliveryDate': 'Expected Delivery Date',
+    'deliveredDate': 'Delivered Date',
   };
 }

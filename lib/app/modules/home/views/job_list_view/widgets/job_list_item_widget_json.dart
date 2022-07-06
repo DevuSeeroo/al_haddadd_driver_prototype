@@ -46,7 +46,7 @@ class JobListItemWidgetJson extends StatelessWidget {
                     .getJobBasedColor(jobItem.orderDetail!.jobStatus!),
                 statusMessage: jobItem.orderDetail!.jobMessage ?? "",
                 time: jobItem.orderDetail!.time ?? "",
-                date: jobItem.orderDetail!.date ?? "",
+                // date: jobItem.orderDetail!.date ?? "",
               ),
             ],
           ),

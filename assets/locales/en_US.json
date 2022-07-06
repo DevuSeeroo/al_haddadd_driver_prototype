@@ -65,6 +65,6 @@
   "toDate": "To Date",
   "submit": "Submit",
   "reason": "Reason",
-  "youMustEnterAReasonForFailedDelivery": "You must enter a reason for failed delivery"
-
+  "youMustEnterAReasonForFailedDelivery": "You must enter a reason for failed delivery",
+  "clearAll": "Clear All"
 }

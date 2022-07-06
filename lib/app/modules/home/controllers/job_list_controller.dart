@@ -23,13 +23,14 @@ class JobListController extends GetxController {
   List<int> orderStatusIDs = [];
   List<int> shippingStatusIDs = [];
   List<int> tempOrderStatusIDs = [];
-  DateTime? choosedFromDate;
-  DateTime? choosedToDate;
   List<OrderStatusModel> actualOrderStatuses = [];
   String actualOrderStatusesJson = "";
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
-
+  DateTime? chosenFromDate;
+  DateTime? chosenToDate;
+  DateTime? actualFromDate;
+  DateTime? actualToDate;
   int pageNumber = 1;
   int perPageCount = 10;
   int totalPages = 1;
@@ -141,6 +142,8 @@ class JobListController extends GetxController {
 
   void applyClicked() {
     printOrderStatusIds(message: 'before Apply Clicked:', lineNumber: 149);
+    actualFromDate = chosenFromDate;
+    actualToDate = chosenToDate;
     orderStatusIDs.clear();
     orderStatusIDs.addAll(tempOrderStatusIDs);
     tempOrderStatusIDs.clear();
@@ -154,16 +157,28 @@ class JobListController extends GetxController {
   }
 
   void filterCloseClicked() {
-    fromDateController.text = "";
-    toDateController.text = "";
-    choosedToDate = null;
-    choosedFromDate = null;
+    fromDateController.text = actualFromDate.toString();
+    toDateController.text = actualToDate.toString();
+    chosenToDate = actualToDate;
+    chosenFromDate = actualFromDate;
     actualOrderStatuses = [];
     print("filterCloseClicked: ${jsonDecode(actualOrderStatusesJson)}");
     jsonDecode(actualOrderStatusesJson)['list'].forEach((v) {
       actualOrderStatuses.add(OrderStatusModel.fromJson(v));
     });
     printOrderStatuses(message: "filterCloseClicked:", lineNumber: 187);
+    Get.back();
+  }
+
+  void clearAllClicked() {
+    fromDateController.text = "";
+    toDateController.text = "";
+    chosenToDate = null;
+    chosenFromDate = null;
+    actualOrderStatuses = JobListProvider()
+        .createOrderStatusListBasedOnIndex(jobSelectedIndex.value);
+    isLoading(true);
+    fetchJobListAPI(from: 'clearAllClicked');
     Get.back();
   }
 
@@ -189,21 +204,21 @@ class JobListController extends GetxController {
     }
     JobListProvider()
         .getJobListFromAPI(JobListInputParam(
-            toDate: choosedToDate != null
+            toDate: chosenToDate != null
                 ? CustomDateUtils().convertDateToString(
-                    date: choosedToDate!,
+                    date: chosenToDate!,
                     currentFormat: "",
                     neededFormat: "dd-MM-yyyy")
                 : null,
-            toDateTime: choosedToDate,
+            toDateTime: chosenToDate,
             searchKey: searchKey.value,
-            fromDate: choosedFromDate != null
+            fromDate: chosenFromDate != null
                 ? CustomDateUtils().convertDateToString(
-                    date: choosedFromDate!,
+                    date: chosenFromDate!,
                     currentFormat: "",
                     neededFormat: "dd-MM-yyyy")
                 : null,
-            fromDateTime: choosedFromDate,
+            fromDateTime: chosenFromDate,
             orderStatus: orderStatusIDs,
             shippingStatus: shippingStatusIDs,
             pageSize: perPageCount,
@@ -267,8 +282,8 @@ class JobListController extends GetxController {
             fieldHintText: "dd/MM/yyyy",
             context: context,
             initialDate: whetherFromDate
-                ? choosedFromDate ?? DateTime.now()
-                : choosedToDate ?? DateTime.now(),
+                ? chosenFromDate ?? DateTime.now()
+                : chosenToDate ?? DateTime.now(),
             //which date will display when user open the picker
             firstDate: DateTime(2022),
             //what will be the previous supported year in picker
@@ -286,15 +301,15 @@ class JobListController extends GetxController {
       CustomLogger().print("user selected date: $pickedDate",
           className: className, lineNumber: 292);
       if (whetherFromDate) {
-        choosedFromDate = pickedDate;
+        chosenFromDate = pickedDate;
         fromDateController.text = CustomDateUtils().convertDateToString(
-            date: choosedFromDate ?? DateTime.now(),
+            date: chosenFromDate ?? DateTime.now(),
             currentFormat: "",
             neededFormat: "dd/MM/yyyy");
       } else {
-        choosedToDate = pickedDate;
+        chosenToDate = pickedDate;
         toDateController.text = CustomDateUtils().convertDateToString(
-            date: choosedToDate ?? DateTime.now(),
+            date: chosenToDate ?? DateTime.now(),
             currentFormat: "",
             neededFormat: "dd/MM/yyyy");
       }

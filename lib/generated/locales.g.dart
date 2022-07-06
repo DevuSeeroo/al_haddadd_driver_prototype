@@ -79,6 +79,7 @@ class LocaleKeys {
   static const reason = 'reason';
   static const youMustEnterAReasonForFailedDelivery =
       'youMustEnterAReasonForFailedDelivery';
+  static const clearAll = 'clearAll';
 }
 
 class Locales {
@@ -151,6 +152,7 @@ class Locales {
     'reason': 'Reason',
     'youMustEnterAReasonForFailedDelivery':
         'You must enter a reason for failed delivery',
+    'clearAll': 'Clear All',
   };
   static const en_US = {
     'titleAlHaddad': 'Al haddad Driver',
@@ -221,5 +223,6 @@ class Locales {
     'reason': 'Reason',
     'youMustEnterAReasonForFailedDelivery':
         'You must enter a reason for failed delivery',
+    'clearAll': 'Clear All',
   };
 }

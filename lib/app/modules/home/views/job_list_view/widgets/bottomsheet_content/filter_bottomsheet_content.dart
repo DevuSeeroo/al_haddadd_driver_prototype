@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:alhaddad_driver/app/modules/home/controllers/job_list_controller.dart';
 import 'package:alhaddad_driver/app/widgets/buttons/solid_button_widget.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';
@@ -21,13 +19,13 @@ class FilterBottomSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "Filter: actualOrderStatuses:${jsonEncode(controller.actualOrderStatuses)}");
+    // print(
+    //     "Filter: actualOrderStatuses:${jsonEncode(controller.actualOrderStatuses)}");
     // print(
     //     "Filter: tempOrderStatuses:${jsonEncode(controller.tempOrderStatuses)}");
-    print("Filter: orderStatusIDs:${jsonEncode(controller.orderStatusIDs)}");
-    print(
-        "Filter: tempOrderStatusIDs:${jsonEncode(controller.tempOrderStatusIDs)}");
+    // print("Filter: orderStatusIDs:${jsonEncode(controller.orderStatusIDs)}");
+    // print(
+    //     "Filter: tempOrderStatusIDs:${jsonEncode(controller.tempOrderStatusIDs)}");
     return IntrinsicHeight(
       child: Container(
         padding:
@@ -54,14 +52,27 @@ class FilterBottomSheetContent extends StatelessWidget {
             const SizedBox(height: 10),
             FilterTitleWidget(title: LocaleKeys.chooseStatus.tr),
             StatusesWrapList(controller: controller),
-            Container(
-                alignment: AlignmentDirectional.centerEnd,
-                margin: const EdgeInsetsDirectional.only(end: 10),
-                child: SolidButton(
-                    title: LocaleKeys.apply.tr,
-                    onPressed: () {
-                      controller.applyClicked();
-                    }))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                    alignment: AlignmentDirectional.centerEnd,
+                    margin: const EdgeInsetsDirectional.only(end: 10),
+                    child: SolidButton(
+                        title: LocaleKeys.clearAll.tr,
+                        onPressed: () {
+                          controller.clearAllClicked();
+                        })),
+                Container(
+                    alignment: AlignmentDirectional.centerEnd,
+                    margin: const EdgeInsetsDirectional.only(end: 10),
+                    child: SolidButton(
+                        title: LocaleKeys.apply.tr,
+                        onPressed: () {
+                          controller.applyClicked();
+                        })),
+              ],
+            ),
           ],
         ),
       ),

@@ -53,11 +53,13 @@ class LocaleKeys {
   static const startJourney = 'startJourney';
   static const assigned = 'assigned';
   static const picked = 'picked';
+  static const pickedUp = 'pickedUp';
   static const onTheWay = 'onTheWay';
   static const inTransit = 'inTransit';
   static const reached = 'reached';
   static const jobCompleted = 'jobCompleted';
   static const orderPickedUp = 'orderPickedUp';
+  static const packageReturned = 'packageReturned';
   static const areYouSureYouWantToProceed = 'areYouSureYouWantToProceed';
   static const congratulations = 'congratulations';
   static const continueText = 'continueText';
@@ -123,12 +125,14 @@ class Locales {
     'startJourney': 'Start Journey',
     'assigned': 'Assigned',
     'picked': 'Picked',
+    'pickedUp': 'Picked Up',
     'onTheWay': 'On The Way',
     'inTransit': 'In Transit',
     'reached': 'Reached',
     'jobCompleted': 'Job Completed',
     'orderPickedUp': 'Order Picked Up',
-    'areYouSureYouWantToProceed': 'Are you sure you want to proceed',
+    'packageReturned': 'Package Returned',
+    'areYouSureYouWantToProceed': 'Are you sure you want to proceed?',
     'congratulations': 'Congratulations',
     'continueText': 'Continue',
     'jobCompletedSuccessfully': 'Job Completed Successfully',
@@ -191,12 +195,14 @@ class Locales {
     'startJourney': 'Start Journey',
     'assigned': 'Assigned',
     'picked': 'Picked',
+    'pickedUp': 'Picked Up',
     'onTheWay': 'On The Way',
     'inTransit': 'In Transit',
     'reached': 'Reached',
     'orderPickedUp': 'Order Picked Up',
+    'packageReturned': 'Package Returned',
     'jobCompleted': 'Job Completed',
-    'areYouSureYouWantToProceed': 'Are you sure you want to proceed',
+    'areYouSureYouWantToProceed': 'Are you sure you want to proceed?',
     'congratulations': 'Congratulations',
     'continueText': 'Continue',
     'jobCompletedSuccessfully': 'Job Completed Successfully',

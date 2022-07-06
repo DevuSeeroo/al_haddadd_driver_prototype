@@ -3,7 +3,7 @@ import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_with_style.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'filter_bottomsheet_content.dart';
+import 'bottomsheet_content/filter_bottomsheet_content.dart';
 import 'search_textfield.dart';
 
 class SearchFilterWidget extends StatelessWidget {

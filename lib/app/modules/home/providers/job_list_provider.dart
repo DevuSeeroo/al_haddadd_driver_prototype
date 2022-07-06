@@ -59,8 +59,8 @@ class JobListProvider extends GetConnect {
       response = await client.getJobListPOST(
           appStorageKeys.readUserToken(), inputParams);
 
-      CustomLogger().print('response: ${response.toJson()}',
-          className: className, lineNumber: 63);
+      // CustomLogger().print('response: ${response.toJson()}',
+      //     className: className, lineNumber: 63);
     } catch (error, stacktrace) {
       CustomLogger()
           .printError(error: error, stackTrace: stacktrace, lineNumber: 52);

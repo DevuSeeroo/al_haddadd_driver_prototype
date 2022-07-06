@@ -28,7 +28,8 @@ class JobListItemWidget extends StatelessWidget {
             .then((value) {
           CustomLogger().print("callback invoked", lineNumber: 29);
           Get.find<JobListController>().resetPagination();
-          Get.find<JobListController>().fetchJobListAPI();
+          Get.find<JobListController>()
+              .fetchJobListAPI(from: "JobDetailBackPressed");
         });
       },
       child: Card(
@@ -56,7 +57,8 @@ class JobListItemWidget extends StatelessWidget {
               SecondRowItem(
                 statusColor: AppColor()
                     .getJobBasedColor(jobItem.orderDetail!.orderStatusId!),
-                statusMessage: jobItem.orderDetail!.orderStatus ?? "",
+                statusMessage: Get.find<JobListController>()
+                    .statusMessage(jobItem.orderDetail!),
                 time: "",
                 date: CustomDateUtils().dateToDisplay(
                     apiDate: jobItem.shippingDeliveryAssignDate ?? ""),

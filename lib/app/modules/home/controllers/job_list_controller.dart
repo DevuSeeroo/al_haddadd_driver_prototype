@@ -7,6 +7,7 @@ import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/utils/date_utlis.dart';
+import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +26,7 @@ class JobListController extends GetxController {
   DateTime? choosedFromDate;
   DateTime? choosedToDate;
   List<OrderStatusModel> actualOrderStatuses = [];
-  List<OrderStatusModel> tempOrderStatuses = [];
+  String actualOrderStatusesJson = "";
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
 
@@ -38,7 +39,33 @@ class JobListController extends GetxController {
   void onInit() {
     CustomLogger().print('onInit', className: className, lineNumber: 39);
     super.onInit();
-    fetchJobListAPI();
+    fetchJobListAPI(from: "init");
+  }
+
+  String statusMessage(OrderDetail orderDetail) {
+    if (orderDetail.orderStatusId == AppConstants.processingStatusId) {
+      return LocaleKeys.assigned.tr;
+    } else if (orderDetail.orderStatusId == AppConstants.shippedStatusId &&
+        orderDetail.shippingStatusId == AppConstants.shippingShippedStatusId) {
+      return LocaleKeys.pickedUp.tr;
+    } else if (orderDetail.orderStatusId == AppConstants.shippedStatusId &&
+        orderDetail.shippingStatusId == AppConstants.inTransitStatusId) {
+      return LocaleKeys.inTransit.tr;
+    } else if (orderDetail.orderStatusId == AppConstants.completedStatusId &&
+        orderDetail.shippingStatusId ==
+            AppConstants.shippingCompletedStatusId) {
+      return LocaleKeys.delivered.tr;
+    } else if (orderDetail.orderStatusId ==
+            AppConstants.deliveryFailedStatusId &&
+        orderDetail.shippingStatusId == AppConstants.shippingFailedStatusId) {
+      return LocaleKeys.failed.tr;
+    } else if (orderDetail.orderStatusId ==
+            AppConstants.deliveryFailedStatusId &&
+        orderDetail.shippingStatusId ==
+            AppConstants.shippingPackageReturnedStatusId) {
+      return LocaleKeys.returned.tr;
+    }
+    return orderDetail.orderStatus ?? "";
   }
 
   bool onScrollNotification(ScrollNotification scrollInfo) {
@@ -49,7 +76,7 @@ class JobListController extends GetxController {
       if (pageNumber <= totalPages) {
         isLoadingMore.value = true;
         pageNumber = pageNumber;
-        fetchJobListAPI();
+        fetchJobListAPI(from: "onScrollNotification");
         CustomLogger().print(
             '_pagination- page $pageNumber total page $totalPages',
             lineNumber: 53);
@@ -71,70 +98,95 @@ class JobListController extends GetxController {
   }
 
   void createOrderStatusListBasedOnIndex() {
-    actualOrderStatuses = JobListProvider()
-        .createOrderStatusListBasedOnIndex(jobSelectedIndex.value);
-    CustomLogger().print(
-        "OrderStatusListBasedOnIndex: ${jsonEncode(actualOrderStatuses)}",
-        className: className,
-        lineNumber: 78);
-    tempOrderStatuses.clear();
-    tempOrderStatuses.addAll(actualOrderStatuses);
+    actualOrderStatuses = [];
+    actualOrderStatuses.addAll(JobListProvider()
+        .createOrderStatusListBasedOnIndex(jobSelectedIndex.value));
+    convertAndSaveActualOrderStatusToString();
+    print("createOrderStatusListBasedOnIndex: $actualOrderStatusesJson");
+    printOrderStatuses(message: "OrderStatusListBasedOnIndex", lineNumber: 112);
   }
 
+  String convertAndSaveActualOrderStatusToString() =>
+      actualOrderStatusesJson = "{\"list\":${jsonEncode(actualOrderStatuses)}}";
+
   void orderStatusSelected(OrderStatusModel model) {
-    int index = tempOrderStatuses.indexOf(model);
-    CustomLogger().print('$index', lineNumber: 85);
-    for (int i = 0; i < tempOrderStatuses.length; i++) {
+    int index = actualOrderStatuses.indexOf(model);
+    CustomLogger().print('Index: $index', lineNumber: 120);
+    for (int i = 0; i < actualOrderStatuses.length; i++) {
       if (index == i) {
-        tempOrderStatuses[i].isSelected(true);
+        actualOrderStatuses[i].isSelected(true);
       } else {
-        tempOrderStatuses[i].isSelected(false);
+        actualOrderStatuses[i].isSelected(false);
       }
     }
     tempOrderStatusIDs.clear();
     if (model.orderStatusId == 0) {
-      tempOrderStatusIDs = [
-        AppConstants.cancelledStatusId,
-        AppConstants.completedStatusId
-      ];
+      tempOrderStatusIDs = jobHistoryOrderStatusIds();
     } else {
       tempOrderStatusIDs.add(model.orderStatusId ?? 0);
     }
 
-    // int? indexToDelete;
-    // if (orderStatusIDs.isNotEmpty) {
-    //   for (int i = 0; i < orderStatusIDs.length; i++) {
-    //     if (actualOrderStatuses[index].orderStatusId != null &&
-    //         actualOrderStatuses[index].orderStatusId == orderStatusIDs[i]) {
-    //       indexToDelete = i;
-    //     }
-    //   }
-    // }
-    // if (indexToDelete != null) {
-    //   orderStatusIDs.removeAt(indexToDelete);
-    // } else {
-    //   orderStatusIDs.add(actualOrderStatuses[index].orderStatusId ?? 0);
-    // }
     CustomLogger()
-        .print("OrderStatusIds: $tempOrderStatusIDs", lineNumber: 118);
+        .print("tempOrderStatusIDs: $tempOrderStatusIDs", lineNumber: 136);
+    printOrderStatuses(message: '', lineNumber: 137);
+  }
+
+  List<int> jobHistoryOrderStatusIds() {
+    return [
+      AppConstants.cancelledStatusId,
+      AppConstants.completedStatusId,
+      AppConstants.deliveryFailedStatusId,
+    ];
   }
 
   void applyClicked() {
-    Get.back();
+    printOrderStatusIds(message: 'before Apply Clicked:', lineNumber: 149);
     orderStatusIDs.clear();
     orderStatusIDs.addAll(tempOrderStatusIDs);
-    actualOrderStatuses.clear();
-    actualOrderStatuses.addAll(tempOrderStatuses);
     tempOrderStatusIDs.clear();
-    tempOrderStatuses.clear();
+    convertAndSaveActualOrderStatusToString();
     resetPagination();
     isLoading(true);
-    fetchJobListAPI();
+    printOrderStatusIds(message: 'after Apply Clicked:', lineNumber: 156);
+    printOrderStatuses(message: "after Apply Clicked: ", lineNumber: 157);
+    fetchJobListAPI(from: "filter");
+    Get.back();
   }
 
-  void fetchJobListAPI() {
-    createOrderStatusListBasedOnIndex();
-    orderStatusIds();
+  void filterCloseClicked() {
+    fromDateController.text = "";
+    toDateController.text = "";
+    choosedToDate = null;
+    choosedFromDate = null;
+    actualOrderStatuses = [];
+    print("filterCloseClicked: ${jsonDecode(actualOrderStatusesJson)}");
+    jsonDecode(actualOrderStatusesJson)['list'].forEach((v) {
+      actualOrderStatuses.add(OrderStatusModel.fromJson(v));
+    });
+    printOrderStatuses(message: "filterCloseClicked:", lineNumber: 187);
+    Get.back();
+  }
+
+  void printOrderStatusIds({required String message, required int lineNumber}) {
+    CustomLogger().print("$message tempOrderStatusIDs: $tempOrderStatusIDs",
+        lineNumber: lineNumber);
+    CustomLogger().print("after Apply Clicked: orderStatusIDs: $orderStatusIDs",
+        lineNumber: lineNumber);
+  }
+
+  void printOrderStatuses({required String message, required int lineNumber}) {
+    CustomLogger().print(
+        "$message actualOrderStatuses: ${jsonEncode(actualOrderStatuses)}",
+        lineNumber: lineNumber);
+  }
+
+  void fetchJobListAPI({required String from}) {
+    if (from == "init" || actualOrderStatuses.isEmpty) {
+      createOrderStatusListBasedOnIndex();
+    }
+    if (from != "filter") {
+      orderStatusIds();
+    }
     JobListProvider()
         .getJobListFromAPI(JobListInputParam(
             toDate: choosedToDate != null
@@ -159,12 +211,11 @@ class JobListController extends GetxController {
         .then((value) {
       if (value.getException != null) {
         ApiExceptionUtils().apiException(
-            error: value.getException, className: className, lineNumber: 161);
+            error: value.getException, className: className, lineNumber: 216);
       } else {
-        totalPages = value.data!.totalPages ?? 1;
-        jobList.addAll(value.data != null ? value.data!.jobList ?? [] : []);
         try {
-          CustomLogger().print(jsonEncode(jobList), lineNumber: 166);
+          totalPages = value.data!.totalPages ?? 1;
+          jobList.addAll(value.data != null ? value.data!.jobList ?? [] : []);
         } catch (e) {
           jobList.value = [];
         }
@@ -179,16 +230,13 @@ class JobListController extends GetxController {
     jobSelectedIndex(index);
     resetPagination();
     isLoading(true);
-    fetchJobListAPI();
+    fetchJobListAPI(from: "setJobSelectedIndex");
   }
 
   orderStatusIds() {
-    CustomLogger().print("OrderStatusIDs: $orderStatusIDs", lineNumber: 185);
+    printOrderStatusIds(message: '', lineNumber: 252);
     if (jobSelectedIndex.value == AppConstants.jobHistoryIndex) {
-      orderStatusIDs = [
-        AppConstants.cancelledStatusId,
-        AppConstants.completedStatusId
-      ];
+      orderStatusIDs = jobHistoryOrderStatusIds();
       shippingStatusIDs = [
         AppConstants.shippingPackageReturnedStatusId,
         AppConstants.shippingCompletedStatusId,
@@ -208,8 +256,7 @@ class JobListController extends GetxController {
       ];
     }
     tempOrderStatusIDs.clear();
-    CustomLogger().print("OrderStatusIDs: $orderStatusIDs after clearing temp",
-        lineNumber: 209);
+    printOrderStatusIds(message: 'after clearing temp', lineNumber: 274);
     tempOrderStatusIDs.addAll(orderStatusIDs);
   }
 
@@ -232,26 +279,24 @@ class JobListController extends GetxController {
       //then usually do the future job
       if (pickedDate == null) {
         //if user tap cancel then this function will stop
-        CustomLogger().print("user clicked cancel", lineNumber: 232);
+        CustomLogger().print("user clicked cancel", lineNumber: 287);
         // textEditingController.text = "";
         return;
       }
       CustomLogger().print("user selected date: $pickedDate",
-          className: className, lineNumber: 237);
+          className: className, lineNumber: 292);
       if (whetherFromDate) {
         choosedFromDate = pickedDate;
         fromDateController.text = CustomDateUtils().convertDateToString(
             date: choosedFromDate ?? DateTime.now(),
             currentFormat: "",
-            neededFormat: "dd/MM/y"
-                "yyy");
+            neededFormat: "dd/MM/yyyy");
       } else {
         choosedToDate = pickedDate;
         toDateController.text = CustomDateUtils().convertDateToString(
             date: choosedToDate ?? DateTime.now(),
             currentFormat: "",
-            neededFormat: "dd/MM/yyy"
-                "y");
+            neededFormat: "dd/MM/yyyy");
       }
       // fetchJobListAPI();
     });

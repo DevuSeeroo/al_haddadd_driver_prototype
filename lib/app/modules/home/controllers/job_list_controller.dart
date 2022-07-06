@@ -16,6 +16,7 @@ import '../models/job_list_model.dart';
 class JobListController extends GetxController {
   final isLoading = true.obs;
   final isLoadingMore = true.obs;
+  final isFilterApplied = false.obs;
 
   final String className = "JobListController";
   RxList<JobList> jobList = <JobList>[].obs;
@@ -141,6 +142,7 @@ class JobListController extends GetxController {
   }
 
   void applyClicked() {
+    isFilterApplied(true);
     printOrderStatusIds(message: 'before Apply Clicked:', lineNumber: 149);
     actualFromDate = chosenFromDate;
     actualToDate = chosenToDate;
@@ -157,8 +159,9 @@ class JobListController extends GetxController {
   }
 
   void filterCloseClicked() {
-    fromDateController.text = actualFromDate.toString();
-    toDateController.text = actualToDate.toString();
+    fromDateController.text =
+        actualFromDate != null ? actualFromDate.toString() : "";
+    toDateController.text = actualToDate != null ? actualToDate.toString() : "";
     chosenToDate = actualToDate;
     chosenFromDate = actualFromDate;
     actualOrderStatuses = [];
@@ -171,6 +174,7 @@ class JobListController extends GetxController {
   }
 
   void clearAllClicked() {
+    isFilterApplied(false);
     fromDateController.text = "";
     toDateController.text = "";
     chosenToDate = null;

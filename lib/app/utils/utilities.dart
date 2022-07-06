@@ -35,6 +35,12 @@ class Utilities {
   List<TextInputFormatter>? numberFormatter = [
     FilteringTextInputFormatter.allow(RegExp("[0-9]"))
   ];
+
+  List<TextInputFormatter>? phnNumberFormatter = [
+    FilteringTextInputFormatter.allow(RegExp('[+0-9]')),
+    LengthLimitingTextInputFormatter(13),
+  ];
+
   List<TextInputFormatter>? nameFormatter = [
     FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
   ];

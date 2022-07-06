@@ -1,4 +1,4 @@
-import 'package:alhaddad_driver/app/utils/app_constants.dart';
+import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/widgets/textfields/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -19,18 +19,17 @@ class LoginMobileNumberWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: false, decimal: false),
-      textInputFormatter: Utilities().numberFormatter,
-      maxLength: Config.minNumLength,
+      keyboardType: TextInputType.phone,
+      textInputFormatter: Utilities().phnNumberFormatter,
+      maxLength: Config.maxNumLength,
       textColor: Colors.white,
       initialValue: controller.mobile,
-      prefixText: AppConstants.countryCode,
-      // prefix: const Icon(
-      //   Icons.phone,
-      //   color: AppColor.hintTextColor,
-      //   size: 16,
-      // ),
+      // prefixText: AppConstants.countryCode,
+      prefix: const Icon(
+        Icons.phone,
+        color: AppColor.hintTextColor,
+        size: 16,
+      ),
       hint: LocaleKeys.mobileNo.tr,
       onChanged: (value) {
         controller.mobile = value;
@@ -39,9 +38,17 @@ class LoginMobileNumberWidget extends StatelessWidget {
       validator: (value) {
         if (value!.trim().isEmpty) {
           return LocaleKeys.mobileNoShouldntBeEmpty.tr;
-        } else if (value.trim().length != Config.minNumLength) {
-          return LocaleKeys.phoneErrorValid.tr;
-        } else {
+        }
+        // else if (value.trim().length != Config.maxNumLength) {
+        //   return LocaleKeys.phoneErrorValid.tr;
+        // } else if (value.trim().contains("+")) {
+        //   if (value.substring(1) != "+") {
+        //     return LocaleKeys.phoneErrorValid.tr;
+        //   } else if (value.substring(1).contains("+")) {
+        //     return LocaleKeys.phoneErrorValid.tr;
+        //   }
+        // }
+        else {
           return null;
         }
       },

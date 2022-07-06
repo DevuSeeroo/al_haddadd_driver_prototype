@@ -2,7 +2,6 @@ import 'package:alhaddad_driver/app/modules/login/models/send_otp_params.dart';
 import 'package:alhaddad_driver/app/modules/login/providers/login_provider.dart';
 import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
 import 'package:alhaddad_driver/app/utils/app_color.dart';
-import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
 import 'package:alhaddad_driver/app/utils/snackbar_utils.dart';
 import 'package:alhaddad_driver/generated/locales.g.dart';
@@ -38,16 +37,17 @@ class LoginController extends GetxController {
 
   void sendOtpMethod() {
     apiCalling(true);
+    // String mobileNumber='${AppConstants.countryCode}$mobile';
+    String mobileNumber = '$mobile';
     provider
-        .sendOtpResponse(
-            params: SendOtpParams('${AppConstants.countryCode}$mobile'))
+        .sendOtpResponse(params: SendOtpParams(mobileNumber))
         .then((response) {
       if (response.getException != null) {
         ApiExceptionUtils().apiException(
             error: response.getException, className: className, lineNumber: 47);
       } else if (response.data?.apiResponseModel?.status ?? false) {
         NavigationUtils().callVerificationScreen(
-            mobile: '${AppConstants.countryCode}$mobile',
+            mobile: mobileNumber,
             expireInSeconds: CustomDateUtils().differenceBetweenTwoStringDates(
                 fDate: response.data?.createdOnUTC ?? "",
                 sDate: response.data?.expiryOnUTC ?? ""));

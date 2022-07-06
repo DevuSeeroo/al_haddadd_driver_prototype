@@ -21,7 +21,7 @@ class Config {
 //  length
   static const int minimumNameLength = 2;
   static const int maximumNameLength = 25;
-  static const int maxNumLength = 12; //9 + country code(3)
+  static const int maxNumLength = 13; //9 + country code(3)
   static const int minNumLength = 9;
   static const int otpLength = 4;
   static const double minPasswordLength = 6;

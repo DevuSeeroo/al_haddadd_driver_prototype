@@ -88,9 +88,8 @@ class JobListItemWidget extends StatelessWidget {
                       TextSpan(
                           text: jobSelectedIndex != AppConstants.jobHistoryIndex
                               ? CustomDateUtils().dateToDisplay(
-                                  apiDate: jobItem.orderDetail!
-                                          .expectedDeliveryDateUtc ??
-                                      "")
+                                  apiDate:
+                                      jobItem.shippingDeliveryAssignDate ?? "")
                               : CustomDateUtils().dateToDisplay(
                                   apiDate: jobItem.shippingDeliveredDate ?? ""),
                           style: const TextStyle(

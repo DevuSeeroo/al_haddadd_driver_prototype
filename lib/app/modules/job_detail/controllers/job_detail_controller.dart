@@ -8,7 +8,6 @@ import 'package:alhaddad_driver/app/utils/api_exception_util.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_params_key.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
-import 'package:alhaddad_driver/app/utils/custom_trace.dart';
 import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
 import 'package:alhaddad_driver/app/utils/snackbar_utils.dart';
 import 'package:alhaddad_driver/app/widgets/bottomsheet/bottomsheet_content/title_subtitle_bottomsheet_content.dart';
@@ -141,8 +140,7 @@ class JobDetailController extends GetxController {
 
   void deliveryFailedButtonPressed() {
     CustomLogger().print("Delivery failed pressed",
-        className: CustomTrace(trace: StackTrace.current).data,
-        lineNumber: 138);
+        className: className, lineNumber: 138);
     if (reasonTextEditingController.text.trim().isEmpty) {
       CustomSnackBar.showErrorSnackBar(LocaleKeys.error.tr,
           LocaleKeys.youMustEnterAReasonForFailedDelivery.tr);

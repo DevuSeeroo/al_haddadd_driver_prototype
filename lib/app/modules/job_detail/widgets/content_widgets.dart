@@ -1,4 +1,4 @@
-import 'package:alhaddad_driver/app/modules/home/controllers/home_controller.dart';
+import 'package:alhaddad_driver/app/modules/home/controllers/job_list_controller.dart';
 import 'package:alhaddad_driver/app/modules/job_detail/controllers/job_detail_controller.dart';
 import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
@@ -25,8 +25,8 @@ class ContentWidgets extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 10),
-          Get.find<HomeController>().homeSelectedIndex.value ==
-                      AppConstants.historyIndex ||
+          Get.find<JobListController>().jobSelectedIndex.value ==
+                      AppConstants.jobHistoryIndex ||
                   controller.dataModel!.orderStatusId ==
                       AppConstants.processingStatusId
               ? TitleAndListWidget(controller: controller)
@@ -37,9 +37,12 @@ class ContentWidgets extends StatelessWidget {
                       : Assets.imagesDeliveryOnTheWay),
           JobDetailWidget(
             iconsData: Icons.calendar_today_outlined,
-            title: LocaleKeys.dateAndTime.tr,
-            titleValue: CustomDateUtils()
-                .dateToDisplay(apiDate: controller.dataModel!.createdOn ?? ""),
+            title: controller.dateTitle(),
+            titleValue: CustomDateUtils().dateToDisplay(
+                apiDate: controller.dataModel!.shipments != null &&
+                        controller.dataModel!.shipments!.isNotEmpty
+                    ? controller.dateValueToShow()
+                    : "null"),
             titleValueColor: AppColor.jobDetailBlueColor,
             titleValueSize: 14,
             titleValueFontWeight: FontWeight.w600,

@@ -78,7 +78,12 @@ class JobListItemWidget extends StatelessWidget {
                   text: TextSpan(
                     text: jobSelectedIndex != AppConstants.jobHistoryIndex
                         ? LocaleKeys.expectedDeliveryDate.tr
-                        : LocaleKeys.deliveredDate.tr,
+                        : jobItem.orderDetail!.orderStatusId ==
+                                    AppConstants.deliveryFailedStatusId &&
+                                jobItem.orderDetail!.shippingStatusId ==
+                                    AppConstants.shippingPackageReturnedStatusId
+                            ? LocaleKeys.returnedDate.tr
+                            : LocaleKeys.deliveredDate.tr,
                     style: const TextStyle(
                       color: AppColor.textColor,
                       fontSize: 15,

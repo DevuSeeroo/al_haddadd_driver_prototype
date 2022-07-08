@@ -82,6 +82,7 @@ class LocaleKeys {
   static const clearAll = 'clearAll';
   static const expectedDeliveryDate = 'expectedDeliveryDate';
   static const deliveredDate = 'deliveredDate';
+  static const returnedDate = 'returnedDate';
 }
 
 class Locales {
@@ -157,6 +158,7 @@ class Locales {
     'clearAll': 'Clear All',
     'expectedDeliveryDate': 'Expected Delivery Date',
     'deliveredDate': 'Delivered Date',
+    'returnedDate': 'Returned Date',
   };
   static const en_US = {
     'titleAlHaddad': 'Al haddad Driver',
@@ -230,5 +232,6 @@ class Locales {
     'clearAll': 'Clear All',
     'expectedDeliveryDate': 'Expected Delivery Date',
     'deliveredDate': 'Delivered Date',
+    'returnedDate': 'Returned Date',
   };
 }

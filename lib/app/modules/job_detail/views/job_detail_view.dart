@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:alhaddad_driver/app/modules/home/controllers/home_controller.dart';
 import 'package:alhaddad_driver/app/modules/home/controllers/job_list_controller.dart';
 import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
@@ -33,12 +32,14 @@ class JobDetailView extends GetView<JobDetailController> {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Get.find<HomeController>().homeSelectedIndex.value ==
-                              AppConstants.historyIndex ||
+                  Get.find<JobListController>().jobSelectedIndex.value ==
+                              AppConstants.jobHistoryIndex ||
                           (controller.dataModel!.orderStatusId ==
                                   AppConstants.processingStatusId ||
                               controller.dataModel!.orderStatusId ==
-                                  AppConstants.completedStatusId)
+                                  AppConstants.completedStatusId ||
+                              controller.dataModel!.orderStatusId ==
+                                  AppConstants.deliveryFailedStatusId)
                       ? ToolbarItemsWidget(
                           jobId: "${controller.dataModel!.id}",
                           paymentMethod:

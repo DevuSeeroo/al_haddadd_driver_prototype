@@ -362,8 +362,12 @@ class Address {
 class Shipments {
   String? trackingNumber;
   String? shippedDate;
-  dynamic deliveryDate;
+  String? deliveryDate;
+  String? expectedDeliveryDate;
+  String? returnedDate;
+  String? driverAssignedDate;
   int? id;
+  int? driverCustId;
 
   Shipments(
       {this.trackingNumber, this.shippedDate, this.deliveryDate, this.id});
@@ -372,7 +376,11 @@ class Shipments {
     trackingNumber = json['tracking_number'];
     shippedDate = json['shipped_date'];
     deliveryDate = json['delivery_date'];
+    returnedDate = json['returned_date'];
+    expectedDeliveryDate = json['driver_assign_dlvry_date_utc'];
+    driverAssignedDate = json['driver_assigned_date_utc'];
     id = json['id'];
+    driverCustId = json['driver_cust_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -380,6 +388,10 @@ class Shipments {
     data['tracking_number'] = trackingNumber;
     data['shipped_date'] = shippedDate;
     data['delivery_date'] = deliveryDate;
+    data['returned_date'] = returnedDate;
+    data['driver_assign_dlvry_date_utc'] = expectedDeliveryDate;
+    data['driver_assigned_date_utc'] = driverAssignedDate;
+    data['driver_cust_id'] = driverCustId;
     data['id'] = id;
     return data;
   }

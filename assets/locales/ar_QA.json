@@ -68,5 +68,6 @@
   "youMustEnterAReasonForFailedDelivery": "You must enter a reason for failed delivery",
   "clearAll": "Clear All",
   "expectedDeliveryDate": "Expected Delivery Date",
-  "deliveredDate": "Delivered Date"
+  "deliveredDate": "Delivered Date",
+  "returnedDate": "Returned Date"
 }

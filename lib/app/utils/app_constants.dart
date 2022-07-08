@@ -8,7 +8,6 @@ class AppConstants {
 
   static int homeIndex = 1;
   static int profileIndex = 2;
-  static int historyIndex = 3; //not using
   static int jobAssignedIndex = 1;
   static int jobPickedIndex = 2;
   static int jobHistoryIndex = 3;

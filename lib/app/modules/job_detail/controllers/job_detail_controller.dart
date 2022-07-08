@@ -57,10 +57,35 @@ class JobDetailController extends GetxController {
       } else {
         dataModel = value.data;
         getButtonTitleText();
-        CustomLogger().print(jsonEncode(dataModel), lineNumber: 55);
+        // CustomLogger().print(jsonEncode(dataModel), lineNumber: 55);
         isLoading(false);
       }
     });
+  }
+
+  String dateValueToShow() {
+    if (dataModel!.orderStatusId == AppConstants.deliveryFailedStatusId &&
+        dataModel!.shippingStatusId ==
+            AppConstants.shippingPackageReturnedStatusId) {
+      return dataModel!.shipments!.first.returnedDate ?? "";
+    } else {
+      return dataModel!.shipments!.first.expectedDeliveryDate ?? "";
+    }
+  }
+
+  String dateTitle() {
+    if (Get.find<JobListController>().jobSelectedIndex.value ==
+        AppConstants.jobHistoryIndex) {
+      if (dataModel!.orderStatusId == AppConstants.deliveryFailedStatusId &&
+          dataModel!.shippingStatusId ==
+              AppConstants.shippingPackageReturnedStatusId) {
+        return LocaleKeys.returnedDate.tr;
+      } else {
+        return LocaleKeys.deliveredDate.tr;
+      }
+    } else {
+      return LocaleKeys.expectedDeliveryDate.tr;
+    }
   }
 
   String toolbarTitleText() {

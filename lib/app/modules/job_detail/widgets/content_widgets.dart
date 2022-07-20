@@ -35,6 +35,7 @@ class ContentWidgets extends StatelessWidget {
                           AppConstants.shippedStatusId
                       ? Assets.imagesOrderPickedUp
                       : Assets.imagesDeliveryOnTheWay),
+
           JobDetailWidget(
             iconsData: Icons.calendar_today_outlined,
             title: controller.dateTitle(),
@@ -48,16 +49,34 @@ class ContentWidgets extends StatelessWidget {
             titleValueFontWeight: FontWeight.w600,
           ),
           JobDetailWidget(
+            iconsData: Icons.person,
+            title: "Name",
+            titleValue:
+                "${controller.dataModel!.shippingAddress!.firstName ?? " "} ${controller.dataModel!.shippingAddress!.lastName ?? " "}",
+            titleValueSize: 14,
+            titleValueFontWeight: FontWeight.w600,
+          ),
+          if (controller.dataModel!.shippingAddress!.company != null &&
+              controller.dataModel!.shippingAddress!.company!.isNotEmpty)
+            JobDetailWidget(
+              iconsData: Icons.people,
+              title: "Company Name",
+              titleValue: controller.dataModel!.shippingAddress!.company ?? "",
+              titleValueSize: 14,
+              titleValueFontWeight: FontWeight.w600,
+            ),
+          JobDetailWidget(
             iconsData: Icons.credit_card,
             title: LocaleKeys.address.tr,
             titleValue:
-                "${controller.dataModel!.shippingAddress!.firstName ?? " "} ${controller.dataModel!.shippingAddress!.lastName ?? " "}",
-            titleValueSize: 15,
-            titleValueFontWeight: FontWeight.w600,
-            subTitle: "",
-            subtitleValue:
-                "${controller.dataModel!.shippingAddress!.address1 ?? " "}",
-            subtitleValueSize: 14,
+                "${controller.dataModel!.shippingAddress!.address1 ?? " "} "
+                "${controller.dataModel!.shippingAddress!.address2 != null && controller.dataModel!.shippingAddress!.address2!.isNotEmpty ? ", " : ""}"
+                "${controller.dataModel!.shippingAddress!.address2 ?? " "}\n"
+                "${controller.dataModel!.shippingAddress!.city ?? " "}, "
+                "${controller.dataModel!.shippingAddress!.stateProvinceName ?? " "}, ${controller.dataModel!.shippingAddress!.countryName ?? " "}\n"
+                "${controller.dataModel!.shippingAddress!.zipPostalCode != null && controller.dataModel!.shippingAddress!.zipPostalCode!.isNotEmpty ? "Pin: " : ""}"
+                "${controller.dataModel!.shippingAddress!.zipPostalCode ?? " "}",
+            titleValueSize: 14,
           ),
           JobDetailWidget(
             iconsData: Icons.phone_android,

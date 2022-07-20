@@ -206,39 +206,39 @@ class JobDetail {
 }
 
 class Address {
-  dynamic firstName;
-  dynamic lastName;
-  dynamic email;
+  String? firstName;
+  String? lastName;
+  String? email;
   bool? companyEnabled;
   bool? companyRequired;
-  dynamic company;
+  String? company;
   bool? countryEnabled;
   dynamic countryId;
-  dynamic countryName;
+  String? countryName;
   bool? stateProvinceEnabled;
   dynamic stateProvinceId;
-  dynamic stateProvinceName;
+  String? stateProvinceName;
   bool? countyEnabled;
   bool? countyRequired;
-  dynamic county;
+  String? county;
   bool? cityEnabled;
   bool? cityRequired;
-  dynamic city;
+  String? city;
   bool? streetAddressEnabled;
   bool? streetAddressRequired;
-  dynamic address1;
+  String? address1;
   bool? streetAddress2Enabled;
   bool? streetAddress2Required;
-  dynamic address2;
+  String? address2;
   bool? zipPostalCodeEnabled;
   bool? zipPostalCodeRequired;
-  dynamic zipPostalCode;
+  String? zipPostalCode;
   bool? phoneEnabled;
   bool? phoneRequired;
-  dynamic phoneNumber;
+  String? phoneNumber;
   bool? faxEnabled;
   bool? faxRequired;
-  dynamic faxNumber;
+  String? faxNumber;
   dynamic formattedCustomAddressAttributes;
   int? id;
 

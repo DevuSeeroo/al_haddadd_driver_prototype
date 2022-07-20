@@ -173,7 +173,7 @@ class JobListController extends GetxController {
     Get.back();
   }
 
-  void clearAllClicked() {
+  void clearAllClicked({required bool isBackNeeded}) {
     isFilterApplied(false);
     fromDateController.text = "";
     toDateController.text = "";
@@ -182,8 +182,9 @@ class JobListController extends GetxController {
     actualOrderStatuses = JobListProvider()
         .createOrderStatusListBasedOnIndex(jobSelectedIndex.value);
     isLoading(true);
-    fetchJobListAPI(from: 'clearAllClicked');
-    Get.back();
+    if (isBackNeeded) {
+      Get.back();
+    }
   }
 
   void printOrderStatusIds({required String message, required int lineNumber}) {
@@ -252,6 +253,8 @@ class JobListController extends GetxController {
     isLoading(true);
     chosenToDate = null;
     chosenFromDate = null;
+    fromDateController.text = "";
+    toDateController.text = "";
     fetchJobListAPI(from: "setJobSelectedIndex");
   }
 

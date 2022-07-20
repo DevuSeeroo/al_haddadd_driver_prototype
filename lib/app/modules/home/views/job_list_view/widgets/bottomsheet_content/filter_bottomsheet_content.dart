@@ -61,7 +61,8 @@ class FilterBottomSheetContent extends StatelessWidget {
                     child: SolidButton(
                         title: LocaleKeys.clearAll.tr,
                         onPressed: () {
-                          controller.clearAllClicked();
+                          controller.clearAllClicked(isBackNeeded: true);
+                          controller.fetchJobListAPI(from: 'clearAllClicked');
                         })),
                 Container(
                     alignment: AlignmentDirectional.centerEnd,

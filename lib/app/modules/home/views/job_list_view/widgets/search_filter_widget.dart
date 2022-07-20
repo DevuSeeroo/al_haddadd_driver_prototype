@@ -54,7 +54,8 @@ class SearchFilterWidget extends StatelessWidget {
         controller.isFilterApplied.value
             ? GestureDetector(
                 onTap: () {
-                  controller.clearAllClicked();
+                  controller.clearAllClicked(isBackNeeded: true);
+                  controller.fetchJobListAPI(from: 'clearAllClicked');
                 },
                 child: Padding(
                   padding:

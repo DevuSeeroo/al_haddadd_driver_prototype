@@ -64,6 +64,6 @@ class PinWidget extends StatelessWidget {
             PinListenColorBuilder(AppColor.hintTextColor, Colors.white),
         lineHeight: 2,
         gapSpace: 20,
-        textStyle: const TextStyle(color: Colors.white, fontSize: 16));
+        textStyle: const TextStyle(color: Colors.white, fontSize: 18));
   }
 }

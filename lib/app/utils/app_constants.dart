@@ -1,7 +1,8 @@
 class AppConstants {
   static const String BaseUrlLive = "https://www.alhaddadb2b.com/";
   static const String BaseUrlTest = "https://www.alhaddadb2b.com/demo/";
-  static const String BaseUrl = BaseUrlTest;
+  static const String BaseUrlDev = "https://www.alhaddadb2b.com/local/";
+  static const String BaseUrl = BaseUrlDev;
   static const String testToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOiIxNjU0MjcyNTk1IiwiZXhwIjoiMTY1NDg3NzM5NSIsIkN1c3RvbWVySWQiOiI2MjkxOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNjU2ZTJhMjYtYjFjOC00NzlmLWJiYTUtN2ZlYzQ3Mzg0OGE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6InRlc3Rkcml2ZXJAZ21haWwuY29tIn0.6UELAknTGvhIc-r6mdRuwkdL7jzdBRWkExv9HA1vzXI";
   static const int testID = 62919;
@@ -40,9 +41,10 @@ class AppConstants {
 
   //This is from shipping status sections
   // and all the above are from order status section
-  static int driverAssignedStatusId = 30;
+  static int shippingDriverAssignedStatusId = 30;
+  static int shippingDriverPartiallyShippedStatusId = 35;
   static int shippingShippedStatusId = 40;
-  static int inTransitStatusId = 50;
+  static int shippingInTransitStatusId = 50;
   static int shippingCompletedStatusId = 60;
   static int shippingFailedStatusId = 70;
   static int shippingPackageReturnedStatusId = 80;

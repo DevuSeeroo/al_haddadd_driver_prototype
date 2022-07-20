@@ -96,7 +96,8 @@ class JobDetailController extends GetxController {
           dataModel!.shippingStatusId == AppConstants.shippingShippedStatusId) {
         return LocaleKeys.orderPickedUp.tr;
       } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
-          dataModel!.shippingStatusId == AppConstants.inTransitStatusId) {
+          dataModel!.shippingStatusId ==
+              AppConstants.shippingInTransitStatusId) {
         return LocaleKeys.inTransit.tr;
       }
     }
@@ -110,7 +111,8 @@ class JobDetailController extends GetxController {
         buttonTitleText(LocaleKeys.startJourney.tr);
         return LocaleKeys.startJourney.tr;
       } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
-          dataModel!.shippingStatusId == AppConstants.inTransitStatusId) {
+          dataModel!.shippingStatusId ==
+              AppConstants.shippingInTransitStatusId) {
         buttonTitleText(LocaleKeys.jobCompleted.tr);
         return LocaleKeys.jobCompleted.tr;
       } else if (dataModel!.orderStatusId == AppConstants.processingStatusId) {
@@ -148,7 +150,7 @@ class JobDetailController extends GetxController {
         ),
       );
     } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
-        dataModel!.shippingStatusId == AppConstants.inTransitStatusId) {
+        dataModel!.shippingStatusId == AppConstants.shippingInTransitStatusId) {
       jobStatusChangeToDeliveredAPI();
       // navigateWithMessage("Job status changed to reached");
     } else if (dataModel!.orderStatusId == AppConstants.shippedStatusId &&
@@ -241,11 +243,11 @@ class JobDetailController extends GetxController {
             lineNumber: 213);
       } else {
         if (response.data!.statusCode == 200) {
+          Get.find<JobListController>().jobSelectedIndex.value !=
+              AppConstants.jobPickedIndex;
+          Get.back();
           CustomSnackBar.showSuccessSnackBar(
               LocaleKeys.success.tr, "${response.data!.message}");
-          Get.find<JobListController>().jobSelectedIndex.value !=
-              AppConstants.jobHistoryIndex;
-          fetchJobDetail();
         } else if (response.data!.statusCode == 400) {
           CustomSnackBar.showErrorSnackBar(
             LocaleKeys.error.tr,

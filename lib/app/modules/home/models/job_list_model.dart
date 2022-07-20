@@ -58,6 +58,8 @@ class JobList {
   String? shippingShippedDate;
   String? shippingDeliveredDate;
   String? shippingDriverAssignedDate;
+  int? shippingId;
+  int? driverShippingStatusId;
   int? id;
 
   JobList();
@@ -77,6 +79,8 @@ class JobList {
     shippingDriverAssignedDate = json['shipping_driver_assigned_date'];
 
     id = json['id'];
+    shippingId = json['shipping_id'];
+    driverShippingStatusId = json['driver_shipping_status_id'];
   }
 
   Map<String, dynamic> toJson() {

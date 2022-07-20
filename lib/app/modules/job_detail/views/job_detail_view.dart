@@ -57,7 +57,7 @@ class JobDetailView extends GetView<JobDetailController> {
                           isHasTrailing: controller.dataModel!.orderStatusId ==
                                   AppConstants.shippedStatusId ||
                               controller.dataModel!.orderStatusId ==
-                                  AppConstants.inTransitStatusId,
+                                  AppConstants.shippingInTransitStatusId,
                           isTrailingSvg: true,
                           trailingIcon: Assets.iconsLocation,
                           onPressedTrailing: () {
@@ -77,7 +77,7 @@ class JobDetailView extends GetView<JobDetailController> {
                         if (controller.dataModel!.orderStatusId ==
                                 AppConstants.shippedStatusId &&
                             controller.dataModel!.shippingStatusId ==
-                                AppConstants.inTransitStatusId)
+                                AppConstants.shippingInTransitStatusId)
                           Expanded(
                             child: SolidButton(
                                 outerPadding: const EdgeInsetsDirectional.only(
@@ -105,7 +105,7 @@ class JobDetailView extends GetView<JobDetailController> {
                                               controller.dataModel!
                                                       .shippingStatusId ==
                                                   AppConstants
-                                                      .inTransitStatusId)
+                                                      .shippingInTransitStatusId)
                                           ? 5
                                           : 20,
                                       end: 20),

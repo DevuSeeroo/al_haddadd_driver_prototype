@@ -28,7 +28,7 @@ class JobListItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         NavigationUtils()
-            .callJobDetailScreen(id: jobItem.id.toString())
+            .callJobDetailScreen(id: jobItem.shippingId.toString())
             .then((value) {
           CustomLogger().print("callback invoked", lineNumber: 29);
           Get.find<JobListController>().resetPagination();
@@ -65,7 +65,8 @@ class JobListItemWidget extends StatelessWidget {
                     statusColor: AppColor()
                         .getJobBasedColor(jobItem.orderDetail!.orderStatusId!),
                     statusMessage: Get.find<JobListController>()
-                        .statusMessage(jobItem.orderDetail!),
+                        .statusMessageNew(jobItem.driverShippingStatusId ??
+                            AppConstants.shippingDriverAssignedStatusId),
                     time: "",
                     // date: CustomDateUtils().dateToDisplay(
                     //     apiDate: jobItem.shippingDeliveryAssignDate ?? ""),

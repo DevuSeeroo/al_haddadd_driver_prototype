@@ -182,10 +182,7 @@ class JobDetailProvider extends GetConnect {
             JobStatusChangeModel(status: true, message: res, statusCode: 200);
       } else {
         response = JobStatusChangeModel(
-            status: true,
-            message: "Something went"
-                " wrong",
-            statusCode: 400);
+            status: true, message: "Something went wrong", statusCode: 400);
       }
     } catch (error, stacktrace) {
       CustomLogger()
@@ -215,12 +212,10 @@ class JobDetailProvider extends GetConnect {
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);
+        CustomLogger().print(jsonEncode(response), lineNumber: 217);
       } else {
         response = JobStatusChangeModel(
-            status: true,
-            message: "Something went"
-                " wrong",
-            statusCode: 400);
+            status: true, message: "Something went wrong", statusCode: 400);
       }
     } catch (error, stacktrace) {
       CustomLogger()

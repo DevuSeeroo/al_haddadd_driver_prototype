@@ -19,7 +19,8 @@ class JobListItemWidgetJson extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        NavigationUtils().callJobDetailScreen(id: jobItem.id.toString());
+        NavigationUtils()
+            .callJobDetailScreen(id: jobItem.shippingId.toString());
       },
       child: Card(
         color: Colors.white,

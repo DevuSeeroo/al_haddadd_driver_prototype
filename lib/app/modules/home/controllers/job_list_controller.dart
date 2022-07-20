@@ -44,6 +44,23 @@ class JobListController extends GetxController {
     fetchJobListAPI(from: "init");
   }
 
+  String statusMessageNew(int id, {String? shippingStatusFromAPI}) {
+    if (id == AppConstants.shippingDriverAssignedStatusId) {
+      return LocaleKeys.assigned.tr;
+    } else if (id == AppConstants.shippingShippedStatusId) {
+      return LocaleKeys.pickedUp.tr;
+    } else if (id == AppConstants.shippingInTransitStatusId) {
+      return LocaleKeys.inTransit.tr;
+    } else if (id == AppConstants.shippingCompletedStatusId) {
+      return LocaleKeys.delivered.tr;
+    } else if (id == AppConstants.shippingFailedStatusId) {
+      return LocaleKeys.failed.tr;
+    } else if (id == AppConstants.shippingPackageReturnedStatusId) {
+      return LocaleKeys.returned.tr;
+    }
+    return shippingStatusFromAPI ?? "";
+  }
+
   String statusMessage(OrderDetail orderDetail) {
     if (orderDetail.orderStatusId == AppConstants.processingStatusId) {
       return LocaleKeys.assigned.tr;
@@ -51,7 +68,8 @@ class JobListController extends GetxController {
         orderDetail.shippingStatusId == AppConstants.shippingShippedStatusId) {
       return LocaleKeys.pickedUp.tr;
     } else if (orderDetail.orderStatusId == AppConstants.shippedStatusId &&
-        orderDetail.shippingStatusId == AppConstants.inTransitStatusId) {
+        orderDetail.shippingStatusId ==
+            AppConstants.shippingInTransitStatusId) {
       return LocaleKeys.inTransit.tr;
     } else if (orderDetail.orderStatusId == AppConstants.completedStatusId &&
         orderDetail.shippingStatusId ==
@@ -225,7 +243,7 @@ class JobListController extends GetxController {
                     neededFormat: "dd-MM-yyyy")
                 : null,
             fromDateTime: chosenFromDate,
-            orderStatus: orderStatusIDs,
+            // orderStatus: orderStatusIDs,
             shippingStatus: shippingStatusIDs,
             pageSize: perPageCount,
             pageNumber: pageNumber))
@@ -268,15 +286,16 @@ class JobListController extends GetxController {
       ];
     } else if (jobSelectedIndex.value == AppConstants.jobAssignedIndex) {
       orderStatusIDs = [AppConstants.processingStatusId];
-      shippingStatusIDs = [];
+      shippingStatusIDs = [AppConstants.shippingDriverAssignedStatusId];
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {
       orderStatusIDs = [
         AppConstants.shippedStatusId,
         AppConstants.deliveryFailedStatusId,
       ];
       shippingStatusIDs = [
-        AppConstants.inTransitStatusId,
+        AppConstants.shippingDriverPartiallyShippedStatusId,
         AppConstants.shippingShippedStatusId,
+        AppConstants.shippingInTransitStatusId,
         AppConstants.shippingFailedStatusId
       ];
     }

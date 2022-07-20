@@ -25,7 +25,7 @@ class AppColor {
   Color getJobBasedColor(int jobStatus) {
     return jobStatus == AppConstants.shippedStatusId
         ? AppColor.colorOnPickedUpJob
-        : jobStatus == AppConstants.inTransitStatusId
+        : jobStatus == AppConstants.shippingInTransitStatusId
             ? AppColor.colorOnGoingJob
             : jobStatus == AppConstants.processingStatusId
                 ? AppColor.colorOnAssignedJob

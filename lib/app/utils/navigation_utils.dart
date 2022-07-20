@@ -31,7 +31,8 @@ class NavigationUtils {
   }
 
   Future<bool> callJobDetailScreen({required String id}) async {
-    await Get.toNamed(Routes.JOB_DETAIL, parameters: {"id": id});
+    await Get.toNamed(Routes.JOB_DETAIL,
+        parameters: {AppParamsKey.paramJobId: id});
     return true;
   }
 

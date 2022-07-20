@@ -200,6 +200,7 @@ class JobListController extends GetxController {
   }
 
   void fetchJobListAPI({required String from}) {
+    CustomLogger().print("fetchJobListAPI called from: $from", lineNumber: 203);
     if (from == "init" || actualOrderStatuses.isEmpty) {
       createOrderStatusListBasedOnIndex();
     }
@@ -249,6 +250,8 @@ class JobListController extends GetxController {
     jobSelectedIndex(index);
     resetPagination();
     isLoading(true);
+    chosenToDate = null;
+    chosenFromDate = null;
     fetchJobListAPI(from: "setJobSelectedIndex");
   }
 

@@ -50,7 +50,7 @@ class ContentWidgets extends StatelessWidget {
           ),
           JobDetailWidget(
             iconsData: Icons.person,
-            title: "Name",
+            title: LocaleKeys.name.tr,
             titleValue:
                 "${controller.dataModel!.shippingAddress!.firstName ?? " "} ${controller.dataModel!.shippingAddress!.lastName ?? " "}",
             titleValueSize: 14,
@@ -60,7 +60,7 @@ class ContentWidgets extends StatelessWidget {
               controller.dataModel!.shippingAddress!.company!.isNotEmpty)
             JobDetailWidget(
               iconsData: Icons.people,
-              title: "Company Name",
+              title: LocaleKeys.companyName.tr,
               titleValue: controller.dataModel!.shippingAddress!.company ?? "",
               titleValueSize: 14,
               titleValueFontWeight: FontWeight.w600,

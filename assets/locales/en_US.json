@@ -69,5 +69,7 @@
   "clearAll": "Clear All",
   "expectedDeliveryDate": "Expected Delivery Date",
   "deliveredDate": "Delivered Date",
-  "returnedDate": "Returned Date"
+  "returnedDate": "Returned Date",
+  "name": "Name",
+  "companyName": "Company name"
 }

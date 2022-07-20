@@ -33,16 +33,17 @@ class AppConstants {
   //Pending = 10, Processing = 20, Shipped = 50, Complete = 30, Cancelled = 40
   static int pendingStatusId = 10;
   static int processingStatusId = 20;
-  static int shippedStatusId = 50;
   static int completedStatusId = 30;
   static int cancelledStatusId = 40;
+  static int shippedStatusId = 50;
   static int deliveryFailedStatusId = 60;
 
   //This is from shipping status sections
   // and all the above are from order status section
-  static int inTransitStatusId = 50;
+  static int driverAssignedStatusId = 30;
   static int shippingShippedStatusId = 40;
+  static int inTransitStatusId = 50;
+  static int shippingCompletedStatusId = 60;
   static int shippingFailedStatusId = 70;
   static int shippingPackageReturnedStatusId = 80;
-  static int shippingCompletedStatusId = 60;
 }

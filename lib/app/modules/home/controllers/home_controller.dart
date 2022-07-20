@@ -35,7 +35,13 @@ class HomeController extends GetxController {
 
   Future<bool> onBackPressed() async {
     if (homeSelectedIndex.value == AppConstants.homeIndex) {
-      Utilities().onBackPressed();
+      if (Get.find<JobListController>().jobSelectedIndex.value ==
+          AppConstants.jobAssignedIndex) {
+        Utilities().onBackPressed();
+      } else {
+        Get.find<JobListController>()
+            .setJobSelectedIndex(AppConstants.jobAssignedIndex);
+      }
     } else {
       setSelectedIndex(AppConstants.homeIndex);
     }

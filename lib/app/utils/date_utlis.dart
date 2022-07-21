@@ -51,7 +51,7 @@ class CustomDateUtils {
     return convertedDate;
   }
 
-  String dateToDisplay(
+  String? dateToDisplay(
       {required String apiDate,
       String? currentDateFormat,
       String? neededDateFormat}) {
@@ -66,7 +66,7 @@ class CustomDateUtils {
         print('Current date:$apiDate');
         print('DateFormat Exception $e');
       }
-      return "null";
+      return null;
     }
   }
 

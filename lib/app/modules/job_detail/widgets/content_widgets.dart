@@ -35,19 +35,27 @@ class ContentWidgets extends StatelessWidget {
                           AppConstants.shippedStatusId
                       ? Assets.imagesOrderPickedUp
                       : Assets.imagesDeliveryOnTheWay),
-
-          JobDetailWidget(
-            iconsData: Icons.calendar_today_outlined,
-            title: controller.dateTitle(),
-            titleValue: CustomDateUtils().dateToDisplay(
-                apiDate: controller.dataModel!.shipments != null &&
-                        controller.dataModel!.shipments!.isNotEmpty
-                    ? controller.dateValueToShow()
-                    : "null"),
-            titleValueColor: AppColor.jobDetailBlueColor,
-            titleValueSize: 14,
-            titleValueFontWeight: FontWeight.w600,
-          ),
+          //Todo: check later
+          CustomDateUtils().dateToDisplay(
+                      apiDate: controller.dataModel!.shipments != null &&
+                              controller.dataModel!.shipments!.isNotEmpty
+                          ? controller.dateValueToShow()
+                          : "") !=
+                  null
+              ? JobDetailWidget(
+                  iconsData: Icons.calendar_today_outlined,
+                  title: controller.dateTitle(),
+                  titleValue: CustomDateUtils().dateToDisplay(
+                          apiDate: controller.dataModel!.shipments != null &&
+                                  controller.dataModel!.shipments!.isNotEmpty
+                              ? controller.dateValueToShow()
+                              : "") ??
+                      "",
+                  titleValueColor: AppColor.jobDetailBlueColor,
+                  titleValueSize: 14,
+                  titleValueFontWeight: FontWeight.w600,
+                )
+              : Container(),
           JobDetailWidget(
             iconsData: Icons.person,
             title: LocaleKeys.name.tr,

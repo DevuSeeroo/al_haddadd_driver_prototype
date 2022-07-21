@@ -73,43 +73,63 @@ class JobListItemWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(35, 0, 20, 15),
-                child: RichText(
-                  text: TextSpan(
-                    text: jobSelectedIndex != AppConstants.jobHistoryIndex
-                        ? LocaleKeys.expectedDeliveryDate.tr
-                        : jobItem.orderDetail!.orderStatusId ==
-                                    AppConstants.deliveryFailedStatusId &&
-                                jobItem.orderDetail!.shippingStatusId ==
-                                    AppConstants.shippingPackageReturnedStatusId
-                            ? LocaleKeys.returnedDate.tr
-                            : LocaleKeys.deliveredDate.tr,
-                    style: const TextStyle(
-                      color: AppColor.textColor,
-                      fontSize: 15,
-                    ),
-                    children: <InlineSpan>[
-                      const WidgetSpan(child: SizedBox(width: 10)),
-                      TextSpan(
-                          text: jobSelectedIndex != AppConstants.jobHistoryIndex
-                              ? CustomDateUtils().dateToDisplay(
-                                  apiDate:
-                                      jobItem.shippingDeliveryAssignDate ?? "")
-                              : CustomDateUtils().dateToDisplay(
-                                  apiDate: jobItem.shippingDeliveredDate ?? ""),
-                          style: const TextStyle(
-                              color: AppColor.colorPrimary,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400)),
-                    ],
-                  ),
-                ),
+              DateWidget(
+                title: jobSelectedIndex != AppConstants.jobHistoryIndex
+                    ? LocaleKeys.expectedDeliveryDate.tr
+                    : jobItem.orderDetail!.orderStatusId ==
+                                AppConstants.deliveryFailedStatusId &&
+                            jobItem.orderDetail!.shippingStatusId ==
+                                AppConstants.shippingPackageReturnedStatusId
+                        ? LocaleKeys.returnedDate.tr
+                        : LocaleKeys.deliveredDate.tr,
+                date: jobSelectedIndex != AppConstants.jobHistoryIndex
+                    ? CustomDateUtils().dateToDisplay(
+                        apiDate: jobItem.shippingDeliveryAssignDate ?? "")
+                    : CustomDateUtils().dateToDisplay(
+                        apiDate: jobItem.shippingDeliveredDate ?? ""),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class DateWidget extends StatelessWidget {
+  const DateWidget({
+    Key? key,
+    required this.title,
+    this.date,
+  }) : super(key: key);
+
+  final String title;
+  final String? date;
+
+  @override
+  Widget build(BuildContext context) {
+    return date != null
+        ? Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(35, 0, 20, 15),
+            child: RichText(
+              text: TextSpan(
+                text: title,
+                style: const TextStyle(
+                  color: AppColor.textColor,
+                  fontSize: 15,
+                ),
+                children: <InlineSpan>[
+                  const WidgetSpan(child: SizedBox(width: 10)),
+                  TextSpan(
+                      text: date,
+                      style: const TextStyle(
+                          color: AppColor.colorPrimary,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w400)),
+                ],
+              ),
+            ),
+          )
+        : const SizedBox(height: 15);
   }
 }

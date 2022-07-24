@@ -64,7 +64,9 @@ class LocaleKeys {
   static const congratulations = 'congratulations';
   static const continueText = 'continueText';
   static const jobCompletedSuccessfully = 'jobCompletedSuccessfully';
-  static const noItemsFound = 'noItemsFound';
+  static const noJobsFound = 'noJobsFound';
+  static const noJobsPicked = 'noJobsPicked';
+  static const noJobHistoryFound = 'noJobHistoryFound';
   static const search = 'search';
   static const delivered = 'delivered';
   static const failed = 'failed';
@@ -143,7 +145,9 @@ class Locales {
     'congratulations': 'Congratulations',
     'continueText': 'Continue',
     'jobCompletedSuccessfully': 'Job Completed Successfully',
-    'noItemsFound': 'No items found',
+    'noJobsFound': 'No jobs found',
+    'noJobHistoryFound': 'No job history found',
+    "noJobsPicked": "You haven't picked any orders yet",
     'search': 'Search',
     'delivered': 'Delivered',
     'failed': 'Failed',
@@ -220,7 +224,9 @@ class Locales {
     'congratulations': 'Congratulations',
     'continueText': 'Continue',
     'jobCompletedSuccessfully': 'Job Completed Successfully',
-    'noItemsFound': 'No items found',
+    'noJobsFound': 'No jobs found',
+    'noJobHistoryFound': 'No job history found',
+    "noJobsPicked": "You haven't picked any orders yet",
     'search': 'Search',
     'delivered': 'Delivered',
     'failed': 'Failed',

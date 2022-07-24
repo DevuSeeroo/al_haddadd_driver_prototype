@@ -19,7 +19,8 @@ class VerificationController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   final String className = "VerificationController";
-  String? pin;
+  // String? pin;
+  TextEditingController pinController = TextEditingController();
   RxString error = "".obs;
   VerifyOtpParams verifyOtpParams = VerifyOtpParams();
   VerificationProvider verificationProvider = VerificationProvider();
@@ -44,7 +45,7 @@ class VerificationController extends GetxController {
   }
 
   verifyOtp() {
-    verifyOtpParams.otp = pin;
+    verifyOtpParams.otp = pinController.text;
     apiCalling(true);
     verificationProvider.verifyOtp(params: verifyOtpParams).then((response) {
       if (response.getException != null) {
@@ -65,6 +66,7 @@ class VerificationController extends GetxController {
 
   void sendOtpMethod() {
     apiCalling(true);
+    pinController.clear();
     LoginProvider()
         .sendOtpResponse(
             params: SendOtpParams('${verifyOtpParams.phoneNumber}'))

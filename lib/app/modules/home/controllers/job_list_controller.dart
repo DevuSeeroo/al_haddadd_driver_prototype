@@ -54,7 +54,7 @@ class JobListController extends GetxController {
     } else if (id == AppConstants.shippingCompletedStatusId) {
       return LocaleKeys.delivered.tr;
     } else if (id == AppConstants.shippingFailedStatusId) {
-      return LocaleKeys.failed.tr;
+      return LocaleKeys.deliveryFailed.tr;
     } else if (id == AppConstants.shippingPackageReturnedStatusId) {
       return LocaleKeys.returned.tr;
     }
@@ -114,6 +114,7 @@ class JobListController extends GetxController {
     pageNumber = 1;
     perPageCount = 10;
     jobList.clear();
+    clearAllClicked(isBackNeeded: false);
     isLoading(true);
   }
 

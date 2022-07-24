@@ -50,8 +50,8 @@ class JobListItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DotWidget(
-                      color: AppColor().getJobBasedColor(
-                          jobItem.orderDetail!.orderStatusId!)),
+                      color: AppColor()
+                          .getJobBasedColor(jobItem.driverShippingStatusId!)),
                   const SizedBox(width: 20),
                   FirstRowItem(
                     jobId: jobItem.id.toString(),
@@ -62,8 +62,9 @@ class JobListItemWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   SecondRowItem(
-                    statusColor: AppColor()
-                        .getJobBasedColor(jobItem.orderDetail!.orderStatusId!),
+                    statusColor: AppColor().getJobBasedColor(
+                        jobItem.driverShippingStatusId ??
+                            AppConstants.shippingDriverAssignedStatusId),
                     statusMessage: Get.find<JobListController>()
                         .statusMessageNew(jobItem.driverShippingStatusId ??
                             AppConstants.shippingDriverAssignedStatusId),
@@ -76,10 +77,8 @@ class JobListItemWidget extends StatelessWidget {
               DateWidget(
                 title: jobSelectedIndex != AppConstants.jobHistoryIndex
                     ? LocaleKeys.expectedDeliveryDate.tr
-                    : jobItem.orderDetail!.orderStatusId ==
-                                AppConstants.deliveryFailedStatusId &&
-                            jobItem.orderDetail!.shippingStatusId ==
-                                AppConstants.shippingPackageReturnedStatusId
+                    : jobItem.driverShippingStatusId ==
+                            AppConstants.shippingPackageReturnedStatusId
                         ? LocaleKeys.returnedDate.tr
                         : LocaleKeys.deliveredDate.tr,
                 date: jobSelectedIndex != AppConstants.jobHistoryIndex

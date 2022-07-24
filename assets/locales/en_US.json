@@ -71,5 +71,6 @@
   "deliveredDate": "Delivered Date",
   "returnedDate": "Returned Date",
   "name": "Name",
-  "companyName": "Company name"
+  "companyName": "Company name",
+  "status": "Status"
 }

@@ -139,7 +139,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<dynamic> changeStatusToShippedOrPicked(header, orderId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'orderId': orderId};
+    final queryParameters = <String, dynamic>{r'shippingId': orderId};
     final _headers = <String, dynamic>{r'Authorization': header};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -155,7 +155,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<dynamic> changeStatusToInTransit(header, orderId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'orderId': orderId};
+    final queryParameters = <String, dynamic>{r'shippingId': orderId};
     final _headers = <String, dynamic>{r'Authorization': header};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -171,7 +171,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<dynamic> changeStatusToDelivered(header, orderId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'orderId': orderId};
+    final queryParameters = <String, dynamic>{r'shippingId': orderId};
     final _headers = <String, dynamic>{r'Authorization': header};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -188,7 +188,7 @@ class _ApiClient implements ApiClient {
   Future<dynamic> changeStatusToDeliveryFailed(header, orderId, reason) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'orderId': orderId,
+      r'shippingId': orderId,
       r'deliveryFailedReason': reason
     };
     final _headers = <String, dynamic>{r'Authorization': header};
@@ -206,7 +206,7 @@ class _ApiClient implements ApiClient {
   @override
   Future<dynamic> changeStatusToPackageReturned(header, orderId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'orderId': orderId};
+    final queryParameters = <String, dynamic>{r'shippingId': orderId};
     final _headers = <String, dynamic>{r'Authorization': header};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};

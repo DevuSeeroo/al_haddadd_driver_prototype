@@ -40,6 +40,7 @@ class JobDetail {
   List<String>? orderNotes;
   bool? showVendorName;
   int? id;
+  int? driverShippingStatusId;
 
   JobDetail(
       {this.printMode,
@@ -97,6 +98,7 @@ class JobDetail {
         : null;
     shippingStatus = json['shipping_status'];
     shippingStatusId = json['shipping_status_id'];
+    driverShippingStatusId = json['driver_shipping_status_id'];
     shippingAddress = json['shipping_address'] != null
         ? Address?.fromJson(json['shipping_address'])
         : null;

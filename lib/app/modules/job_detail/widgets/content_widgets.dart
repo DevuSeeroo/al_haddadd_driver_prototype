@@ -27,12 +27,12 @@ class ContentWidgets extends StatelessWidget {
           const SizedBox(height: 10),
           Get.find<JobListController>().jobSelectedIndex.value ==
                       AppConstants.jobHistoryIndex ||
-                  controller.dataModel!.orderStatusId ==
-                      AppConstants.processingStatusId
+                  controller.dataModel!.driverShippingStatusId ==
+                      AppConstants.shippingDriverAssignedStatusId
               ? TitleAndListWidget(controller: controller)
               : StatusImageWidget(
-                  asset: controller.dataModel!.orderStatusId ==
-                          AppConstants.shippedStatusId
+                  asset: controller.dataModel!.driverShippingStatusId ==
+                          AppConstants.shippingShippedStatusId
                       ? Assets.imagesOrderPickedUp
                       : Assets.imagesDeliveryOnTheWay),
           //Todo: check later
@@ -92,6 +92,18 @@ class ContentWidgets extends StatelessWidget {
             titleValue:
                 controller.dataModel!.shippingAddress!.phoneNumber ?? "",
             titleValueSize: 14,
+          ),
+          JobDetailWidget(
+            iconsData: Icons.settings,
+            title: LocaleKeys.status.tr,
+            titleValue: Get.find<JobListController>().statusMessageNew(
+                controller.dataModel!.driverShippingStatusId ??
+                    AppConstants.shippingDriverAssignedStatusId),
+            titleValueSize: 14,
+            titleValueFontWeight: FontWeight.w600,
+            titleValueColor: AppColor().getJobBasedColor(
+                controller.dataModel!.driverShippingStatusId ??
+                    AppConstants.shippingDriverAssignedStatusId),
           ),
           // JobDetailWidget(
           //   iconsData: Icons.phone_android,

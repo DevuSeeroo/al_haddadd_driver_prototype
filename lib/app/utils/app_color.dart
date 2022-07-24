@@ -23,12 +23,14 @@ class AppColor {
   static const Color jobDetailBorderColor = Color(0xFFafcfde);
 
   Color getJobBasedColor(int jobStatus) {
-    return jobStatus == AppConstants.shippedStatusId
+    return jobStatus == AppConstants.shippingShippedStatusId
         ? AppColor.colorOnPickedUpJob
         : jobStatus == AppConstants.shippingInTransitStatusId
             ? AppColor.colorOnGoingJob
-            : jobStatus == AppConstants.processingStatusId
+            : jobStatus == AppConstants.shippingDriverAssignedStatusId
                 ? AppColor.colorOnAssignedJob
-                : AppColor.colorOnReachedJob;
+                : jobStatus == AppConstants.shippingCompletedStatusId
+                    ? AppColor.colorOnReachedJob
+                    : AppColor.errorColor;
   }
 }

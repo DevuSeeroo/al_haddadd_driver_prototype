@@ -30,11 +30,14 @@ class JobListContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HomeAppbar(
-            showCustomBackgroundImage: true,
-            onTrailingPressed: () {
-              controller.datePickerFunction(context, whetherFromDate: false);
-            }),
+        Obx(() {
+          return HomeAppbar(
+              enableBackPressed: !controller.isLoading.value,
+              showCustomBackgroundImage: true,
+              onTrailingPressed: () {
+                controller.datePickerFunction(context, whetherFromDate: false);
+              });
+        }),
         Expanded(
           child: LoadingView(
             isLoading: controller.isLoading,

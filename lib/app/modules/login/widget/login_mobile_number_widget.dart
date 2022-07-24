@@ -36,21 +36,7 @@ class LoginMobileNumberWidget extends StatelessWidget {
       },
       textInputAction: TextInputAction.done,
       validator: (value) {
-        if (value!.trim().isEmpty) {
-          return LocaleKeys.mobileNoShouldntBeEmpty.tr;
-        }
-        // else if (value.trim().length != Config.maxNumLength) {
-        //   return LocaleKeys.phoneErrorValid.tr;
-        // } else if (value.trim().contains("+")) {
-        //   if (value.substring(1) != "+") {
-        //     return LocaleKeys.phoneErrorValid.tr;
-        //   } else if (value.substring(1).contains("+")) {
-        //     return LocaleKeys.phoneErrorValid.tr;
-        //   }
-        // }
-        else {
-          return null;
-        }
+        return controller.isMobileNumberValid(value);
       },
       onSubmitted: (value) {
         CustomLogger().print("Mobile: $value", lineNumber: 49);

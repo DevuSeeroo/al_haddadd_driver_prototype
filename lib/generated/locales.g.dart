@@ -85,6 +85,7 @@ class LocaleKeys {
   static const returnedDate = 'returnedDate';
   static const name = 'name';
   static const companyName = 'companyName';
+  static const status = 'status';
 }
 
 class Locales {
@@ -163,6 +164,7 @@ class Locales {
     'returnedDate': 'Returned Date',
     'name': 'Name',
     'companyName': 'Company name',
+    'status': 'Status',
   };
   static const en_US = {
     'titleAlHaddad': 'Al haddad Driver',
@@ -239,5 +241,6 @@ class Locales {
     'returnedDate': 'Returned Date',
     'name': 'Name',
     'companyName': 'Company name',
+    'status': 'Status',
   };
 }

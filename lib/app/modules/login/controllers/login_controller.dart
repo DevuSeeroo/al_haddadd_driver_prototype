@@ -27,6 +27,27 @@ class LoginController extends GetxController {
   @override
   void onClose() {}
 
+  String? isMobileNumberValid(String? value) {
+    if (value!.trim().isEmpty) {
+      return LocaleKeys.mobileNoShouldntBeEmpty.tr;
+    }
+    // else if (!value.trim().isNumericOnly) {
+    //   return "Only numbers are allowed";
+    // }
+    // else if (value.trim().length != Config.maxNumLength) {
+    //   return LocaleKeys.phoneErrorValid.tr;
+    // } else if (value.trim().contains("+")) {
+    //   if (value.substring(1) != "+") {
+    //     return LocaleKeys.phoneErrorValid.tr;
+    //   } else if (value.substring(1).contains("+")) {
+    //     return LocaleKeys.phoneErrorValid.tr;
+    //   }
+    // }
+    else {
+      return null;
+    }
+  }
+
   onSubmitted() {
     if (formKey.currentState!.validate()) {
       sendOtpMethod();

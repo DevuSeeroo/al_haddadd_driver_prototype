@@ -11,6 +11,7 @@ import 'package:alhaddad_driver/app/utils/app_constants.dart';
 import 'package:alhaddad_driver/app/utils/app_storage_keys.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
+import 'package:alhaddad_driver/generated/locales.g.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -50,12 +51,13 @@ class JobDetailProvider extends GetConnect {
     return response;
   }
 
-  Future<BaseModel<JobDetail>> fetchJobDetail({required String orderId}) async {
+  Future<BaseModel<JobDetail>> fetchJobDetail(
+      {required String shippingId}) async {
     onInit();
     JobDetail response;
     try {
       response =
-          await client.getJobDetail(appStorageKeys.readUserToken(), orderId);
+          await client.getJobDetail(appStorageKeys.readUserToken(), shippingId);
     } catch (error, stacktrace) {
       CustomLogger()
           .printError(error: error, stackTrace: stacktrace, lineNumber: 61);
@@ -66,12 +68,12 @@ class JobDetailProvider extends GetConnect {
   }
 
   Future<BaseModel<JobStatusChangeModel>> changeStatusToShippedOrPicked(
-      int orderId) async {
+      int shippingId) async {
     onInit();
     JobStatusChangeModel response;
     try {
       dynamic res = await client.changeStatusToShippedOrPicked(
-          appStorageKeys.readUserToken(), orderId);
+          appStorageKeys.readUserToken(), shippingId);
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);
@@ -101,12 +103,12 @@ class JobDetailProvider extends GetConnect {
   }
 
   Future<BaseModel<JobStatusChangeModel>> changeStatusToInTransit(
-      int orderId) async {
+      int shippingId) async {
     onInit();
     JobStatusChangeModel response;
     try {
       dynamic res = await client.changeStatusToInTransit(
-          appStorageKeys.readUserToken(), orderId);
+          appStorageKeys.readUserToken(), shippingId);
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);
@@ -136,12 +138,12 @@ class JobDetailProvider extends GetConnect {
   }
 
   Future<BaseModel<JobStatusChangeModel>> changeStatusToDelivered(
-      int orderId) async {
+      int shippingId) async {
     onInit();
     JobStatusChangeModel response;
     try {
       dynamic res = await client.changeStatusToDelivered(
-          appStorageKeys.readUserToken(), orderId);
+          appStorageKeys.readUserToken(), shippingId);
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);
@@ -176,7 +178,9 @@ class JobDetailProvider extends GetConnect {
     JobStatusChangeModel response;
     try {
       dynamic res = await client.changeStatusToDeliveryFailed(
-          appStorageKeys.readUserToken(), model.orderId!, model.reason ?? "");
+          appStorageKeys.readUserToken(),
+          model.shippingId!,
+          model.reason ?? "");
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);
@@ -189,11 +193,19 @@ class JobDetailProvider extends GetConnect {
           .printError(error: error, stackTrace: stacktrace, lineNumber: 192);
       DioError serverError = error as DioError;
       if (serverError.response!.statusCode! == 400) {
-        response = JobStatusChangeModel(
-            status: true,
-            message:
-                ErrorModelResponse.fromJson(serverError.response!.data).message,
-            statusCode: 400);
+        try {
+          response = JobStatusChangeModel(
+              status: true,
+              message: ErrorModelResponse.fromJson(serverError.response!.data)
+                  .message,
+              statusCode: 400);
+        } catch (error) {
+          response = JobStatusChangeModel(
+              status: true,
+              message: serverError.response?.data ??
+                  LocaleKeys.somethingWentWrong.tr,
+              statusCode: 400);
+        }
       } else {
         return BaseModel()
           ..setException(ServerError.withErrorAndCode(error: serverError));
@@ -203,12 +215,12 @@ class JobDetailProvider extends GetConnect {
   }
 
   Future<BaseModel<JobStatusChangeModel>> changeStatusToPackageReturned(
-      int orderId) async {
+      int shippingId) async {
     onInit();
     JobStatusChangeModel response;
     try {
       dynamic res = await client.changeStatusToPackageReturned(
-          appStorageKeys.readUserToken(), orderId);
+          appStorageKeys.readUserToken(), shippingId);
       if (res != null) {
         response =
             JobStatusChangeModel(status: true, message: res, statusCode: 200);

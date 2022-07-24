@@ -34,12 +34,12 @@ class JobDetailView extends GetView<JobDetailController> {
                 children: [
                   Get.find<JobListController>().jobSelectedIndex.value ==
                               AppConstants.jobHistoryIndex ||
-                          (controller.dataModel!.orderStatusId ==
-                                  AppConstants.processingStatusId ||
-                              controller.dataModel!.orderStatusId ==
-                                  AppConstants.completedStatusId ||
-                              controller.dataModel!.orderStatusId ==
-                                  AppConstants.deliveryFailedStatusId)
+                          (controller.dataModel!.driverShippingStatusId ==
+                                  AppConstants.shippingDriverAssignedStatusId ||
+                              controller.dataModel!.driverShippingStatusId ==
+                                  AppConstants.shippingCompletedStatusId ||
+                              controller.dataModel!.driverShippingStatusId ==
+                                  AppConstants.shippingPackageReturnedStatusId)
                       ? ToolbarItemsWidget(
                           jobId: "${controller.dataModel!.id}",
                           paymentMethod:
@@ -54,9 +54,10 @@ class JobDetailView extends GetView<JobDetailController> {
                             Get.back();
                           },
                           title: controller.toolbarTitleText(),
-                          isHasTrailing: controller.dataModel!.orderStatusId ==
-                                  AppConstants.shippedStatusId ||
-                              controller.dataModel!.orderStatusId ==
+                          isHasTrailing: controller
+                                      .dataModel!.driverShippingStatusId ==
+                                  AppConstants.shippingShippedStatusId ||
+                              controller.dataModel!.driverShippingStatusId ==
                                   AppConstants.shippingInTransitStatusId,
                           isTrailingSvg: true,
                           trailingIcon: Assets.iconsLocation,
@@ -74,23 +75,9 @@ class JobDetailView extends GetView<JobDetailController> {
                       AppConstants.jobHistoryIndex)
                     Row(
                       children: [
-                        if (controller.dataModel!.orderStatusId ==
-                                AppConstants.shippedStatusId &&
-                            controller.dataModel!.shippingStatusId ==
-                                AppConstants.shippingInTransitStatusId)
-                          Expanded(
-                            child: SolidButton(
-                                outerPadding: const EdgeInsetsDirectional.only(
-                                    top: 10, bottom: 10, start: 20, end: 5),
-                                style: ThemeUtils().solidButtonStyle(
-                                    backgroundColor: Colors.red),
-                                title: LocaleKeys.deliveryFailed.tr,
-                                onPressed: () {
-                                  CustomBottomSheet.showCustomBottomSheet(
-                                      FailedBottomSheetContent(
-                                          controller: controller));
-                                }),
-                          ),
+                        if (controller.dataModel!.driverShippingStatusId ==
+                            AppConstants.shippingInTransitStatusId)
+                          DeliveryFailedButtonWidget(controller: controller),
                         Expanded(
                             child: Obx(
                           () => controller.buttonTitleText.value.isNotEmpty
@@ -99,13 +86,9 @@ class JobDetailView extends GetView<JobDetailController> {
                                       top: 10,
                                       bottom: 10,
                                       start: (controller.dataModel!
-                                                      .orderStatusId ==
-                                                  AppConstants
-                                                      .shippedStatusId &&
-                                              controller.dataModel!
-                                                      .shippingStatusId ==
-                                                  AppConstants
-                                                      .shippingInTransitStatusId)
+                                                  .driverShippingStatusId ==
+                                              AppConstants
+                                                  .shippingInTransitStatusId)
                                           ? 5
                                           : 20,
                                       end: 20),
@@ -113,13 +96,40 @@ class JobDetailView extends GetView<JobDetailController> {
                                   onPressed: () {
                                     controller.buttonPressed();
                                   })
-                              : Container(),
+                              : Container(
+                                  color: Colors.red,
+                                  height: 50,
+                                ),
                         ))
                       ],
                     ),
                 ],
               ),
       ),
+    );
+  }
+}
+
+class DeliveryFailedButtonWidget extends StatelessWidget {
+  const DeliveryFailedButtonWidget({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final JobDetailController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SolidButton(
+          outerPadding: const EdgeInsetsDirectional.only(
+              top: 10, bottom: 10, start: 20, end: 5),
+          style: ThemeUtils().solidButtonStyle(backgroundColor: Colors.red),
+          title: LocaleKeys.deliveryFailed.tr,
+          onPressed: () {
+            CustomBottomSheet.showCustomBottomSheet(
+                FailedBottomSheetContent(controller: controller));
+          }),
     );
   }
 }

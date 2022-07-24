@@ -62,23 +62,23 @@ abstract class ApiClient {
 
   @POST("/api-frontend/AlHaddad/ShippedOrPicked")
   Future<dynamic> changeStatusToShippedOrPicked(
-      @Header("Authorization") String header, @Query("orderId") int orderId);
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
 
   @POST("/api-frontend/AlHaddad/InTransit")
   Future<dynamic> changeStatusToInTransit(
-      @Header("Authorization") String header, @Query("orderId") int orderId);
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
 
   @POST("/api-frontend/AlHaddad/Delivered")
   Future<dynamic> changeStatusToDelivered(
-      @Header("Authorization") String header, @Query("orderId") int orderId);
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
 
   @POST("/api-frontend/AlHaddad/DeliveryFailed")
   Future<dynamic> changeStatusToDeliveryFailed(
       @Header("Authorization") String header,
-      @Query('orderId') int orderId,
+      @Query('shippingId') int orderId,
       @Query('deliveryFailedReason') String reason);
 
   @POST("/api-frontend/AlHaddad/PackageReturned")
   Future<dynamic> changeStatusToPackageReturned(
-      @Header("Authorization") String header, @Query("orderId") int orderId);
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
 }

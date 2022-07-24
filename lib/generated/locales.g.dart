@@ -200,7 +200,7 @@ class Locales {
     'history': 'History',
     'jobId': 'Job ID',
     'logout': 'Logout',
-    'logoutMessage': 'Do you really want to Logout?',
+    'logoutMessage': 'Do you really want to logout?',
     'jobDetails': 'Job Details',
     'orderDetails': 'Order Details',
     'paymentMethod': 'Payment Method',

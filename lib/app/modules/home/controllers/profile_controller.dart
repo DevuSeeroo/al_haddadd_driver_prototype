@@ -45,7 +45,7 @@ class ProfileController extends GetxController {
   void onLogoutPressed() {
     CustomBottomSheet.showCustomBottomSheetWithMargin(
         TitleSubtitleBottomSheetContent(
-      title: "${LocaleKeys.logout.tr} !",
+      title: "${LocaleKeys.logout.tr}!",
       subtitle: LocaleKeys.logoutMessage.tr,
       negativeButtonPressed: () {
         Get.back();

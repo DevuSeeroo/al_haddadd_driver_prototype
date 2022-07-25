@@ -108,7 +108,13 @@ class JobListOrEmptyView extends StatelessWidget {
               ),
             )
           : EmptyView(
-              subTitle: LocaleKeys.noItemsFound.tr,
+              subTitle: controller.jobSelectedIndex.value ==
+                      AppConstants.jobHistoryIndex
+                  ? LocaleKeys.noJobHistoryFound.tr
+                  : controller.jobSelectedIndex.value ==
+                          AppConstants.jobPickedIndex
+                      ? LocaleKeys.noJobsPicked.tr
+                      : LocaleKeys.noJobsFound.tr,
               title: isShowSearch ? LocaleKeys.search.tr : LocaleKeys.sorry.tr),
     ));
   }

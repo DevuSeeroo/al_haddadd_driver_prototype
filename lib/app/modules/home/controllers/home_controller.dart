@@ -1,4 +1,3 @@
-import 'package:alhaddad_driver/app/modules/home/controllers/job_history_controller.dart';
 import 'package:alhaddad_driver/app/modules/home/controllers/profile_controller.dart';
 import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:alhaddad_driver/app/utils/utilities.dart';
@@ -9,46 +8,42 @@ import '../../../utils/app_constants.dart';
 import 'job_list_controller.dart';
 
 class HomeController extends GetxController {
-  final RxInt selectedIndex = AppConstants.homeIndex.obs;
+  final RxInt homeSelectedIndex = AppConstants.homeIndex.obs;
   final RxString toolbarTitle = "".obs;
 
   String className = "HomeController";
   @override
   void onInit() {
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
+    setSelectedIndex(AppConstants.homeIndex);
   }
 
   @override
   void onClose() {}
   void setSelectedIndex(int index) {
-    selectedIndex(index);
-    if (selectedIndex.value == AppConstants.homeIndex) {
-      toolbarTitle(LocaleKeys.jobListing.tr);
+    homeSelectedIndex(index);
+    if (homeSelectedIndex.value == AppConstants.homeIndex) {
+      toolbarTitle(LocaleKeys.jobs.tr);
       Get.delete<ProfileController>();
-      Get.delete<JobHistoryController>();
-    } else if (selectedIndex.value == AppConstants.profileIndex) {
+    } else if (homeSelectedIndex.value == AppConstants.profileIndex) {
       toolbarTitle(LocaleKeys.profile.tr);
       Get.delete<JobListController>();
-      Get.delete<JobHistoryController>();
-    } else {
-      toolbarTitle(LocaleKeys.history.tr);
-      Get.delete<JobListController>();
-      Get.delete<ProfileController>();
     }
     CustomLogger().print("toolbarTitle: ${toolbarTitle.value}",
         className: className, lineNumber: 44);
   }
 
   Future<bool> onBackPressed() async {
-    if (selectedIndex.value == AppConstants.homeIndex) {
-      Utilities().onBackPressed();
+    if (homeSelectedIndex.value == AppConstants.homeIndex) {
+      if (Get.find<JobListController>().jobSelectedIndex.value ==
+          AppConstants.jobAssignedIndex) {
+        Utilities().onBackPressed();
+      } else {
+        Get.find<JobListController>()
+            .setJobSelectedIndex(AppConstants.jobAssignedIndex);
+      }
     } else {
-      selectedIndex(AppConstants.homeIndex);
+      setSelectedIndex(AppConstants.homeIndex);
     }
     return false;
   }

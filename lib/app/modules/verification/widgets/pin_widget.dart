@@ -22,7 +22,7 @@ class PinWidget extends StatelessWidget {
       children: [
         PinInputTextFormField(
           onChanged: (value) {
-            controller.pin = value;
+            // controller.pin = value;
           },
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
@@ -37,6 +37,7 @@ class PinWidget extends StatelessWidget {
           onSubmit: (value) {
             controller.onSubmitted();
           },
+          controller: controller.pinController,
           keyboardType: const TextInputType.numberWithOptions(
               decimal: false, signed: false),
           inputFormatters: Utilities().numberFormatter,
@@ -64,6 +65,6 @@ class PinWidget extends StatelessWidget {
             PinListenColorBuilder(AppColor.hintTextColor, Colors.white),
         lineHeight: 2,
         gapSpace: 20,
-        textStyle: const TextStyle(color: Colors.white));
+        textStyle: const TextStyle(color: Colors.white, fontSize: 18));
   }
 }

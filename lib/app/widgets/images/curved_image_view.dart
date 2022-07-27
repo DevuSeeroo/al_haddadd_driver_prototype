@@ -84,7 +84,7 @@ class CustomImageView extends StatelessWidget {
             child: const SizedBox(
                 width: 25.0, height: 25.0, child: Icon(Icons.image_search))),
         errorWidget: (context, url, error) => BrokenImage(
-          width: width,
+          width: width ?? 150,
           height: height,
         ),
       ),

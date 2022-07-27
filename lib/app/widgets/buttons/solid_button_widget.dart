@@ -4,7 +4,7 @@ class SolidButton extends StatelessWidget {
   final String title;
   final Color? titleColor;
   final Function onPressed;
-  final Color? backgroundColor;
+  // final Color? backgroundColor;
   final double? verticalPadding;
   final double? horizontalPadding;
   final bool showLoader;
@@ -17,7 +17,7 @@ class SolidButton extends StatelessWidget {
     Key? key,
     required this.title,
     required this.onPressed,
-    this.backgroundColor,
+    // this.backgroundColor,
     this.verticalPadding,
     this.horizontalPadding,
     this.showLoader = false,

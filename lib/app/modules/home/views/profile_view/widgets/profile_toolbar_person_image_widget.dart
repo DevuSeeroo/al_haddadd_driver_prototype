@@ -1,7 +1,6 @@
+import 'package:alhaddad_driver/app/modules/home/widgets/home_appbar.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:flutter/material.dart';
-
-import '../home_appbar.dart';
 
 class ProfileToolbarPersonImageWidget extends StatelessWidget {
   const ProfileToolbarPersonImageWidget({

@@ -48,7 +48,7 @@ get generate model on login with assets/models/user.json[By default in Home fold
 
 To skip the provider generation
 ================================
-get generate model on login with assets/models/user.json --skipProvider
+get generate model on login with assets/sample_jsons/u.json --skipProvider
 
 
 From URL

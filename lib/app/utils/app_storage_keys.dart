@@ -1,3 +1,4 @@
+import 'package:alhaddad_driver/app/utils/custom_logger.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AppStorageKeys {
@@ -18,11 +19,11 @@ class AppStorageKeys {
     return GetStorage().read(_isLoggedIn) ?? false;
   }
 
-  void writeUserId(int? id) {
+  void writeUserId(String? id) {
     GetStorage().write(_userId, id);
   }
 
-  int? readUserId() {
+  String? readUserId() {
     if (GetStorage().read(_userId).toString().isEmpty) {
       return null;
     } else {
@@ -52,6 +53,7 @@ class AppStorageKeys {
     } else {
       GetStorage().write(_userToken, "Bearer $token");
     }
+    CustomLogger().print("Write token: ${readUserToken()}", lineNumber: 56);
   }
 
   String readUserToken() {

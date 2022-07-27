@@ -54,17 +54,22 @@ class ThemeUtils {
     EdgeInsets? padding,
   }) {
     return ElevatedButtonThemeData(
-        style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(padding ??
-          const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0)),
-      backgroundColor: MaterialStateProperty.all<Color>(
-          backgroundColor ?? AppColor.colorPrimary),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            side: BorderSide(color: backgroundColor ?? AppColor.colorPrimary)),
-      ),
-    ));
+        style: solidButtonStyle(padding:padding,backgroundColor:
+        backgroundColor));
+  }
+
+  ButtonStyle solidButtonStyle({EdgeInsets? padding, Color? backgroundColor}) {
+    return ButtonStyle(
+    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(padding ??
+        const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10.0)),
+    backgroundColor: MaterialStateProperty.all<Color>(
+        backgroundColor ?? AppColor.colorPrimary),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+          side: BorderSide(color: backgroundColor ?? AppColor.colorPrimary)),
+    ),
+  );
   }
 
   ButtonStyle outlineButtonStyle({

@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alhaddad.driver.alhaddad_driver">
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
         android:label="Al Haddad Driver"
         android:name="${applicationName}"
         android:icon="@drawable/app_icon">

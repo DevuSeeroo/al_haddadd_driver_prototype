@@ -22,13 +22,18 @@ class NavigationUtils {
     }
   }
 
-  void callVerificationScreen(String mobile) {
-    Get.toNamed(Routes.VERIFICATION,
-        parameters: {AppParamsKey.paramPhone: mobile});
+  void callVerificationScreen(
+      {required String mobile, required int expireInSeconds}) {
+    Get.toNamed(Routes.VERIFICATION, parameters: {
+      AppParamsKey.paramPhone: mobile,
+      AppParamsKey.paramExpireInSeconds: expireInSeconds.toString()
+    });
   }
 
-  void callJobDetailScreen({required String id}) {
-    Get.toNamed(Routes.JOB_DETAIL, parameters: {"id": id});
+  Future<bool> callJobDetailScreen({required String id}) async {
+    await Get.toNamed(Routes.JOB_DETAIL,
+        parameters: {AppParamsKey.paramJobId: id});
+    return true;
   }
 
   void callJobCompletedScreen() {

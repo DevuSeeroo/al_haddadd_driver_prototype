@@ -3,9 +3,9 @@ class VerifyOtpParams {
   String? otp;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phone_number'] = this.phoneNumber;
-    data['otp'] = this.otp;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phone_number'] = phoneNumber;
+    data['otp'] = otp;
     data['process_type_id'] = 2;
     return data;
   }

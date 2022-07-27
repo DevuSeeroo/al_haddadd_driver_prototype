@@ -2,7 +2,7 @@ import 'package:alhaddad_driver/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/profile_controller.dart';
+import '../../../controllers/profile_controller.dart';
 
 class NameWidget extends StatelessWidget {
   const NameWidget({

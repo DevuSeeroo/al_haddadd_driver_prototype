@@ -6,13 +6,7 @@ class LogoutResponse {
   String? errors;
   String? customProperties;
 
-  LogoutResponse(
-      {this.message,
-      this.value,
-      this.status,
-      this.token,
-      this.errors,
-      this.customProperties});
+  LogoutResponse({message, value, status, token, errors, customProperties});
 
   LogoutResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -24,13 +18,13 @@ class LogoutResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['value'] = this.value;
-    data['status'] = this.status;
-    data['token'] = this.token;
-    data['errors'] = this.errors;
-    data['custom_properties'] = this.customProperties;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
+    data['value'] = value;
+    data['status'] = status;
+    data['token'] = token;
+    data['errors'] = errors;
+    data['custom_properties'] = customProperties;
     return data;
   }
 }

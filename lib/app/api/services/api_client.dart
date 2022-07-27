@@ -1,3 +1,7 @@
+import 'package:alhaddad_driver/app/modules/home/models/job_list_input_param_model.dart';
+import 'package:alhaddad_driver/app/modules/home/models/job_list_model.dart';
+import 'package:alhaddad_driver/app/modules/home/models/view_profile_response.dart';
+import 'package:alhaddad_driver/app/modules/job_detail/models/job_detail_model.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_params.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_response.dart';
 import 'package:alhaddad_driver/app/modules/verification/models/verify_otp_params.dart';
@@ -14,8 +18,8 @@ part 'api_client.g.dart';
 abstract class ApiClient {
   factory ApiClient(Dio dio, String baseUrl) {
     dio.options = BaseOptions(
-      receiveTimeout: 5000,
-      connectTimeout: 5000,
+      receiveTimeout: 20000,
+      connectTimeout: 20000,
     );
 
     dio.interceptors.add(PrettyDioLogger(
@@ -39,4 +43,42 @@ abstract class ApiClient {
 
   @POST("/api-frontend/AlHaddad/VerifyOtp")
   Future<VerifyOtpResponse> verifyOtp(@Body() VerifyOtpParams sendOtpParams);
+
+  @GET('/api-frontend/Customer/Info')
+  Future<ViewProfileResponse> viewProfile(
+      @Header('Authorization') String userToken);
+
+  @GET("/api-frontend/AlHaddad/GetOrderDtlsDriver")
+  Future<dynamic> getJobList(@Header("Authorization") String header,
+      @Body() JobListInputParam inputParams);
+
+  @POST("/api-frontend/AlHaddad/GetOrderDtlsDriver")
+  Future<JobListResponse> getJobListPOST(@Header("Authorization") String header,
+      @Body() JobListInputParam inputParams);
+
+  @GET("/api-frontend/AlHaddad/DriverOrderDetails/{orderId}")
+  Future<JobDetail> getJobDetail(
+      @Header("Authorization") String header, @Path("orderId") String orderId);
+
+  @POST("/api-frontend/AlHaddad/ShippedOrPicked")
+  Future<dynamic> changeStatusToShippedOrPicked(
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
+
+  @POST("/api-frontend/AlHaddad/InTransit")
+  Future<dynamic> changeStatusToInTransit(
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
+
+  @POST("/api-frontend/AlHaddad/Delivered")
+  Future<dynamic> changeStatusToDelivered(
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
+
+  @POST("/api-frontend/AlHaddad/DeliveryFailed")
+  Future<dynamic> changeStatusToDeliveryFailed(
+      @Header("Authorization") String header,
+      @Query('shippingId') int orderId,
+      @Query('deliveryFailedReason') String reason);
+
+  @POST("/api-frontend/AlHaddad/PackageReturned")
+  Future<dynamic> changeStatusToPackageReturned(
+      @Header("Authorization") String header, @Query("shippingId") int orderId);
 }

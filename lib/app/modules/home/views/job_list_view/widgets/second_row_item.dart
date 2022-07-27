@@ -1,8 +1,7 @@
+import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart' as intl;
-
-import '../../../../../generated/assets.dart';
 
 class SecondRowItem extends StatelessWidget {
   const SecondRowItem({
@@ -10,30 +9,31 @@ class SecondRowItem extends StatelessWidget {
     required this.statusColor,
     required this.statusMessage,
     required this.time,
-    required this.date,
+    // required this.date,
   }) : super(key: key);
 
   final Color statusColor;
   final String statusMessage;
   final String time;
-  final String date;
+  // final String date;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // Image.asset(Assets.iconsDeliveryOnGoingTruck, color: statusColor),
         SvgPicture.asset(Assets.iconsDeliveryTruck, color: statusColor),
-        const SizedBox(height: 5),
-        Text(
-          intl.toBeginningOfSentenceCase(statusMessage) ?? "",
-          style: TextStyle(color: statusColor, fontSize: 16),
-        ),
-        const SizedBox(height: 5),
-        Text(time),
-        const SizedBox(height: 5),
-        Text(date),
+        if (statusMessage.isNotEmpty) const SizedBox(height: 5),
+        if (statusMessage.isNotEmpty)
+          Text(
+            intl.toBeginningOfSentenceCase(statusMessage) ?? "",
+            style: TextStyle(color: statusColor, fontSize: 16),
+          ),
+        if (time.isNotEmpty) const SizedBox(height: 5),
+        if (time.isNotEmpty) Text(time),
+        // if (date.isNotEmpty) const SizedBox(height: 5),
+        // if (date.isNotEmpty) Text(date),
       ],
     );
   }

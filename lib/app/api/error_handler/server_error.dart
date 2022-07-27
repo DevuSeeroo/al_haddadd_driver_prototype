@@ -64,7 +64,8 @@ class ServerError implements Exception {
             }
           } catch (e) {
             _errorMessage = LocaleKeys.somethingWentWrong.tr;
-            log('Response error message: $_errorMessage from ServerError line number:65');
+            log('Response error message: $_errorMessage from ServerError line'
+                ' number:67');
           }
         } else {
           _errorMessage =

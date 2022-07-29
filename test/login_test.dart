@@ -36,6 +36,17 @@ void main() {
         .whenComplete(() => SendOtpResponse(
               phoneNumber: phoneNumber,
               otp: "1234",
+              processTypeId: 2,
+              createdOnUTC: "2022-07-28T09:29:18"
+                  ".6296106Z",
+              updatedOnUTC: "0001-01-01T00:00:00",
+              expiryOnUTC: "2022-07-28T09:31:18.6296106Z",
+              apiResponseModel: APIResponseModel(
+                message: "OTP has been sent",
+                value: 7812,
+                status: true,
+              ),
+              isVerified: 0,
             ));
   });
 }

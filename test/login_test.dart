@@ -3,6 +3,7 @@ import 'package:alhaddad_driver/app/api/services/api_client.dart';
 import 'package:alhaddad_driver/app/modules/login/controllers/login_controller.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_params.dart';
 import 'package:alhaddad_driver/app/modules/login/models/send_otp_response.dart';
+import 'package:alhaddad_driver/app/modules/login/providers/login_provider.dart';
 import 'package:alhaddad_driver/app/modules/login/views/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,10 +18,12 @@ class MockLoginClient extends Mock implements ApiClient {}
 // @GenerateMocks([ApiClient])
 void main() {
   final controller = LoginController();
-  final client = MockLoginClient();
-
+  late MockLoginClient client;
+  late LoginProvider provider;
   setUp(() {
     Get.put(LoginController());
+    client = MockLoginClient();
+    provider = LoginProvider();
   });
   test("login validation", () {
     expect(controller.formKey.currentState?.validate(), true);
@@ -28,7 +31,7 @@ void main() {
 
   group("login_validation", () {
     test("mobile_number_validation", () {
-      expect(controller.isMobileNumberValid("value"), null);
+      expect(controller.isMobileNumberValid(""), null);
     });
 
     test("mobile_number_validation", () {
@@ -37,7 +40,8 @@ void main() {
   });
 
   testWidgets("Flutter Widget Test", (WidgetTester tester) async {
-    String mobileNumber = "+966123456798";
+    // String mobileNumber = "+966123456798";
+    String mobileNumber = "";
     var inputModel = SendOtpParams(mobileNumber);
     var outputModel = SendOtpResponse(
       phoneNumber: mobileNumber,
@@ -54,14 +58,16 @@ void main() {
       ),
       isVerified: 0,
     );
-    // when(client
-    //     .sendOtp(inputModel)
-    //     .then((value) => outputModel));
+
+    var res = outputFunction(outputModel);
+    // var res = outputFunction1(outputModel);
     when(
       () => client.sendOtp(inputModel),
     ).thenAnswer((_) async {
-      return outputModel;
+      var response = await provider.sendOtpResponse(params: inputModel);
+      return response.data!;
     });
+
     await tester.pumpWidget(const MaterialApp(home: LoginView()));
     var textField = find.byType(TextFormField);
     expect(textField, findsOneWidget);
@@ -69,9 +75,12 @@ void main() {
     expect(find.text(mobileNumber), findsOneWidget);
     var button = find.byType(ElevatedButton);
     expect(button, findsOneWidget);
-    await tester.tap(button);
+    // await tester.tap(button);
     expect(controller.isMobileNumberValid(mobileNumber), null);
-    await tester.pump();
+    var mockAPIResponse =
+        controller.provider.sendOtpResponse(params: inputModel);
+    expect(mockAPIResponse.toString(), res.toString());
+    // await tester.pumpAndSettle();
   });
 
   test("api_test_implementation", () {

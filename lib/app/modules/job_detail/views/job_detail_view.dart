@@ -96,10 +96,7 @@ class JobDetailView extends GetView<JobDetailController> {
                                   onPressed: () {
                                     controller.buttonPressed();
                                   })
-                              : Container(
-                                  color: Colors.red,
-                                  height: 50,
-                                ),
+                              : Container(),
                         ))
                       ],
                     ),

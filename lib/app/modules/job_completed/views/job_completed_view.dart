@@ -1,3 +1,4 @@
+import 'package:alhaddad_driver/app/utils/navigation_utils.dart';
 import 'package:alhaddad_driver/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,40 +13,47 @@ class JobCompletedView extends GetView<JobCompletedController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            bottom: 150.0,
-            left: 0.0,
-            right: 0.0,
-            top: 0.0,
-            child: Image.asset(Assets.imagesBalloons),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: IntrinsicHeight(
-              child: Container(
-                  margin: const EdgeInsets.only(left: 30, right: 30, top: 150),
-                  width: double.infinity,
-                  child: Card(
-                      child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [
-                        JobCompletedTitleWidget(),
-                        SizedBox(height: 20),
-                        JobCompletedTextWidget(),
-                        SizedBox(height: 20),
-                        JobCompletedButtonView()
-                      ],
-                    ),
-                  ))),
+    return WillPopScope(
+      onWillPop: () async {
+        NavigationUtils().callHome();
+        return true;
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned(
+              bottom: 150.0,
+              left: 0.0,
+              right: 0.0,
+              top: 0.0,
+              child: Image.asset(Assets.imagesBalloons),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.center,
+              child: IntrinsicHeight(
+                child: Container(
+                    margin:
+                        const EdgeInsets.only(left: 30, right: 30, top: 150),
+                    width: double.infinity,
+                    child: Card(
+                        child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30.0, vertical: 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: const [
+                          JobCompletedTitleWidget(),
+                          SizedBox(height: 20),
+                          JobCompletedTextWidget(),
+                          SizedBox(height: 20),
+                          JobCompletedButtonView()
+                        ],
+                      ),
+                    ))),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

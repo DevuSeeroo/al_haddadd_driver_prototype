@@ -40,8 +40,8 @@ void main() {
   });
 
   testWidgets("Flutter Widget Test", (WidgetTester tester) async {
-    // String mobileNumber = "+966123456798";
-    String mobileNumber = "";
+    String mobileNumber = "+966123456798";
+    // String mobileNumber = "";
     var inputModel = SendOtpParams(mobileNumber);
     var outputModel = SendOtpResponse(
       phoneNumber: mobileNumber,
@@ -61,12 +61,6 @@ void main() {
 
     var res = outputFunction(outputModel);
     // var res = outputFunction1(outputModel);
-    when(
-      () => client.sendOtp(inputModel),
-    ).thenAnswer((_) async {
-      var response = await provider.sendOtpResponse(params: inputModel);
-      return response.data!;
-    });
 
     await tester.pumpWidget(const MaterialApp(home: LoginView()));
     var textField = find.byType(TextFormField);
@@ -75,12 +69,18 @@ void main() {
     expect(find.text(mobileNumber), findsOneWidget);
     var button = find.byType(ElevatedButton);
     expect(button, findsOneWidget);
+    when(
+      () => client.sendOtp(inputModel),
+    ).thenAnswer((_) async {
+      return outputModel;
+    });
+    tester.tap(button);
     // await tester.tap(button);
-    expect(controller.isMobileNumberValid(mobileNumber), null);
-    var mockAPIResponse =
-        controller.provider.sendOtpResponse(params: inputModel);
-    expect(mockAPIResponse.toString(), res.toString());
-    // await tester.pumpAndSettle();
+    // expect(controller.isMobileNumberValid(mobileNumber), null);
+    // var mockAPIResponse =
+    //     controller.provider.sendOtpResponse(params: inputModel);
+    // expect(mockAPIResponse.toString(), res.toString());
+    await tester.pumpAndSettle();
   });
 
   test("api_test_implementation", () {

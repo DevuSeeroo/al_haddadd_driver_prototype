@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-class OrderStatusModel {
+class ShippingStatusModel {
   int? orderStatusId;
   String? orderStatus;
   RxBool isSelected = false.obs;
-  OrderStatusModel(this.orderStatusId, this.orderStatus, this.isSelected);
+  ShippingStatusModel(this.orderStatusId, this.orderStatus, this.isSelected);
 
-  OrderStatusModel.fromJson(Map<String, dynamic> json) {
+  ShippingStatusModel.fromJson(Map<String, dynamic> json) {
     orderStatusId = json['order_status_id'];
     orderStatus = json['order_status'];
     isSelected.value = json['is_selected'];

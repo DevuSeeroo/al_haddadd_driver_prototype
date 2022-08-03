@@ -17,7 +17,8 @@ class StatusesWrapList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: controller.actualOrderStatuses.map((orderStatusModel) {
+      children: controller.actualShippingStatuses.map((orderStatusModel) {
+        print("actualShippingStatuses object" + jsonEncode(orderStatusModel));
         return Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [

@@ -94,10 +94,13 @@ class JobListOrEmptyView extends StatelessWidget {
                           jobItem: jobItem,
                           jobSelectedIndex: controller.jobSelectedIndex.value),
                       Obx(() => controller.isLoadingMore.value
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: paginationProgress(height: 20, width: 20),
-                            )
+                          ? index == jobList.length - 1
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child:
+                                      paginationProgress(height: 20, width: 20),
+                                )
+                              : Container()
                           : Container())
                     ],
                   );

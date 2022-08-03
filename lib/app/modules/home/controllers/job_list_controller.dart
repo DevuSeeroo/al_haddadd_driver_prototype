@@ -178,9 +178,16 @@ class JobListController extends GetxController {
   }
 
   void filterCloseClicked() {
-    fromDateController.text =
-        actualFromDate != null ? actualFromDate.toString() : "";
-    toDateController.text = actualToDate != null ? actualToDate.toString() : "";
+    fromDateController.text = actualFromDate != null
+        ? CustomDateUtils().convertDateToString(
+            date: actualFromDate!,
+            currentFormat: "",
+            neededFormat: "dd-MM-yyyy")
+        : "";
+    toDateController.text = actualToDate != null
+        ? CustomDateUtils().convertDateToString(
+            date: actualToDate!, currentFormat: "", neededFormat: "dd-MM-yyyy")
+        : "";
     chosenToDate = actualToDate;
     chosenFromDate = actualFromDate;
     actualOrderStatuses = [];
@@ -220,7 +227,7 @@ class JobListController extends GetxController {
   }
 
   void fetchJobListAPI({required String from}) {
-    CustomLogger().print("fetchJobListAPI called from: $from", lineNumber: 203);
+    CustomLogger().print("fetchJobListAPI called from: $from", lineNumber: 223);
     if (from == "init" || actualOrderStatuses.isEmpty) {
       createOrderStatusListBasedOnIndex();
     }
@@ -229,21 +236,21 @@ class JobListController extends GetxController {
     }
     JobListProvider()
         .getJobListFromAPI(JobListInputParam(
-            toDate: chosenToDate != null
+            toDate: actualToDate != null
                 ? CustomDateUtils().convertDateToString(
-                    date: chosenToDate!,
+                    date: actualToDate!,
                     currentFormat: "",
                     neededFormat: "dd-MM-yyyy")
                 : null,
-            toDateTime: chosenToDate,
+            toDateTime: actualToDate,
             searchKey: searchKey.value,
-            fromDate: chosenFromDate != null
+            fromDate: actualFromDate != null
                 ? CustomDateUtils().convertDateToString(
-                    date: chosenFromDate!,
+                    date: actualFromDate!,
                     currentFormat: "",
                     neededFormat: "dd-MM-yyyy")
                 : null,
-            fromDateTime: chosenFromDate,
+            fromDateTime: actualFromDate,
             // orderStatus: orderStatusIDs,
             shippingStatus: shippingStatusIDs,
             pageSize: perPageCount,

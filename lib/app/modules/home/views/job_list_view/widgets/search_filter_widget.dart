@@ -45,13 +45,14 @@ class SearchFilterWidget extends StatelessWidget {
             IconButton(
                 padding: EdgeInsets.zero,
                 onPressed: () {
+                  // controller.revertAndSaveStringToActualOrderStatus();
                   CustomBottomSheet.showCustomBottomSheet(
                       FilterBottomSheetContent(controller: controller));
                 },
                 icon: const Icon(Icons.filter_list_alt))
           ],
         ),
-        controller.isFilterApplied.value
+        Obx(() => controller.isFilterApplied.value
             ? GestureDetector(
                 onTap: () {
                   controller.clearAllClicked(isBackNeeded: true);
@@ -67,7 +68,7 @@ class SearchFilterWidget extends StatelessWidget {
                         decoration: TextDecoration.underline),
                   ),
                 ))
-            : Container()
+            : Container())
       ],
     );
   }

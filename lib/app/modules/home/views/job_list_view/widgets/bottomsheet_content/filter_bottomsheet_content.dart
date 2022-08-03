@@ -55,15 +55,18 @@ class FilterBottomSheetContent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                    alignment: AlignmentDirectional.centerEnd,
-                    margin: const EdgeInsetsDirectional.only(end: 10),
-                    child: SolidButton(
-                        title: LocaleKeys.clearAll.tr,
-                        onPressed: () {
-                          controller.clearAllClicked(isBackNeeded: true);
-                          controller.fetchJobListAPI(from: 'clearAllClicked');
-                        })),
+                Obx(() => controller.isFilterApplied.value
+                    ? Container(
+                        alignment: AlignmentDirectional.centerEnd,
+                        margin: const EdgeInsetsDirectional.only(end: 10),
+                        child: SolidButton(
+                            title: LocaleKeys.clearAll.tr,
+                            onPressed: () {
+                              controller.clearAllClicked(isBackNeeded: true);
+                              controller.fetchJobListAPI(
+                                  from: 'clearAllClicked');
+                            }))
+                    : Container()),
                 Container(
                     alignment: AlignmentDirectional.centerEnd,
                     margin: const EdgeInsetsDirectional.only(end: 10),

@@ -114,7 +114,6 @@ class JobListController extends GetxController {
     pageNumber = 1;
     perPageCount = 10;
     jobList.clear();
-    clearAllClicked(isBackNeeded: false);
     isLoading(true);
   }
 
@@ -124,15 +123,38 @@ class JobListController extends GetxController {
         .createOrderStatusListBasedOnIndex(jobSelectedIndex.value));
     convertAndSaveActualOrderStatusToString();
     CustomLogger().print(
-        "createOrderStatusListBasedOnIndex: "
+        "saved/reverted actualShippingStatuses: "
         "$actualShippingStatusesJson",
         lineNumber: 127);
     printOrderStatuses(message: "OrderStatusListBasedOnIndex", lineNumber: 112);
   }
 
-  String convertAndSaveActualOrderStatusToString() =>
-      actualShippingStatusesJson =
-          "{\"list\":${jsonEncode(actualShippingStatuses)}}";
+  String convertAndSaveActualOrderStatusToString() {
+    CustomLogger().print(
+        "saved/reverted actualShippingStatuses:${jsonEncode(actualShippingStatuses)}",
+        lineNumber: 135);
+    actualShippingStatusesJson =
+        "{\"list\":${jsonEncode(actualShippingStatuses)}}";
+    return actualShippingStatusesJson;
+  }
+
+  void revertAndSaveStringToActualOrderStatus() {
+    CustomLogger().print(
+        "saved/reverted actualShippingStatuses:${jsonEncode(actualShippingStatuses)}",
+        lineNumber: 142);
+    if (isFilterApplied.value) {
+      CustomLogger().print(
+          "revertAndSaveStringToActualOrderStatus: ${jsonDecode(actualShippingStatusesJson)}",
+          lineNumber: 145);
+      jsonDecode(actualShippingStatusesJson)['list'].forEach((v) {
+        actualShippingStatuses.add(ShippingStatusModel.fromJson(v));
+      });
+    } else {
+      CustomLogger().print(
+          "revertAndSaveStringToActualOrderStatus filter not applied",
+          lineNumber: 151);
+    }
+  }
 
   void orderStatusSelected(ShippingStatusModel model) {
     int index = actualShippingStatuses.indexOf(model);
@@ -166,6 +188,8 @@ class JobListController extends GetxController {
 
   void applyClicked() {
     isFilterApplied(true);
+    CustomLogger()
+        .print("isFilterApplied: ${isFilterApplied.value}", lineNumber: 192);
     printOrderStatusIds(message: 'before Apply Clicked:', lineNumber: 149);
     actualFromDate = chosenFromDate;
     actualToDate = chosenToDate;
@@ -209,6 +233,8 @@ class JobListController extends GetxController {
 
   void clearAllClicked({required bool isBackNeeded}) {
     isFilterApplied(false);
+    CustomLogger()
+        .print("isFilterApplied: ${isFilterApplied.value}", lineNumber: 238);
     fromDateController.text = "";
     toDateController.text = "";
     chosenToDate = null;
@@ -236,8 +262,13 @@ class JobListController extends GetxController {
   }
 
   void fetchJobListAPI({required String from}) {
-    CustomLogger().print("fetchJobListAPI called from: $from", lineNumber: 223);
-    if (from == "init" || actualShippingStatuses.isEmpty) {
+    CustomLogger().print(
+        "fetchJobListAPI called from: $from, "
+        "isFilterApplied: ${isFilterApplied.value}",
+        lineNumber: 223);
+    if (from == "init" ||
+        from == "clearAllClicked" ||
+        actualShippingStatuses.isEmpty) {
       createOrderStatusListBasedOnIndex();
     }
     if (from != "filter") {

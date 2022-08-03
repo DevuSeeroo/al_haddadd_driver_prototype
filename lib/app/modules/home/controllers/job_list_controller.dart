@@ -21,11 +21,11 @@ class JobListController extends GetxController {
   final String className = "JobListController";
   RxList<JobList> jobList = <JobList>[].obs;
   final RxInt jobSelectedIndex = AppConstants.jobAssignedIndex.obs;
-  List<int> orderStatusIDs = [];
+  // List<int> orderStatusIDs = [];
   List<int> shippingStatusIDs = [];
   List<int> tempOrderStatusIDs = [];
-  List<OrderStatusModel> actualOrderStatuses = [];
-  String actualOrderStatusesJson = "";
+  List<ShippingStatusModel> actualShippingStatuses = [];
+  String actualShippingStatusesJson = "";
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
   DateTime? chosenFromDate;
@@ -119,30 +119,34 @@ class JobListController extends GetxController {
   }
 
   void createOrderStatusListBasedOnIndex() {
-    actualOrderStatuses = [];
-    actualOrderStatuses.addAll(JobListProvider()
+    actualShippingStatuses = [];
+    actualShippingStatuses.addAll(JobListProvider()
         .createOrderStatusListBasedOnIndex(jobSelectedIndex.value));
     convertAndSaveActualOrderStatusToString();
-    print("createOrderStatusListBasedOnIndex: $actualOrderStatusesJson");
+    CustomLogger().print(
+        "createOrderStatusListBasedOnIndex: "
+        "$actualShippingStatusesJson",
+        lineNumber: 127);
     printOrderStatuses(message: "OrderStatusListBasedOnIndex", lineNumber: 112);
   }
 
   String convertAndSaveActualOrderStatusToString() =>
-      actualOrderStatusesJson = "{\"list\":${jsonEncode(actualOrderStatuses)}}";
+      actualShippingStatusesJson =
+          "{\"list\":${jsonEncode(actualShippingStatuses)}}";
 
-  void orderStatusSelected(OrderStatusModel model) {
-    int index = actualOrderStatuses.indexOf(model);
+  void orderStatusSelected(ShippingStatusModel model) {
+    int index = actualShippingStatuses.indexOf(model);
     CustomLogger().print('Index: $index', lineNumber: 120);
-    for (int i = 0; i < actualOrderStatuses.length; i++) {
+    for (int i = 0; i < actualShippingStatuses.length; i++) {
       if (index == i) {
-        actualOrderStatuses[i].isSelected(true);
+        actualShippingStatuses[i].isSelected(true);
       } else {
-        actualOrderStatuses[i].isSelected(false);
+        actualShippingStatuses[i].isSelected(false);
       }
     }
     tempOrderStatusIDs.clear();
     if (model.orderStatusId == 0) {
-      tempOrderStatusIDs = jobHistoryOrderStatusIds();
+      tempOrderStatusIDs = jobHistoryShippingStatusIds();
     } else {
       tempOrderStatusIDs.add(model.orderStatusId ?? 0);
     }
@@ -165,8 +169,10 @@ class JobListController extends GetxController {
     printOrderStatusIds(message: 'before Apply Clicked:', lineNumber: 149);
     actualFromDate = chosenFromDate;
     actualToDate = chosenToDate;
-    orderStatusIDs.clear();
-    orderStatusIDs.addAll(tempOrderStatusIDs);
+    // orderStatusIDs.clear();
+    // orderStatusIDs.addAll(tempOrderStatusIDs);
+    shippingStatusIDs.clear();
+    shippingStatusIDs.addAll(tempOrderStatusIDs);
     tempOrderStatusIDs.clear();
     convertAndSaveActualOrderStatusToString();
     resetPagination();
@@ -190,10 +196,12 @@ class JobListController extends GetxController {
         : "";
     chosenToDate = actualToDate;
     chosenFromDate = actualFromDate;
-    actualOrderStatuses = [];
-    print("filterCloseClicked: ${jsonDecode(actualOrderStatusesJson)}");
-    jsonDecode(actualOrderStatusesJson)['list'].forEach((v) {
-      actualOrderStatuses.add(OrderStatusModel.fromJson(v));
+    actualShippingStatuses = [];
+    CustomLogger().print(
+        "filterCloseClicked: ${jsonDecode(actualShippingStatusesJson)}",
+        lineNumber: 199);
+    jsonDecode(actualShippingStatusesJson)['list'].forEach((v) {
+      actualShippingStatuses.add(ShippingStatusModel.fromJson(v));
     });
     printOrderStatuses(message: "filterCloseClicked:", lineNumber: 187);
     Get.back();
@@ -205,7 +213,7 @@ class JobListController extends GetxController {
     toDateController.text = "";
     chosenToDate = null;
     chosenFromDate = null;
-    actualOrderStatuses = JobListProvider()
+    actualShippingStatuses = JobListProvider()
         .createOrderStatusListBasedOnIndex(jobSelectedIndex.value);
     isLoading(true);
     if (isBackNeeded) {
@@ -216,19 +224,20 @@ class JobListController extends GetxController {
   void printOrderStatusIds({required String message, required int lineNumber}) {
     CustomLogger().print("$message tempOrderStatusIDs: $tempOrderStatusIDs",
         lineNumber: lineNumber);
-    CustomLogger().print("after Apply Clicked: orderStatusIDs: $orderStatusIDs",
+    CustomLogger().print(
+        "after Apply Clicked: orderStatusIDs: $shippingStatusIDs",
         lineNumber: lineNumber);
   }
 
   void printOrderStatuses({required String message, required int lineNumber}) {
     CustomLogger().print(
-        "$message actualOrderStatuses: ${jsonEncode(actualOrderStatuses)}",
+        "$message actualOrderStatuses: ${jsonEncode(actualShippingStatuses)}",
         lineNumber: lineNumber);
   }
 
   void fetchJobListAPI({required String from}) {
     CustomLogger().print("fetchJobListAPI called from: $from", lineNumber: 223);
-    if (from == "init" || actualOrderStatuses.isEmpty) {
+    if (from == "init" || actualShippingStatuses.isEmpty) {
       createOrderStatusListBasedOnIndex();
     }
     if (from != "filter") {
@@ -287,29 +296,40 @@ class JobListController extends GetxController {
   orderStatusIds() {
     printOrderStatusIds(message: '', lineNumber: 252);
     if (jobSelectedIndex.value == AppConstants.jobHistoryIndex) {
-      orderStatusIDs = jobHistoryOrderStatusIds();
-      shippingStatusIDs = [
-        AppConstants.shippingPackageReturnedStatusId,
-        AppConstants.shippingCompletedStatusId,
-      ];
+      // orderStatusIDs = jobHistoryOrderStatusIds();
+      shippingStatusIDs = jobHistoryShippingStatusIds();
     } else if (jobSelectedIndex.value == AppConstants.jobAssignedIndex) {
-      orderStatusIDs = [AppConstants.processingStatusId];
-      shippingStatusIDs = [AppConstants.shippingDriverAssignedStatusId];
+      // orderStatusIDs = [AppConstants.processingStatusId];
+      shippingStatusIDs = jobAssignedStatusIds();
     } else if (jobSelectedIndex.value == AppConstants.jobPickedIndex) {
-      orderStatusIDs = [
-        AppConstants.shippedStatusId,
-        AppConstants.deliveryFailedStatusId,
-      ];
-      shippingStatusIDs = [
-        AppConstants.shippingDriverPartiallyShippedStatusId,
-        AppConstants.shippingShippedStatusId,
-        AppConstants.shippingInTransitStatusId,
-        AppConstants.shippingFailedStatusId
-      ];
+      // orderStatusIDs = [
+      //   AppConstants.shippedStatusId,
+      //   AppConstants.deliveryFailedStatusId,
+      // ];
+      shippingStatusIDs = jobPickedStatusIds();
     }
     tempOrderStatusIDs.clear();
     printOrderStatusIds(message: 'after clearing temp', lineNumber: 274);
-    tempOrderStatusIDs.addAll(orderStatusIDs);
+    tempOrderStatusIDs.addAll(shippingStatusIDs);
+  }
+
+  List<int> jobAssignedStatusIds() =>
+      [AppConstants.shippingDriverAssignedStatusId];
+
+  List<int> jobPickedStatusIds() {
+    return [
+      AppConstants.shippingDriverPartiallyShippedStatusId,
+      AppConstants.shippingShippedStatusId,
+      AppConstants.shippingInTransitStatusId,
+      AppConstants.shippingFailedStatusId
+    ];
+  }
+
+  List<int> jobHistoryShippingStatusIds() {
+    return [
+      AppConstants.shippingPackageReturnedStatusId,
+      AppConstants.shippingCompletedStatusId,
+    ];
   }
 
   void datePickerFunction(BuildContext context,

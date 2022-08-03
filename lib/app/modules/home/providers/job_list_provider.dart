@@ -29,14 +29,14 @@ class JobListProvider extends GetConnect {
     client = ApiClient(dio, baseurl);
   }
 
-  List<OrderStatusModel> createOrderStatusListBasedOnIndex(int index) {
+  List<ShippingStatusModel> createOrderStatusListBasedOnIndex(int index) {
     CustomLogger().print("Passed index: $index", lineNumber: 33);
-    List<OrderStatusModel> list = [];
+    List<ShippingStatusModel> list = [];
     if (index == AppConstants.jobHistoryIndex) {
-      list.add(OrderStatusModel(0, 'All', false.obs));
-      list.add(OrderStatusModel(
-          AppConstants.completedStatusId, LocaleKeys.delivered.tr, false.obs));
-      list.add(OrderStatusModel(AppConstants.deliveryFailedStatusId,
+      list.add(ShippingStatusModel(0, 'All', false.obs));
+      list.add(ShippingStatusModel(AppConstants.shippingCompletedStatusId,
+          LocaleKeys.delivered.tr, false.obs));
+      list.add(ShippingStatusModel(AppConstants.shippingPackageReturnedStatusId,
           LocaleKeys.returned.tr, false.obs));
     }
     return list;

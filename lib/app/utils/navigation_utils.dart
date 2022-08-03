@@ -36,7 +36,10 @@ class NavigationUtils {
     return true;
   }
 
-  void callJobCompletedScreen() {
-    Get.toNamed(Routes.JOB_COMPLETED);
+  void callJobCompletedScreen({required Function callBack}) {
+    Get.toNamed(Routes.JOB_COMPLETED)?.then((value) {
+      CustomLogger().print("callJobCompletedScreen call back", lineNumber: 41);
+      callBack();
+    });
   }
 }

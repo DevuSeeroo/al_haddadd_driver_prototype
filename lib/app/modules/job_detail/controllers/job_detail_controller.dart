@@ -314,7 +314,9 @@ class JobDetailController extends GetxController {
         if (response.data!.statusCode == 200) {
           CustomSnackBar.showSuccessSnackBar(
               LocaleKeys.success.tr, "${response.data!.message}");
-          NavigationUtils().callJobCompletedScreen();
+          NavigationUtils().callJobCompletedScreen(callBack: () {
+            fetchJobDetail();
+          });
         } else if (response.data!.statusCode == 400) {
           CustomSnackBar.showErrorSnackBar(
             LocaleKeys.error.tr,
